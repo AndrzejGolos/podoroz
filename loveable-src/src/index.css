@@ -1,3 +1,13 @@
+/* Cyrillic subset — guarantees "ж" renders on all devices */
+@font-face {
+  font-family: 'Cyrillic Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+  unicode-range: U+0400-04FF;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -51,7 +61,7 @@
     --charcoal: 300 2% 12%;
     --charcoal-deep: 300 2% 8%;
 
-    --font-body: Consolas, 'Courier New', monospace;
+    --font-body: 'Cyrillic Mono', Consolas, 'Noto Sans Mono', 'Courier New', monospace;
 
     /* Typographic scale (print-to-web conversion) */
     --text-body: 0.875rem;    /* 14px — main body */

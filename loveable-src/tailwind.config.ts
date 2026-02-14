@@ -59,7 +59,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Consolas', 'Courier New', 'monospace'],
+        sans: ['Cyrillic Mono', 'Consolas', 'Noto Sans Mono', 'Courier New', 'monospace'],
       },
       maxWidth: {
         content: "680px",
