@@ -26,17 +26,14 @@ podoroz-www/
 .env
 .env.local
 
-# Stitch exports (large raw files)
-stitch-export/
-
 # Original photos (large, kept locally)
 photos/
 
 # PDF booklet
 książeczka-16.12.pdf
 
-# Old static src scaffold
-src/index.html
+# Album materials (large, kept locally)
+materiały z płyty/
 
 # Netlify local state
 .netlify/

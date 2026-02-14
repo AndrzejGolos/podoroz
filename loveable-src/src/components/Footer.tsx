@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="mx-auto max-w-content flex flex-col items-center gap-4">
         <img src={signet} alt="Podorож" className="w-8 h-auto opacity-40" />
         <p className="text-xs text-muted-foreground font-light">
-          © 2026 Подорож
+          © 2026 Podoroж
         </p>
       </div>
     </footer>
