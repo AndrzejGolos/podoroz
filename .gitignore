@@ -29,6 +29,18 @@ podoroz-www/
 # Stitch exports (large raw files)
 stitch-export/
 
+# Original photos (large, kept locally)
+photos/
+
+# PDF booklet
+książeczka-16.12.pdf
+
+# Old static src scaffold
+src/index.html
+
+# Netlify local state
+.netlify/
+
 # Temp
 *.tmp
 *.log

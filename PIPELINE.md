@@ -10,10 +10,10 @@
 | Phase | Name | Status | Date |
 |-------|------|--------|------|
 | 0 | Project initialization | **Complete** | 2026-02-14 |
-| 1 | Architecture & content | **In progress** | 2026-02-14 |
-| 2 | Design (Google Stitch) | **In progress** | 2026-02-14 |
-| 3 | Implementation & refinement | Pending | — |
-| 4 | Deployment | Pending | — |
+| 1 | Architecture & content | **Complete** | 2026-02-14 |
+| 2 | Design | **Complete** | 2026-02-14 |
+| 3 | Implementation & refinement | **Complete** | 2026-02-14 |
+| 4 | Deployment | **Complete** | 2026-02-14 |
 | 5 | Documentation | Pending | — |
 
 ---
@@ -24,54 +24,17 @@
 
 ### Decisions
 
-- **Stack:** Static HTML/CSS/JS (no framework). Reasoning: Google Stitch exports HTML/CSS directly, band website has no dynamic content needs, simplest to maintain.
-- **Hosting:** Netlify (decided later in Phase 4, but structure prepared).
-- **Design pipeline:** Google Stitch (prompt-based UI generation) → export HTML/CSS → refactor & refine with Claude Code.
+- **Stack:** Initially planned as static HTML/CSS/JS. Pivoted to React + Vite + TypeScript + Tailwind CSS + shadcn/ui after Loveable generated better results than Stitch.
+- **Hosting:** Netlify (free tier, built-in form handling).
+- **Design pipeline:** Google Stitch (tried, okay results) → Loveable (much better) → iterative refinement with Claude Code.
 
 ### Completed Steps
 
 - [x] Git repository initialized
-- [x] Directory structure created (`src/css/`, `src/js/`, `src/assets/`)
-- [x] `.gitignore` configured (node_modules, stitch-export, OS files, env)
+- [x] `.gitignore` configured
 - [x] `.claude/CLAUDE.md` — project rules and conventions
-- [x] Skills verified:
-  - `frontend-design` — available, for Phase 3
-  - `ui-designer` (@daymade/claude-code-skills) — available for install when needed (Phase 2-3)
-  - Netlify MCP Server — available for Phase 4
 - [x] `PIPELINE.md` created (this file)
-- [x] Existing assets inventoried:
-  - Logo (full + signet, PNG transparent + JPG + vector PDF)
-  - Band graphics (field photo color, forest photo B&W, sand graphic)
-  - Band description (`o zespole.md`)
-  - 5 members: Ewa Karasinska, Ewa Mysza Starzyk, Amelia Pietroczuk, Andrzej Golos, Wojciak
-
 - [x] Initial git commit (`dcad83f`)
-
-### Assets Inventory
-
-Located in `LOGO Podoroz/`:
-
-| File | Type | Notes |
-|------|------|-------|
-| `logo przezroczystosc.png` | Logo (transparent, dark) | Full logo with text ПОДОРОЖ |
-| `logo przezroczystosc biale.png` | Logo (transparent, white) | For dark backgrounds |
-| `sygnet przezroczystosc.png` | Signet (transparent, dark) | Icon only, no text |
-| `sygnet przezroczystosc biale.png` | Signet (transparent, white) | For dark backgrounds |
-| `logo wektory.pdf` | Vector logo | Source file |
-| `sygnet wektory.pdf` | Vector signet | Source file |
-| `logo.jpg` | Logo on white bg | |
-| `sygnet.jpg` | Signet on white bg | |
-| `grafika pole.jpg` | Band photo — field | Color, 5 members, pastoral |
-| `grafika las.jpg` | Band photo — forest | B&W, surreal staging, dark mood |
-| `grafika piasek.png` | Graphic — sand | TBD |
-
-### Visual Direction (from assets)
-
-- Logo: hand-drawn/textured brush strokes, symmetric wave pattern
-- Typography: custom decorative font with Cyrillic Ж (last letter)
-- Mood: earthy, folk, atmospheric, slightly surreal
-- Color palette hints: earth tones (field photo), high contrast B&W (forest)
-- Dark theme strongly supported by existing aesthetics
 
 ---
 
@@ -79,81 +42,109 @@ Located in `LOGO Podoroz/`:
 
 **Goal:** Gather band info, define site structure, write content.
 
-**Status:** In progress — content drafts written, awaiting band review.
-
 ### Decisions
 
-- **Architecture:** Single-page, 5 sections (Hero → O nas → Muzyka → Na żywo → Kontakt)
-- **Tone:** Warm-factual — respectful, conscious, no exaggeration or over-poeticization
+- **Architecture:** Single-page, 5 sections (Hero → O nas → Muzyka → Kontakt + Footer)
+- **Tone:** Warm-factual — respectful, conscious, no exaggeration
 - **Language:** Bilingual PL + EN with language switcher
-- **Content source:** Existing `o zespole.md` text + album booklet (książeczka-16.12.pdf)
-
-### User Input Gathered
-
-- [x] Band = vocal-only ensemble, no instrument/voice descriptions needed
-- [x] Members: Ewa Karasińska, Ewa Mysza Starzyk, Amelia Pietroczuk, Andrzej Gołoś, Wójciak
-- [x] Debut album: 15 tracks, release March-April 2026
-- [x] YouTube: @zespol_podoroz, Facebook: zespol.podoroz, Email: zespolpodoroz@gmail.com
-- [x] No upcoming concerts; archival clips on YT/FB
-- [x] Site goal: business card for booking, contact form, not pushy
-- [x] Texts will be reviewed/corrected by band members on prototype
+- **Content source:** `o zespole.md` + album booklet (książeczka-16.12.pdf)
 
 ### Content Files Created
 
-- [x] `content/hero.md` — headline, subheadline, CTA (PL + EN)
-- [x] `content/about.md` — band description from booklet (PL + EN)
-- [x] `content/members.md` — member list + questions for band
-- [x] `content/music.md` — album tracklist from booklet, video placeholder (PL + EN)
-- [x] `content/live.md` — gallery/booking invitation section (PL + EN)
-- [x] `content/contact.md` — form, email, social links (PL + EN)
-- [x] `content/metadata.md` — SEO, OG tags, Schema.org (MusicGroup)
-- [x] `ASSETS-NEEDED.md` — full inventory with specs and priorities
-
-### Pending (requires band input)
-
-- [ ] Band review of all content drafts
-- [ ] Decision: individual member portraits vs. group photo only
-- [ ] Decision: "Wójciak" — full name or nickname on site?
-- [ ] Selection of 1-2 YouTube videos for embed
-- [ ] Selection of 2-3 photos for "Na żywo" gallery
-- [ ] Album cover image (after release)
-- [ ] Streaming platform links (after release)
+- [x] `content/hero.md`, `content/about.md`, `content/members.md`
+- [x] `content/music.md`, `content/live.md`, `content/contact.md`
+- [x] `content/metadata.md`, `ASSETS-NEEDED.md`
+- [x] Commit: `0c7b31a`
 
 ---
 
-## Phase 2: Design (Google Stitch)
+## Phase 2: Design
 
-**Goal:** Generate UI design using Google Stitch, analyze export.
+**Goal:** Generate UI design, iterate on aesthetic.
 
-**Status:** In progress — Stitch prompt ready, awaiting user to generate design.
+### Approach
+
+Two Stitch prompts created (dark/Wardruna + light/album booklet). User also tried Loveable and got significantly better results — decided to use Loveable output as base.
 
 ### Completed Steps
 
-- [x] Stitch prompt written (English, detailed, ready to paste)
-- [x] Step-by-step instructions for user
-- [x] Recommended mode: Experimental (Gemini Pro)
-
-### Pending
-
-- [ ] User generates design in Stitch
-- [ ] User exports HTML/CSS (or screenshot)
-- [ ] Analysis of Stitch output → DESIGN-REFINEMENT.md
+- [x] Stitch prompt A — dark Wardruna aesthetic (`a96f9ef`)
+- [x] Stitch prompt B — light album booklet aesthetic (`d51481d`)
+- [x] Reference site analysis (7 band websites reviewed)
+- [x] Loveable prototype generated → adopted as codebase
 
 ---
 
 ## Phase 3: Implementation & Refinement
 
-**Goal:** Build production-ready site from Stitch export + content.
+**Goal:** Build production-ready site from Loveable export + real content.
 
-**Status:** Pending — depends on Phase 2 completion.
+### Stack (final)
+
+- React 18 + TypeScript + Vite
+- Tailwind CSS + shadcn/ui components
+- DM Sans font family
+- CSS custom properties (HSL color system)
+- Vanilla Intersection Observer for scroll animations
+
+### Completed Steps
+
+- [x] Loveable repo cloned to `loveable-src/`
+- [x] Replaced placeholder content with real data:
+  - Real tracklist (15 tracks from album booklet)
+  - Real email, YouTube, Facebook links
+  - Real logo (PNG transparent) and signet
+  - Real band photos (landscape, portraits, album cover, droga.JPG)
+  - Correct favicon (band signet)
+- [x] Member portraits in About section with per-member object-position cropping
+- [x] YouTube embed with grayscale→color hover
+- [x] Bilingual PL/EN via React Context (`useLang` hook)
+  - All components: Navigation, Hero, About, Music, Contact, Footer
+  - Language switcher in navigation (PL / EN)
+  - "We also speak English" note visible only in PL version
+- [x] Scroll-triggered reveal animations (Intersection Observer)
+  - About text + members (staggered cascade)
+  - Music section + video (separate reveals)
+  - Contact section
+- [x] Active section indicator in navigation
+- [x] Tracklist row hover effect
+- [x] Album cover grayscale→color hover
+- [x] Images optimized: ~45 MB → ~4 MB (resized, compressed)
+- [x] Netlify Forms integration (contact form with confirmation message)
+- [x] `prefers-reduced-motion` respected globally
+
+### Assets in `loveable-src/src/assets/`
+
+| File | Source | Notes |
+|------|--------|-------|
+| `logo.png` | LOGO Podoroż/logo przezroczystość.png | Dark, transparent |
+| `signet.png` | LOGO Podoroż/sygnet przezroczystość.png | Icon only |
+| `landscape-1.jpg` | photos/h2.JPG | Band in field, B&W |
+| `landscape-3.jpg` | photos/droga.JPG | Band walking through field |
+| `album-cover.jpg` | photos/okladka.png | Album cover |
+| `member-*.jpg` | photos/Krukowska portraits | Individual member photos |
 
 ---
 
 ## Phase 4: Deployment
 
-**Goal:** Deploy to Netlify, configure domain, HTTPS, CI/CD.
+**Goal:** Deploy to Netlify, configure headers, verify.
 
-**Status:** Pending — depends on Phase 3 completion.
+### Completed Steps
+
+- [x] `netlify.toml` created (build config, security headers, cache headers)
+- [x] Netlify site created: **podoroz**
+- [x] Production deploy: **https://podoroz.netlify.app**
+- [x] Admin panel: https://app.netlify.com/projects/podoroz
+- [x] Netlify Forms active (contact form submissions in admin panel)
+- [x] Security headers: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+- [x] Asset cache: 1 year, immutable
+
+### Pending
+
+- [ ] Custom domain (if desired)
+- [ ] CI/CD via GitHub repo connection (currently manual deploy)
+- [ ] Lighthouse audit
 
 ---
 
@@ -161,4 +152,10 @@ Located in `LOGO Podoroz/`:
 
 **Goal:** Create maintenance docs, design system reference.
 
-**Status:** Pending — depends on Phase 4 completion.
+**Status:** Pending.
+
+### Planned
+
+- [ ] `MAINTENANCE.md` — how to update content, deploy, ask Claude for help
+- [ ] `DESIGN-SYSTEM.md` — colors, fonts, spacing, components, breakpoints
+- [ ] Final PIPELINE.md update
