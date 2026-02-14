@@ -2,7 +2,9 @@
 
 > **Project:** Official website for Podoroz
 > **Stack:** HTML/CSS/JS (Google Stitch design → custom code + animations)
-> **Deploy:** TBD
+> **Deploy:** Netlify (auto-deploy from git)
+> **Branch preview:** `layout-v2--podoroz.netlify.app`
+> **Production:** `main` branch
 
 ---
 
@@ -25,7 +27,7 @@
 - **Build:** Static site (no framework unless complexity demands it)
 - **Animations:** CSS animations + Intersection Observer (JS)
 - **Interactions:** Vanilla JS (or lightweight library if justified)
-- **Hosting:** TBD (Netlify / Vercel / VPS)
+- **Hosting:** Netlify (free tier, auto-deploy, forms)
 
 ---
 
@@ -56,20 +58,37 @@ src/
 - Bold typography, high contrast
 - Smooth scroll, subtle parallax (no jarring effects)
 - Fast loading — optimize all images (WebP), lazy load below fold
-- Dark theme preferred (common for music sites)
+- Light cream theme (`#FEF9F5`) with charcoal text (`#414042` area)
+- Monospace typography (Consolas) — per album designer guidelines
 
 ---
 
 ## Deployment
 
-TBD — decide after MVP is ready. Options:
-- **Netlify** — free tier, auto-deploy from git, forms
-- **Vercel** — similar, good for static
-- **VPS** (mcminstitute.com) — if custom backend needed
+- **Netlify** — auto-deploy from `main`, branch deploys for PRs
+- `main` = production
+- `layout-v2` = current design iteration (branch deploy)
 
 ---
 
 ## Version History
+
+### v0.3 — layout-v2 (2026-02-14)
+- Designer guidelines applied (album cover designer typography/color specs)
+- Font: DM Sans → Consolas monospace stack
+- Palette: warm stone → cream bg `#FEF9F5` + charcoal fg, high contrast
+- Hero: band photo (`hero-band.png`) as full-bleed image overlapping hero, logo + subtitle layered on top
+- Album cover replaced with new artwork (`album-cover-new.png`)
+- Form inputs: visible white bg + full border (was transparent + bottom-only)
+- Font sizes bumped across all components (mono renders smaller than sans)
+- Section titles: subtle underline decoration
+- All changes on `layout-v2` branch; `main` unchanged
+
+### v0.2 (2026-02-14)
+- Full site implementation: Hero, About, Music, Contact, Footer
+- Earth texture background, grayscale photo bands
+- Netlify deployment with contact form
+- Bilingual PL/EN support
 
 ### v0.1 (2026-02-14)
 - Project initialized
