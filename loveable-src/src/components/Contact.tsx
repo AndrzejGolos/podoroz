@@ -108,6 +108,14 @@ const Contact = () => {
           >
             Facebook
           </a>
+          <a
+            href="https://www.instagram.com/zespol_podoroz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 tracking-wide"
+          >
+            Instagram
+          </a>
         </div>
 
         {lang === "pl" && (
