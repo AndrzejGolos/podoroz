@@ -7,7 +7,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/lib/language";
 
-import landscape1 from "@/assets/landscape-1.jpg";
+import landscape1 from "@/assets/hero-band.png";
 import landscape3 from "@/assets/landscape-3.jpg";
 
 const Index = () => {
@@ -16,7 +16,7 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
-        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" />
+        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" height="h-auto" className="-mt-[100vh]" />
         <About />
         <Music />
         <PhotoBand src={landscape3} alt="Podorож — zespół w drodze przez pole, Podlasie" position="center 40%" />

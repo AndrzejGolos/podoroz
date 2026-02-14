@@ -25,7 +25,7 @@ const About = () => {
         ref={textReveal.ref}
         className={`mx-auto max-w-content reveal ${textReveal.visible ? "visible" : ""}`}
       >
-        <p className="text-muted-foreground small-caps text-sm mb-12 tracking-widest">
+        <p className="text-muted-foreground small-caps text-base mb-12 tracking-widest border-b border-foreground/25 pb-2 inline-block">
           {lang === "pl" ? "O nas" : "About"}
         </p>
 
@@ -101,7 +101,7 @@ const About = () => {
                   loading="lazy"
                 />
               </div>
-              <span className="text-xs text-muted-foreground tracking-wide text-center">
+              <span className="text-sm text-muted-foreground tracking-wide text-center">
                 {member.name}
               </span>
             </div>

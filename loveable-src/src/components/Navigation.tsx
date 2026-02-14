@@ -53,7 +53,7 @@ const Navigation = () => {
       <div className="mx-auto flex max-w-site items-center justify-between px-6 py-4 md:px-8">
         {/* Links */}
         <div className="flex items-center gap-6 md:gap-8">
-          <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
+          <div className="hidden sm:flex items-center gap-6 text-base text-muted-foreground">
             {sections.map((id, i) => (
               <span key={id} className="flex items-center gap-6">
                 {i > 0 && <span className="text-stone-mid">·</span>}
@@ -71,7 +71,7 @@ const Navigation = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <button
               onClick={() => setLang("pl")}
               className={`transition-colors duration-200 ${lang === "pl" ? "text-foreground" : "hover:text-foreground"}`}

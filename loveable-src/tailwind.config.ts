@@ -59,7 +59,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['DM Sans', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['Consolas', 'Courier New', 'monospace'],
       },
       maxWidth: {
         content: "680px",

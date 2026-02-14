@@ -1,59 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 30 10% 84%;
-    --foreground: 0 0% 23%;
+    --background: 34 100% 98%;
+    --foreground: 300 2% 12%;
 
-    --card: 30 10% 84%;
-    --card-foreground: 0 0% 23%;
+    --card: 34 100% 98%;
+    --card-foreground: 300 2% 12%;
 
-    --popover: 30 10% 86%;
-    --popover-foreground: 0 0% 23%;
+    --popover: 34 80% 96%;
+    --popover-foreground: 300 2% 12%;
 
-    --primary: 0 0% 26%;
-    --primary-foreground: 30 10% 90%;
+    --primary: 300 2% 15%;
+    --primary-foreground: 34 80% 95%;
 
-    --secondary: 30 8% 78%;
-    --secondary-foreground: 0 0% 23%;
+    --secondary: 34 20% 92%;
+    --secondary-foreground: 300 2% 12%;
 
-    --muted: 30 8% 80%;
-    --muted-foreground: 0 0% 42%;
+    --muted: 0 0% 87%;
+    --muted-foreground: 300 2% 20%;
 
-    --accent: 30 8% 78%;
-    --accent-foreground: 0 0% 23%;
+    --accent: 34 20% 92%;
+    --accent-foreground: 300 2% 12%;
 
     --destructive: 0 0% 40%;
-    --destructive-foreground: 30 10% 90%;
+    --destructive-foreground: 34 80% 95%;
 
-    --border: 30 6% 74%;
-    --input: 30 6% 74%;
-    --ring: 0 0% 42%;
+    --border: 0 0% 75%;
+    --input: 0 0% 75%;
+    --ring: 300 2% 20%;
 
     --radius: 0px;
 
-    --sidebar-background: 30 10% 84%;
-    --sidebar-foreground: 0 0% 23%;
-    --sidebar-primary: 0 0% 26%;
-    --sidebar-primary-foreground: 30 10% 90%;
-    --sidebar-accent: 30 8% 78%;
-    --sidebar-accent-foreground: 0 0% 23%;
-    --sidebar-border: 30 6% 74%;
-    --sidebar-ring: 0 0% 42%;
+    --sidebar-background: 34 100% 98%;
+    --sidebar-foreground: 300 2% 12%;
+    --sidebar-primary: 300 2% 15%;
+    --sidebar-primary-foreground: 34 80% 95%;
+    --sidebar-accent: 34 20% 92%;
+    --sidebar-accent-foreground: 300 2% 12%;
+    --sidebar-border: 0 0% 75%;
+    --sidebar-ring: 300 2% 20%;
 
     /* Custom tokens */
-    --stone-lightest: 30 10% 88%;
-    --stone-light: 30 10% 84%;
-    --stone-mid: 30 8% 74%;
-    --stone-dark: 0 0% 42%;
-    --charcoal: 0 0% 23%;
-    --charcoal-deep: 0 0% 16%;
+    --stone-lightest: 34 40% 94%;
+    --stone-light: 34 20% 92%;
+    --stone-mid: 0 0% 75%;
+    --stone-dark: 300 2% 20%;
+    --charcoal: 300 2% 12%;
+    --charcoal-deep: 300 2% 8%;
 
-    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-body: Consolas, 'Courier New', monospace;
+
+    /* Typographic scale (print-to-web conversion) */
+    --text-body: 0.875rem;    /* 14px — main body */
+    --text-heading: 1.5rem;   /* 24px — headings */
+    --text-detail: 0.75rem;   /* 12px — footnotes/details */
   }
 }
 

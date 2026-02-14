@@ -1,4 +1,4 @@
-import albumCover from "@/assets/album-cover.jpg";
+import albumCover from "@/assets/album-cover-new.png";
 import { useLang } from "@/lib/language";
 import { useReveal } from "@/lib/useReveal";
 
@@ -31,7 +31,7 @@ const Music = () => {
         ref={sectionReveal.ref}
         className={`mx-auto max-w-content reveal ${sectionReveal.visible ? "visible" : ""}`}
       >
-        <p className="text-muted-foreground small-caps text-sm mb-16 tracking-widest">
+        <p className="text-muted-foreground small-caps text-base mb-16 tracking-widest border-b border-foreground/25 pb-2 inline-block">
           {lang === "pl" ? "Muzyka" : "Music"}
         </p>
 
@@ -40,7 +40,7 @@ const Music = () => {
           <img
             src={albumCover}
             alt={lang === "pl" ? "Podorож – album debiutancki" : "Podorож – debut album"}
-            className="w-48 md:w-56 h-auto grayscale hover:grayscale-0 transition-[filter] duration-700 mb-10"
+            className="w-48 md:w-56 h-auto grayscale hover:grayscale-0 transition-[filter] duration-700 mb-10 border border-foreground/15"
             loading="lazy"
           />
         </div>
@@ -71,7 +71,7 @@ const Music = () => {
             <a
               key={platform}
               href="#"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 tracking-wide"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 tracking-wide"
             >
               {platform}
             </a>
