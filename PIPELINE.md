@@ -11,7 +11,7 @@
 |-------|------|--------|------|
 | 0 | Project initialization | **Complete** | 2026-02-14 |
 | 1 | Architecture & content | **In progress** | 2026-02-14 |
-| 2 | Design (Google Stitch) | Pending | — |
+| 2 | Design (Google Stitch) | **In progress** | 2026-02-14 |
 | 3 | Implementation & refinement | Pending | — |
 | 4 | Deployment | Pending | — |
 | 5 | Documentation | Pending | — |
@@ -125,7 +125,19 @@ Located in `LOGO Podoroz/`:
 
 **Goal:** Generate UI design using Google Stitch, analyze export.
 
-**Status:** Pending — depends on Phase 1 completion.
+**Status:** In progress — Stitch prompt ready, awaiting user to generate design.
+
+### Completed Steps
+
+- [x] Stitch prompt written (English, detailed, ready to paste)
+- [x] Step-by-step instructions for user
+- [x] Recommended mode: Experimental (Gemini Pro)
+
+### Pending
+
+- [ ] User generates design in Stitch
+- [ ] User exports HTML/CSS (or screenshot)
+- [ ] Analysis of Stitch output → DESIGN-REFINEMENT.md
 
 ---
 
