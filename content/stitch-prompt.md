@@ -13,21 +13,23 @@ Design a single-page website for Podoroж (Podoroz), a vocal ensemble performing
 
 ### Overall Aesthetic
 
-- Dark theme with warm earthy undertones — think dark soil, aged wood, dried grass
+Reference: wardruna.com — warm, restrained, content-lean, ritualistic folk music site.
+
+- Dark background (#1a1612 or similar deep warm brown-black) with warm sand/beige accent (#eed8c7) for text and highlights, darker brown (#aa9482) for secondary elements
 - The band's visual identity uses hand-drawn, textured brush strokes (their logo resembles sound waves or a butterfly, with a rough charcoal texture)
-- Typography should feel grounded and distinctive — not generic, not overly decorative. Pair a strong serif or semi-serif for headings with a clean readable body font
-- Mood: atmospheric, earthy, folk-rooted but contemporary — not kitschy or "ethnic costume" folk
-- Generous whitespace (or rather "darkspace"), let elements breathe
-- Subtle grain/noise texture on backgrounds for depth
-- Muted earth-tone accent color (warm amber, terracotta, or dried gold) against the dark background
+- Typography: a distinctive serif with character for headings (not generic — think something with weight and history), paired with a clean sans-serif for body text. The heading font should evoke tradition without being ornamental
+- Mood: atmospheric, earthy, folk-rooted but contemporary — not kitschy or "ethnic costume" folk. Think archival warmth, not festival brightness
+- Generous darkspace — let elements breathe. Content-lean by design: every element earns its place
+- Subtle grain/noise texture on the dark background for tactile depth
+- Photography-driven: large, atmospheric photos carry the emotional weight; text supports, not competes
 
 ### Sections (in scroll order)
 
 **1. Hero (full viewport)**
-- Full-width atmospheric background image (a band photo in a golden field at dusk — 5 people standing among tall grass with a pale sky)
-- Band logo centered, overlaid on the image (white version on dark/semi-transparent overlay)
-- One line of text below logo: "Wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia"
-- A subtle down-arrow or scroll indicator at the bottom
+- Full-width atmospheric background image (a band photo in a golden field at dusk — 5 people standing among tall grass with a pale sky). The image should fill the viewport with a subtle dark gradient overlay from bottom to top
+- Band logo centered over the image (white/beige version, not too large — let the photo dominate)
+- One line of text below logo in the sand/beige accent color: "Wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia"
+- Minimal — no buttons, no CTA in the hero. Let the image and name speak. A subtle scroll indicator at the very bottom (thin line or small arrow)
 
 **2. O nas (About)**
 - 3 paragraphs of text, left-aligned or centered, comfortable reading width (max 700px)
@@ -43,16 +45,16 @@ Design a single-page website for Podoroж (Podoroz), a vocal ensemble performing
 
 **4. Na żywo (Live)**
 - Section heading "Na żywo"
-- A short paragraph inviting collaboration (2-3 sentences about performing at festivals, concert halls, churches, outdoor events)
-- A row or grid of 2-3 atmospheric photos from concerts/rehearsals (horizontal, moody lighting)
-- Gentle transition into the contact section
+- A short paragraph (2-3 sentences) inviting collaboration — warm but not pushy, more "we're available" than "book us now"
+- One large atmospheric photo (horizontal, full-width or near full-width, with the same dark overlay treatment as the hero — a different band photo, e.g. a moody forest or rehearsal scene)
+- This section should feel like a visual pause — more image than text
 
 **5. Kontakt (Contact)**
 - Section heading "Kontakt"
-- Simple contact form: Name, Email, Message fields + Send button
-- Email address displayed alongside the form
-- Social media icons: YouTube, Facebook
-- Footer with copyright and a small version of the band signet
+- Two-column layout on desktop (form on left, info on right), stacked on mobile
+- Simple contact form: Name, Email, Message fields + Send button. Form fields styled with the beige accent color on dark background (like Wardruna's input fields)
+- Right side: email address, social media icons (YouTube, Facebook), and a brief "We speak English" note
+- Footer below: copyright line, small band signet, social icons repeated
 
 ### Technical Requirements
 
@@ -64,12 +66,13 @@ Design a single-page website for Podoroж (Podoroz), a vocal ensemble performing
 
 ### Things to Avoid
 
-- Bright neon colors or gradients
-- Generic stock-photo aesthetics
-- Overly decorative folk ornaments (this is not a folk costume showcase)
-- Cluttered layouts — keep it minimal and let photos and text breathe
-- Cookie-cutter band website templates with massive "BOOK NOW" buttons
-- Purple/blue AI-generic color schemes
+- Bright neon colors, saturated gradients, or any blue/purple AI-generic palette
+- Generic stock-photo aesthetics or placeholder illustrations
+- Overly decorative folk ornaments, Slavic pattern borders, or "ethnic costume" kitsch
+- Cluttered layouts — this site should feel sparse and intentional, like Wardruna's
+- Large aggressive CTAs like "BOOK NOW" or "BUY TICKETS" — the contact invitation should be gentle
+- Rounded card-based layouts that look like a SaaS product page
+- Any bright white sections — maintain the dark atmosphere throughout
 
 ---
 
