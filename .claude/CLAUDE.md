@@ -75,14 +75,22 @@ src/
 
 ### v0.3 — layout-v2 (2026-02-14)
 - Designer guidelines applied (album cover designer typography/color specs)
-- Font: DM Sans → Consolas monospace stack
+- Font: DM Sans → Consolas monospace stack (`index.css` + `tailwind.config.ts`)
 - Palette: warm stone → cream bg `#FEF9F5` + charcoal fg, high contrast
-- Hero: band photo (`hero-band.png`) as full-bleed image overlapping hero, logo + subtitle layered on top
+- Hero: band photo (`hero-band.png`) as full-bleed image overlapping hero, logo + subtitle layered on top (z-10)
 - Album cover replaced with new artwork (`album-cover-new.png`)
 - Form inputs: visible white bg + full border (was transparent + bottom-only)
-- Font sizes bumped across all components (mono renders smaller than sans)
-- Section titles: subtle underline decoration
+- Font sizes bumped +1 step across all components (mono renders smaller than sans)
+- Section titles: subtle underline decoration (`border-b border-foreground/25`)
+- Album cover: subtle border (`border-foreground/15`)
+- Responsive hero/photo overlap: `-mt-[40vh]` mobile → `-mt-[100vh]` desktop
+- Navigation hidden on mobile (`hidden sm:flex`) — no hamburger menu (intentional)
 - All changes on `layout-v2` branch; `main` unchanged
+
+#### Known decisions / next steps
+- Mobile nav: links hidden on small screens, no hamburger — acceptable for now
+- `layout-v2` not yet merged to `main` — awaiting final approval
+- Old assets (`landscape-1.jpg`, `album-cover.jpg`) still in repo, no longer referenced — can be cleaned up
 
 ### v0.2 (2026-02-14)
 - Full site implementation: Hero, About, Music, Contact, Footer
