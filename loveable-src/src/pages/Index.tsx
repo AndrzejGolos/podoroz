@@ -16,10 +16,10 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
-        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" height="h-auto" className="-mt-[40vh] md:-mt-[75vh] lg:-mt-[100vh]" fade="linear-gradient(to bottom, black 80%, transparent 100%)" />
+        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" height="h-auto" className="-mt-[40vh] md:-mt-[75vh] lg:-mt-[100vh]" fade="linear-gradient(to bottom, black 85%, transparent 100%)" />
         <About />
         <Music />
-        <PhotoBand src={landscape3} alt="Podorож — zespół w drodze przez pole, Podlasie" position="center 40%" fade="linear-gradient(to bottom, transparent, black 12%, black 75%, transparent 100%)" />
+        <PhotoBand src={landscape3} alt="Podorож — zespół w drodze przez pole, Podlasie" position="center 40%" fade="linear-gradient(to bottom, transparent, black 8%, black 82%, transparent 100%)" />
         <Contact />
       </main>
       <Footer />
