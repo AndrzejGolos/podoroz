@@ -9,8 +9,8 @@
 
 | Phase | Name | Status | Date |
 |-------|------|--------|------|
-| 0 | Project initialization | **In progress** | 2026-02-14 |
-| 1 | Architecture & content | Pending | — |
+| 0 | Project initialization | **Complete** | 2026-02-14 |
+| 1 | Architecture & content | **In progress** | 2026-02-14 |
 | 2 | Design (Google Stitch) | Pending | — |
 | 3 | Implementation & refinement | Pending | — |
 | 4 | Deployment | Pending | — |
@@ -45,9 +45,7 @@
   - Band description (`o zespole.md`)
   - 5 members: Ewa Karasinska, Ewa Mysza Starzyk, Amelia Pietroczuk, Andrzej Golos, Wojciak
 
-### Pending
-
-- [ ] Initial git commit
+- [x] Initial git commit (`dcad83f`)
 
 ### Assets Inventory
 
@@ -81,16 +79,45 @@ Located in `LOGO Podoroz/`:
 
 **Goal:** Gather band info, define site structure, write content.
 
-**Status:** Pending — requires user input (band notes).
+**Status:** In progress — content drafts written, awaiting band review.
 
-### Required from User
+### Decisions
 
-- [ ] Band members details (names, roles, instruments)
-- [ ] Genre/style description
-- [ ] Target audience
-- [ ] Social media / streaming links
-- [ ] Additional photos or assets
-- [ ] Preferences for site tone and feel
+- **Architecture:** Single-page, 5 sections (Hero → O nas → Muzyka → Na żywo → Kontakt)
+- **Tone:** Warm-factual — respectful, conscious, no exaggeration or over-poeticization
+- **Language:** Bilingual PL + EN with language switcher
+- **Content source:** Existing `o zespole.md` text + album booklet (książeczka-16.12.pdf)
+
+### User Input Gathered
+
+- [x] Band = vocal-only ensemble, no instrument/voice descriptions needed
+- [x] Members: Ewa Karasińska, Ewa Mysza Starzyk, Amelia Pietroczuk, Andrzej Gołoś, Wójciak
+- [x] Debut album: 15 tracks, release March-April 2026
+- [x] YouTube: @zespol_podoroz, Facebook: zespol.podoroz, Email: zespolpodoroz@gmail.com
+- [x] No upcoming concerts; archival clips on YT/FB
+- [x] Site goal: business card for booking, contact form, not pushy
+- [x] Texts will be reviewed/corrected by band members on prototype
+
+### Content Files Created
+
+- [x] `content/hero.md` — headline, subheadline, CTA (PL + EN)
+- [x] `content/about.md` — band description from booklet (PL + EN)
+- [x] `content/members.md` — member list + questions for band
+- [x] `content/music.md` — album tracklist from booklet, video placeholder (PL + EN)
+- [x] `content/live.md` — gallery/booking invitation section (PL + EN)
+- [x] `content/contact.md` — form, email, social links (PL + EN)
+- [x] `content/metadata.md` — SEO, OG tags, Schema.org (MusicGroup)
+- [x] `ASSETS-NEEDED.md` — full inventory with specs and priorities
+
+### Pending (requires band input)
+
+- [ ] Band review of all content drafts
+- [ ] Decision: individual member portraits vs. group photo only
+- [ ] Decision: "Wójciak" — full name or nickname on site?
+- [ ] Selection of 1-2 YouTube videos for embed
+- [ ] Selection of 2-3 photos for "Na żywo" gallery
+- [ ] Album cover image (after release)
+- [ ] Streaming platform links (after release)
 
 ---
 
