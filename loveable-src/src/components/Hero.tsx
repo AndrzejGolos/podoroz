@@ -5,7 +5,7 @@ const Hero = () => {
   const { lang } = useLang();
 
   return (
-    <section className="relative z-10 flex min-h-screen flex-col items-center justify-center pt-[10vh] px-6">
+    <section className="relative z-10 flex min-h-screen flex-col items-center justify-center md:pt-[10vh] px-6">
       {/* Band logo */}
       <div className="animate-fade-in mb-6" style={{ animationDelay: "200ms" }}>
         <img

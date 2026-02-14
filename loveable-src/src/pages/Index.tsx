@@ -16,7 +16,7 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
-        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" height="h-auto" className="-mt-[100vh]" />
+        <PhotoBand src={landscape1} alt="Zespół Podorож — pięć osób w otwartym polu, Podlasie" height="h-auto" className="-mt-[40vh] md:-mt-[75vh] lg:-mt-[100vh]" />
         <About />
         <Music />
         <PhotoBand src={landscape3} alt="Podorож — zespół w drodze przez pole, Podlasie" position="center 40%" />
