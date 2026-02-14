@@ -17,7 +17,7 @@ const Hero = () => {
 
       {/* Subtitle */}
       <p
-        className="animate-fade-in text-foreground text-sm md:text-base font-light tracking-wide drop-shadow-sm"
+        className="animate-fade-in text-foreground text-sm md:text-base font-light tracking-wide drop-shadow-sm text-center"
         style={{ animationDelay: "600ms" }}
       >
         {lang === "pl"
