@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+Icon?
+
+# Obsidian
+.obsidian/
+
+# Source assets (too large for git, kept locally)
+LOGO Podoroż/
+podoroz-www/
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Stitch exports (large raw files)
+stitch-export/
+
+# Temp
+*.tmp
+*.log
