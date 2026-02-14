@@ -63,9 +63,9 @@ const Music = () => {
             className="flex items-baseline justify-between text-sm md:text-base font-light border-b border-border/50 py-3 px-2 -mx-2 hover:bg-foreground/[0.03]"
             style={{
               opacity: tracklistReveal.visible ? 1 : 0,
-              transform: tracklistReveal.visible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
-              transitionDelay: tracklistReveal.visible ? `${i * 40}ms` : "0ms",
+              transform: tracklistReveal.visible ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+              transitionDelay: tracklistReveal.visible ? `${i * 80}ms` : "0ms",
             }}
           >
             <span className="flex items-baseline gap-4">
