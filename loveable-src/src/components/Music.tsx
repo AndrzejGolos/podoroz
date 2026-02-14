@@ -29,6 +29,7 @@ const Music = () => {
 
   return (
     <section id="music" className="px-6 py-24 md:py-32">
+      {/* Section title */}
       <div
         ref={sectionReveal.ref}
         className={`mx-auto max-w-content reveal ${sectionReveal.visible ? "visible" : ""}`}
@@ -36,61 +37,61 @@ const Music = () => {
         <p className="text-muted-foreground small-caps text-base mb-16 tracking-widest border-b border-foreground/25 pb-2 inline-block">
           {lang === "pl" ? "Muzyka" : "Music"}
         </p>
+      </div>
 
-        {/* Album */}
-        <div
-          ref={albumReveal.ref}
-          className={`mb-16 reveal ${albumReveal.visible ? "visible" : ""}`}
-        >
-          <img
-            src={albumCover}
-            alt={lang === "pl" ? "Подорож – album debiutancki" : "Подорож – debut album"}
-            className="w-48 md:w-56 h-auto grayscale hover:grayscale-0 transition-[filter] duration-700 mb-10 border border-foreground/15"
-            loading="lazy"
-          />
-        </div>
+      {/* Album */}
+      <div
+        ref={albumReveal.ref}
+        className={`mx-auto max-w-content mb-16 reveal ${albumReveal.visible ? "visible" : ""}`}
+      >
+        <img
+          src={albumCover}
+          alt={lang === "pl" ? "Подорож – album debiutancki" : "Подорож – debut album"}
+          className="w-48 md:w-56 h-auto grayscale hover:grayscale-0 transition-[filter] duration-700 mb-10 border border-foreground/15"
+          loading="lazy"
+        />
+      </div>
 
-        {/* Tracklist */}
-        <ol
-          ref={tracklistReveal.ref}
-          className="space-y-0 mb-16"
-        >
-          {tracks.map((track, i) => (
-            <li
-              key={track.num}
-              className="flex items-baseline justify-between text-sm md:text-base font-light border-b border-border/50 py-3 px-2 -mx-2 hover:bg-foreground/[0.03] transition-colors duration-200"
-              style={{
-                opacity: tracklistReveal.visible ? 1 : 0,
-                transform: tracklistReveal.visible ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
-                transitionDelay: tracklistReveal.visible ? `${i * 40}ms` : "0ms",
-              }}
-            >
-              <span className="flex items-baseline gap-4">
-                <span className="text-muted-foreground tabular-nums w-6 text-right">
-                  {track.num}.
-                </span>
-                <span className="text-foreground">{track.title}</span>
+      {/* Tracklist */}
+      <ol
+        ref={tracklistReveal.ref}
+        className="mx-auto max-w-content space-y-0 mb-16"
+      >
+        {tracks.map((track, i) => (
+          <li
+            key={track.num}
+            className="flex items-baseline justify-between text-sm md:text-base font-light border-b border-border/50 py-3 px-2 -mx-2 hover:bg-foreground/[0.03]"
+            style={{
+              opacity: tracklistReveal.visible ? 1 : 0,
+              transform: tracklistReveal.visible ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+              transitionDelay: tracklistReveal.visible ? `${i * 40}ms` : "0ms",
+            }}
+          >
+            <span className="flex items-baseline gap-4">
+              <span className="text-muted-foreground tabular-nums w-6 text-right">
+                {track.num}.
               </span>
-              <span className="text-muted-foreground tabular-nums ml-4 shrink-0">
-                {track.duration}
-              </span>
-            </li>
-          ))}
-        </ol>
+              <span className="text-foreground">{track.title}</span>
+            </span>
+            <span className="text-muted-foreground tabular-nums ml-4 shrink-0">
+              {track.duration}
+            </span>
+          </li>
+        ))}
+      </ol>
 
-        {/* Streaming links */}
-        <div className="flex items-center gap-8">
-          {["Spotify", "Bandcamp", "Apple Music", "YouTube"].map((platform) => (
-            <a
-              key={platform}
-              href="#"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 tracking-wide"
-            >
-              {platform}
-            </a>
-          ))}
-        </div>
+      {/* Streaming links */}
+      <div className="mx-auto max-w-content flex items-center gap-8">
+        {["Spotify", "Bandcamp", "Apple Music", "YouTube"].map((platform) => (
+          <a
+            key={platform}
+            href="#"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 tracking-wide"
+          >
+            {platform}
+          </a>
+        ))}
       </div>
 
       {/* Video */}
