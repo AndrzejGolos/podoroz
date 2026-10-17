@@ -1,0 +1,9 @@
+# v2 (Astro) lives in site/. This file overrides the UI build settings (loveable-src)
+# on branches that contain it; main has none, so production keeps building v1.
+[build]
+  base = "site"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
