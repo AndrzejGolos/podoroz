@@ -27,7 +27,7 @@ podoroz-www/
 .env.local
 
 # Original photos (large, kept locally)
-photos/
+/photos/
 
 # PDF booklet
 książeczka-16.12.pdf
