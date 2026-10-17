@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import Poster from '../Poster.astro';
+import logo from '../../assets/brand/logo-white.png';
+import signet from '../../assets/brand/signet-white.png';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const c = t[Astro.props.lang];
+---
+
+<section
+  class="film-section hero"
+  data-scrub
+  data-desktop="/video/hero-desktop.mp4"
+  data-mobile="/video/hero-mobile.mp4"
+  style="--len: 420svh"
+  aria-labelledby="hero-title"
+>
+  <div class="stage">
+    <div class="media">
+      <Poster name="hero-start" priority />
+      <video muted playsinline preload="none" aria-hidden="true"></video>
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+
+    <div class="hero__intro">
+      <h1 id="hero-title">
+        <Image src={logo} alt="Podoroж" widths={[440, 880]} sizes="(min-width: 60rem) 440px, 64vw" class="hero__logo" loading="eager" />
+      </h1>
+      <p class="hero__subtitle">{c.subtitle}</p>
+      <p class="hero__cue" aria-hidden="true">{c.scrollCue}</p>
+    </div>
+
+    <div class="hero__signet" aria-hidden="true">
+      <Image src={signet} alt="" widths={[320, 640]} sizes="36vmin" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero .media {
+    aspect-ratio: auto;
+    height: 100svh;
+  }
+  /* Soft pool of shade behind the logo and subtitle; grass is too busy to read text on */
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 52%, oklch(0.16 0.01 250 / 0.55), transparent 75%),
+      linear-gradient(to bottom, color-mix(in oklch, var(--silver-ink) 45%, transparent), transparent 35%),
+      linear-gradient(to top, var(--silver-ink), transparent 30%);
+  }
+  .hero__intro {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    padding: 6rem var(--gutter) 4rem;
+    text-align: center;
+  }
+  .hero__logo {
+    width: clamp(220px, 64vw, 440px);
+    height: auto;
+    filter: drop-shadow(0 2px 24px oklch(0.16 0.01 250 / 0.5));
+  }
+  .hero__subtitle {
+    max-width: 34ch;
+    font-size: var(--step-0);
+    letter-spacing: 0.06em;
+    text-wrap: balance;
+    text-shadow: 0 1px 12px oklch(0.16 0.01 250 / 0.9);
+  }
+  .hero__cue {
+    position: absolute;
+    bottom: var(--dock);
+    left: 50%;
+    translate: -50% 0;
+    font-size: var(--step--1);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: none;
+  }
+  .hero__signet {
+    display: none;
+  }
+
+  /* Scrub: intro fades out as the camera rises; signet resolves over the circle of five. */
+  :global(.scrub) .hero__intro {
+    opacity: clamp(0, 1 - var(--p, 0) * 7, 1);
+    transform: translateY(calc(var(--p, 0) * -120px));
+  }
+  :global(.scrub) .hero__cue {
+    display: block;
+  }
+  :global(.scrub) .hero__veil {
+    background:
+      radial-gradient(
+        ellipse 60% 45% at 50% 52%,
+        oklch(0.16 0.01 250 / calc(clamp(0, 0.55 - var(--p, 0) * 4, 0.55))),
+        transparent 75%
+      ),
+      linear-gradient(to bottom, color-mix(in oklch, var(--silver-ink) 45%, transparent), transparent 35%),
+      oklch(0.16 0.01 250 / calc(clamp(0, (var(--p, 0) - 0.75) * 2.4, 0.45)));
+  }
+  :global(.scrub) .hero__signet {
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    display: block;
+    width: 36vmin;
+    translate: -50% -50%;
+    opacity: clamp(0, (var(--p, 0) - 0.8) * 6, 0.92);
+    scale: calc(1.25 - clamp(0, (var(--p, 0) - 0.8) * 1.25, 0.25));
+    pointer-events: none;
+  }
+  .hero__signet :global(img) {
+    width: 100%;
+    height: auto;
+  }
+</style>

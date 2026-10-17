@@ -1,0 +1,168 @@
+---
+import Poster from '../Poster.astro';
+import { t, members, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = t[lang];
+
+// Close-up boundaries in the ensemble clip (fraction of its 19.8 s), and where each
+// face sits horizontally in the landscape still (for the card crop).
+const shots = [
+  { from: 0, to: 0.237, fx: '25%' },
+  { from: 0.237, to: 0.44, fx: '60%' },
+  { from: 0.44, to: 0.64, fx: '57%' },
+  { from: 0.64, to: 0.82, fx: '62%' },
+  { from: 0.82, to: 1.01, fx: '52%' },
+];
+---
+
+<section
+  id="zespol"
+  class="film-section ensemble"
+  data-scrub
+  data-desktop="/video/ensemble-desktop.mp4"
+  data-mobile="/video/ensemble-mobile.mp4"
+  style="--len: 620svh"
+  aria-labelledby="ensemble-title"
+>
+  <div class="stage">
+    <div class="media" aria-hidden="true">
+      <video muted playsinline preload="none"></video>
+    </div>
+    <h2 id="ensemble-title" class="label ensemble__label">{c.ensembleTitle}</h2>
+    <p class="visually-hidden">{c.ensembleLead}:</p>
+    <ol class="ensemble__list">
+      {
+        members.map((m, i) => (
+          <li class="ensemble__item" data-from={shots[i].from} data-to={shots[i].to}>
+            <figure>
+              <div class="ensemble__still">
+                <Poster name={m.id} style={`--fx: ${shots[i].fx}`} />
+              </div>
+              <figcaption>
+                <span class="ensemble__index" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')} / {String(members.length).padStart(2, '0')}
+                </span>
+                <span class="ensemble__name">{m.name[lang]}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* Static layout: five portrait cards */
+  .ensemble {
+    padding: 5rem var(--gutter);
+  }
+  .ensemble .media {
+    display: none;
+  }
+  .ensemble__label {
+    margin-bottom: 2.5rem;
+  }
+  .ensemble__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+    gap: 2rem 1rem;
+  }
+  .ensemble__still {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--silver-deep);
+  }
+  .ensemble__still :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--fx, 50%) 35%;
+  }
+  figcaption {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 0.9rem;
+  }
+  .ensemble__index {
+    font-size: var(--step--1);
+    color: var(--fg-dim);
+    letter-spacing: 0.2em;
+  }
+  .ensemble__name {
+    letter-spacing: 0.06em;
+  }
+
+  /* Scrub: full-bleed close-ups, names in festival-credit style */
+  :global(.scrub) .ensemble {
+    padding: 0;
+  }
+  :global(.scrub) .ensemble .media {
+    display: block;
+  }
+  /* Each item is its own stacking context (opacity), so the veil lives inside it */
+  :global(.scrub) .ensemble__item figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, oklch(0.16 0.01 250 / 0.85), transparent 40%);
+  }
+  :global(.scrub) .ensemble__label {
+    position: absolute;
+    top: 5.5rem;
+    left: var(--gutter);
+    z-index: 2;
+    margin: 0;
+  }
+  :global(.scrub) .ensemble__list {
+    display: block;
+  }
+  :global(.scrub) .ensemble__item {
+    position: absolute;
+    inset: 0;
+    transform: none;
+  }
+  :global(.scrub) .ensemble__item figcaption {
+    transform: translateY(12px);
+    transition: transform 700ms var(--ease-out);
+  }
+  :global(.scrub) .ensemble__item.is-active figcaption {
+    transform: none;
+  }
+  /* Stills stand in until the video is ready, then step aside */
+  :global(.scrub) .ensemble__still {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+  :global(.scrub) .ensemble__still :global(img) {
+    object-position: center;
+  }
+  :global(.scrub .is-ready) .ensemble__still {
+    display: none;
+  }
+  :global(.scrub) figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: max(var(--dock), 8svh);
+    justify-items: center;
+    gap: 0.75rem;
+    z-index: 1;
+    padding: 0 var(--gutter);
+    text-align: center;
+  }
+  :global(.scrub) .ensemble__name {
+    font-size: var(--step-4);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+</style>

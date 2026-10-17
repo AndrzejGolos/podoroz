@@ -41,3 +41,6 @@ materiały z płyty/
 # Temp
 *.tmp
 *.log
+
+# Source film (132 MB, kept locally)
+video-source/

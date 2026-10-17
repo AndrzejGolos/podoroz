@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import signetWhite from '../assets/brand/signet-white.png';
+import signetDark from '../assets/brand/signet-dark.png';
+import { t, routes, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  page: keyof typeof routes | 'notFound';
+}
+
+const { lang, page } = Astro.props;
+const c = t[lang];
+const home = routes.home[lang];
+const other: Lang = lang === 'pl' ? 'en' : 'pl';
+const switchHref = page === 'notFound' ? routes.home[other] : routes[page][other];
+const onHome = page === 'home';
+const anchor = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
+---
+
+<header class="nav">
+  <a class="nav__brand" href={home} aria-label="Podoroж">
+    <Image src={signetWhite} alt="" width={36} height={36} densities={[1, 2, 3]} class="nav__signet nav__signet--film" loading="eager" />
+    <Image src={signetDark} alt="" width={36} height={36} densities={[1, 2, 3]} class="nav__signet nav__signet--paper" loading="eager" />
+  </a>
+  <nav aria-label={lang === 'pl' ? 'Główna' : 'Main'}>
+    <ul class="nav__list">
+      <li class="nav__wide"><a href={anchor('o-nas')}>{c.nav.about}</a></li>
+      <li class="nav__wide"><a href={anchor('zespol')}>{c.nav.ensemble}</a></li>
+      <li class="nav__wide"><a href={anchor('muzyka')}>{c.nav.music}</a></li>
+      <li class="nav__wide"><a href={anchor('na-zywo')}>{c.nav.live}</a></li>
+      <li><a href={routes.press[lang]} aria-current={page === 'press' ? 'page' : undefined}>{c.nav.press}</a></li>
+      <li class="nav__wide"><a href={anchor('kontakt')}>{c.nav.contact}</a></li>
+      <li>
+        <a href={switchHref} hreflang={other} lang={other} aria-label={c.langSwitch.label} class="nav__lang">
+          {c.langSwitch.short}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem var(--gutter);
+    background: linear-gradient(to bottom, color-mix(in oklch, var(--bg) 70%, transparent), transparent);
+  }
+  :global(.theme-paper) .nav {
+    position: sticky;
+    background: color-mix(in oklch, var(--bg) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__brand {
+    display: block;
+    flex: none;
+  }
+  .nav__signet {
+    width: 36px;
+    height: 36px;
+  }
+  :global(.theme-film) .nav__signet--paper,
+  :global(.theme-paper) .nav__signet--film {
+    display: none;
+  }
+  .nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.25rem 1.5rem;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+  }
+  .nav__list a {
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 200ms var(--ease-out);
+  }
+  .nav__list a:hover,
+  .nav__list a[aria-current='page'] {
+    color: var(--fg);
+  }
+  .nav__lang {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--line);
+  }
+  .nav__wide {
+    display: none;
+  }
+  @media (min-width: 60rem) {
+    .nav__wide {
+      display: list-item;
+    }
+  }
+</style>

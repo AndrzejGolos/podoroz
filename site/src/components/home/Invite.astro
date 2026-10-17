@@ -1,0 +1,237 @@
+---
+import { t, routes, contact, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = t[lang];
+const f = c.form;
+// Where the contact form posts. Unset = Netlify Forms (staging only); on the VPS set
+// PUBLIC_FORM_ENDPOINT at build time to the mail endpoint (e.g. an n8n webhook).
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
+---
+
+<section id="kontakt" class="invite" aria-labelledby="invite-title">
+  <div class="invite__pan" data-pan>
+    <div class="invite__media" data-loop-wrap>
+      <div class="invite__frame">
+        <img src="/posters/chairs-desktop.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        <video data-loop="/video/chairs.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+      </div>
+      <h2 id="invite-title" class="invite__title">{c.inviteTitle}</h2>
+    </div>
+  </div>
+
+  <div class="invite__body">
+    <div class="invite__text" data-view="rise">
+      <p class="invite__lead">{c.inviteText}</p>
+      <p>
+        {c.orEmail}: <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </p>
+      {c.english && <p class="invite__dim" lang="en">{c.english}</p>}
+      <p>
+        <a class="button button--ghost" href={routes.press[lang]}>{c.invitePress}</a>
+      </p>
+    </div>
+
+    <form class="form" data-view="rise" name="contact" method="POST" action={endpoint} data-netlify="true" netlify-honeypot="bot-field" data-form>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="lang" value={lang} />
+      <p class="visually-hidden">
+        <label>Bot <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+      <label class="form__field">
+        <span>{f.name}</span>
+        <input name="name" type="text" autocomplete="name" required />
+      </label>
+      <label class="form__field">
+        <span>{f.email}</span>
+        <input name="email" type="email" autocomplete="email" required />
+      </label>
+      <label class="form__field">
+        <span>{f.message}</span>
+        <textarea name="message" rows="6" required></textarea>
+      </label>
+      <div class="form__foot">
+        <button class="button" type="submit" data-label={f.send} data-sending={f.sending}>{f.send}</button>
+        <p class="form__status" role="status" aria-live="polite" data-ok={f.ok} data-error={f.error}></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Inline submit to the form's action; without JS the form posts normally.
+  document.querySelectorAll<HTMLFormElement>('[data-form]').forEach((form) => {
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending!;
+      status.textContent = '';
+      try {
+        const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = status.dataset.ok!;
+        status.dataset.state = 'ok';
+      } catch {
+        status.textContent = status.dataset.error!;
+        status.dataset.state = 'error';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btn.dataset.label!;
+      }
+    });
+  });
+</script>
+
+<style>
+  .invite__media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    max-height: 88svh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--silver-deep);
+  }
+  /* Landscape on every device: both red chairs stay in shot */
+  .invite__frame {
+    position: absolute;
+    inset: 0;
+  }
+  .invite__frame img,
+  .invite__frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .invite__media video {
+    opacity: 0;
+    transition: opacity 600ms var(--ease-out);
+  }
+  .invite__media:global(.is-ready) video {
+    opacity: 1;
+  }
+  .invite__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--silver-ink), transparent 45%);
+  }
+  .invite__title {
+    position: absolute;
+    left: var(--gutter);
+    bottom: clamp(1rem, 4vw, 3rem);
+    z-index: 1;
+    font-size: var(--step-4);
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .invite__body {
+    display: grid;
+    gap: 3rem;
+    padding: 3rem var(--gutter) 6rem;
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+  .invite__text {
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+  }
+  .invite__lead {
+    max-width: 40ch;
+    font-size: var(--step-1);
+    line-height: 1.6;
+  }
+  .invite__dim {
+    color: var(--fg-dim);
+  }
+  .form {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .form__field {
+    display: grid;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    color: var(--fg-dim);
+  }
+  .form input,
+  .form textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: color-mix(in oklch, var(--fg) 4%, transparent);
+    color: var(--fg);
+    font-size: var(--step-0);
+    transition: border-color 200ms var(--ease-out);
+  }
+  .form input:focus,
+  .form textarea:focus {
+    border-color: var(--fg);
+    outline: none;
+  }
+  .form textarea {
+    resize: vertical;
+  }
+  .form__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+  .form__status {
+    max-width: 40ch;
+    font-size: var(--step--1);
+  }
+  /* Phones (scrub mode): the chairs stand at both edges of a landscape frame, so the
+     shot fills the screen and scrolling pans from the left chair to the right one. */
+  @media (orientation: portrait) and (max-width: 900px) {
+    :global(.scrub) .invite__pan {
+      height: 200svh;
+    }
+    :global(.scrub) .invite__media {
+      position: sticky;
+      top: 0;
+      aspect-ratio: auto;
+      height: 100svh;
+      max-height: none;
+    }
+    :global(.scrub) .invite__frame {
+      right: auto;
+      width: calc(100svh * 16 / 9);
+      transform: translateX(calc(var(--p, 0) * (100vw - 100svh * 16 / 9)));
+      will-change: transform;
+    }
+    :global(.scrub) .invite__media::after {
+      background:
+        linear-gradient(to top, var(--silver-ink), transparent 40%),
+        linear-gradient(to bottom, var(--silver-ink), transparent 18%);
+    }
+    :global(.scrub) .invite__title {
+      bottom: calc(var(--dock) + 1rem);
+    }
+  }
+  @media (min-width: 60rem) {
+    .invite__body {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+</style>

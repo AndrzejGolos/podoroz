@@ -1,0 +1,263 @@
+// All user-facing copy, PL and EN.
+// Band prose (about) comes from "o zespole.md" and the album booklet; keep it verbatim.
+
+export type Lang = 'pl' | 'en';
+
+export const routes = {
+  home: { pl: '/', en: '/en/' },
+  press: { pl: '/dla-organizatorow/', en: '/en/promoters/' },
+} as const;
+
+export const members = [
+  { id: 'm1', name: { pl: 'Ewa Karasińska', en: 'Ewa Karasińska' } },
+  { id: 'm2', name: { pl: 'Ewa „Mysza” Starzyk', en: 'Ewa “Mysza” Starzyk' } },
+  { id: 'm3', name: { pl: 'Andrzej Gołoś', en: 'Andrzej Gołoś' } },
+  { id: 'm4', name: { pl: 'Wójciak', en: 'Wójciak' } },
+  { id: 'm5', name: { pl: 'Amelia Pietroczuk', en: 'Amelia Pietroczuk' } },
+] as const;
+
+export const tracks: [string, string][] = [
+  ['Oj, ty dube-dube', '3:46'],
+  ['Iszła wdowa', '6:49'],
+  ['Oj, upaw snieżok', '3:17'],
+  ['Cyhanka-worożka', '3:40'],
+  ['Oj, ne kuj zozule', '3:55'],
+  ['Oj, haj baťko, oj haj maty', '4:52'],
+  ['Och, ne płacz maty', '2:27'],
+  ['Oj, werbo-werbo', '3:46'],
+  ['Szo ja w neńky ta j na odchodi', '2:46'],
+  ['Oj, u poli bylyna stojała', '5:34'],
+  ['Dy horeło kupajło', '2:03'],
+  ['Wydno riczku zdaleka', '4:24'],
+  ['Koły b Boh daw zweczora pohodu', '3:02'],
+  ['Na żowtisińkim pisoczku', '4:30'],
+  ['Iz-za hory kamjanoji', '4:12'],
+];
+
+// Fill in when available; empty lists hide their sections.
+export const streaming: { label: string; href: string }[] = [
+  { label: 'Spotify', href: 'https://open.spotify.com/artist/3qTzRZqGj2qf0fLeVHZtt7' },
+];
+export const concerts: { date: string; place: { pl: string; en: string }; href?: string }[] = [];
+
+// Studio film embed in the Music section. Shown for the band review; it is not the
+// band's official clip, so the band decides whether it stays (false hides it).
+export const showFilm = false;
+
+export const contact = {
+  email: 'zespolpodoroz@gmail.com',
+  phone: '',
+  youtube: 'https://www.youtube.com/@zespol_podoroz',
+  facebook: 'https://www.facebook.com/zespol.podoroz',
+  spotify: 'https://open.spotify.com/artist/3qTzRZqGj2qf0fLeVHZtt7',
+  film: 'https://www.youtube.com/watch?v=Z8b5Tj3Zkfw',
+  filmId: 'Z8b5Tj3Zkfw',
+};
+
+const about = {
+  pl: [
+    'Podoroж to po ukraińsku podróż, wędrówka. Nasza podróż w obecnym składzie zaczęła się w roku 2023, ale każde z nas próbowało wcześniej podążać tym szlakiem kilka, kilkanaście, kilkadziesiąt lat. Śpiewamy pieśni przede wszystkim z Ukrainy, ale także z Białorusi i polskiego Podlasia.',
+    'Wielogłosowa pieśń to nie tylko podróż przez wschodniosłowiańskie obyczaje i obrzędy. To także kontakt z głęboko ludzkim doświadczeniem – uniwersalnym, jak uniwersalna jest radość i ból, śmierć i miłość.',
+    'Nie wychowaliśmy się w tej tradycji ani w tym języku, ale fascynuje nas kunsztowność melodii, archaiczność wielu z nich. Przekonaliśmy się też, że wschodniosłowiańska pieśń wybrzmi, o ile najpierw powstanie wspólnota wzajemnie rozumiejących się ludzi. Być może to najcenniejsze doświadczenie z naszej wspólnej podróży.',
+  ],
+  en: [
+    'Podoroж means journey in Ukrainian. Our journey in the present line-up began in 2023, though each of us had been following this path for several, a dozen, or even dozens of years before that. We sing songs mainly from Ukraine, but also from Belarus and the Polish region of Podlasie.',
+    'Polyphonic singing is not only a journey through East Slavic customs and rituals. It is also a way of connecting with deeply human experiences, as universal as joy and sorrow, death and love.',
+    'We did not grow up in this tradition or language, yet we are fascinated by the intricacy of the melodies and the archaic nature of many of them. We have also discovered that East Slavic song truly comes alive only when a community of people who understand one another is first formed. Perhaps this is the most precious experience of our shared journey.',
+  ],
+};
+
+export const t = {
+  pl: {
+    htmlLang: 'pl',
+    title: 'Podoroж: wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia',
+    description:
+      'Podoroж to zespół wokalny śpiewający wielogłosowe pieśni z tradycji wschodniosłowiańskiej. Koncerty, muzyka, kontakt.',
+    skip: 'Przejdź do treści',
+    nav: { about: 'O nas', ensemble: 'Zespół', music: 'Muzyka', live: 'Koncerty', press: 'Dla organizatorów', contact: 'Kontakt' },
+    langSwitch: { label: 'English version', short: 'EN' },
+    subtitle: 'Wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia',
+    scrollCue: 'Przewiń',
+    aboutTitle: 'O nas',
+    about: about.pl,
+    ensembleTitle: 'Zespół',
+    ensembleLead: 'Podoroж tworzą',
+    musicTitle: 'Muzyka',
+    albumTitle: 'Debiutancki album',
+    albumText: 'Piętnaście pieśni z Ukrainy, Białorusi i Podlasia: lirycznych, obrzędowych, balladowych. Śpiewanych wielogłosowo, bez instrumentów.',
+    albumAlt: 'Okładka debiutanckiego albumu Podoroж',
+    tracklist: 'Lista utworów',
+    filmTitle: 'Film',
+    filmPlay: 'Obejrzyj film',
+    filmNote: 'Odtwarzacz YouTube załaduje się dopiero po kliknięciu.',
+    filmCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    listenOn: 'Słuchaj w serwisach',
+    liveTitle: 'Na żywo',
+    liveText: [
+      'Gramy koncerty kameralne i plenerowe. Nasz repertuar sprawdza się wszędzie tam, gdzie jest przestrzeń na uważne słuchanie: od kameralnych scen i sal koncertowych, przez kościoły i galerie, po festiwale muzyki tradycyjnej.',
+    ],
+    concertsTitle: 'Koncerty',
+    photoAlts: {
+      outdoor: 'Zespół śpiewa boso na drewnianym pomoście nad jeziorem, o zachodzie słońca',
+      stage: 'Zespół śpiewa na scenie przy mikrofonach, z nutami w dłoniach',
+    },
+    inviteTitle: 'Zaproś nas',
+    inviteText: 'Szukasz zespołu na koncert, festiwal lub inne wydarzenie? Napisz do nas, odpowiemy.',
+    invitePress: 'Zdjęcia, logo i biogram dla organizatorów',
+    form: {
+      name: 'Imię',
+      email: 'Email',
+      message: 'Wiadomość',
+      send: 'Wyślij',
+      sending: 'Wysyłanie…',
+      ok: 'Dziękujemy. Wiadomość dotarła, odpiszemy wkrótce.',
+      error: 'Nie udało się wysłać. Napisz bezpośrednio na adres email poniżej.',
+    },
+    orEmail: 'albo bezpośrednio',
+    english: 'We also speak English.',
+    listen: { play: 'Posłuchaj', pause: 'Pauza', label: 'Odtwórz utwór „Iz-za hory kamjanoji” z płyty' },
+    footerCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    press: {
+      title: 'Dla organizatorów',
+      lead: 'Wszystko, czego potrzeba, żeby zaprosić Podoroж i zapowiedzieć koncert.',
+      zip: 'Pobierz cały pakiet',
+      bioTitle: 'Biogram',
+      bioLengths: { short: 'Krótki', medium: 'Średni', full: 'Pełny' },
+      copy: 'Kopiuj tekst',
+      copied: 'Skopiowano',
+      photosTitle: 'Zdjęcia',
+      photosNote: 'Pliki JPG, 3000 px na dłuższym boku.',
+      download: 'Pobierz',
+      logoTitle: 'Logo i sygnet',
+      videoTitle: 'Wideo i muzyka',
+      formatsTitle: 'Formaty koncertu',
+      riderTitle: 'Rider techniczny',
+      concertsTitle: 'Dotychczasowe koncerty',
+      contactTitle: 'Kontakt',
+      contactText: 'Napisz do nas w sprawie terminu, honorarium i warunków technicznych.',
+      back: 'Strona główna',
+    },
+    logos: {
+      'podoroz-logo-czarne.png': 'Logo, czarne, PNG',
+      'podoroz-logo-biale.png': 'Logo, białe, PNG',
+      'podoroz-sygnet-czarny.png': 'Sygnet, czarny, PNG',
+      'podoroz-sygnet-bialy.png': 'Sygnet, biały, PNG',
+      'podoroz-logo-wektor.pdf': 'Logo, wektor, PDF',
+      'podoroz-sygnet-wektor.pdf': 'Sygnet, wektor, PDF',
+    } as Record<string, string>,
+    pressPhotos: {
+      'podoroz-pole.jpg': 'Zespół w polu',
+      'podoroz-las.jpg': 'Zespół w lesie',
+      'podoroz-droga.jpg': 'Zespół w drodze',
+      'ewa-karasinska.jpg': 'Ewa Karasińska',
+      'ewa-mysza-starzyk.jpg': 'Ewa „Mysza” Starzyk',
+      'andrzej-golos.jpg': 'Andrzej Gołoś',
+      'wojciak.jpg': 'Wójciak',
+      'amelia-pietroczuk.jpg': 'Amelia Pietroczuk',
+    } as Record<string, string>,
+    notFound: { title: 'Nie ma takiej strony', back: 'Wróć na stronę główną' },
+  },
+  en: {
+    htmlLang: 'en',
+    title: 'Podoroж: polyphonic songs from Ukraine, Belarus and Podlasie',
+    description:
+      'Podoroж is a vocal ensemble performing polyphonic songs from the East Slavic tradition. Concerts, music, contact.',
+    skip: 'Skip to content',
+    nav: { about: 'About', ensemble: 'Ensemble', music: 'Music', live: 'Concerts', press: 'For promoters', contact: 'Contact' },
+    langSwitch: { label: 'Wersja polska', short: 'PL' },
+    subtitle: 'Polyphonic songs from Ukraine, Belarus and Podlasie',
+    scrollCue: 'Scroll',
+    aboutTitle: 'About',
+    about: about.en,
+    ensembleTitle: 'Ensemble',
+    ensembleLead: 'Podoroж are',
+    musicTitle: 'Music',
+    albumTitle: 'Debut album',
+    albumText: 'Fifteen songs from Ukraine, Belarus and Podlasie: lyrical, ritual, balladic. Sung in polyphony, without instruments.',
+    albumAlt: 'Cover of the Podoroж debut album',
+    tracklist: 'Tracklist',
+    filmTitle: 'Film',
+    filmPlay: 'Watch the film',
+    filmNote: 'The YouTube player loads only after you click.',
+    filmCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    listenOn: 'Listen on',
+    liveTitle: 'Live',
+    liveText: [
+      'We perform intimate and outdoor concerts. Our repertoire works best where there is space for attentive listening: from small stages and concert halls, through churches and galleries, to traditional music festivals.',
+    ],
+    concertsTitle: 'Concerts',
+    photoAlts: {
+      outdoor: 'The ensemble singing barefoot on a wooden pier by a lake at sunset',
+      stage: 'The ensemble singing on stage at the microphones, holding their scores',
+    },
+    inviteTitle: 'Invite us',
+    inviteText: 'Looking for an ensemble for a concert, festival or other event? Write to us and we will reply.',
+    invitePress: 'Photos, logo and bio for promoters',
+    form: {
+      name: 'Name',
+      email: 'Email',
+      message: 'Message',
+      send: 'Send',
+      sending: 'Sending…',
+      ok: 'Thank you. Your message arrived, we will reply soon.',
+      error: 'Sending failed. Please write directly to the email address below.',
+    },
+    orEmail: 'or directly',
+    english: '',
+    listen: { play: 'Listen', pause: 'Pause', label: 'Play “Iz-za hory kamjanoji” from the album' },
+    footerCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    press: {
+      title: 'For promoters',
+      lead: 'Everything you need to book Podoroж and announce the concert.',
+      zip: 'Download the full pack',
+      bioTitle: 'Bio',
+      bioLengths: { short: 'Short', medium: 'Medium', full: 'Full' },
+      copy: 'Copy text',
+      copied: 'Copied',
+      photosTitle: 'Photos',
+      photosNote: 'JPG files, 3000 px on the long edge.',
+      download: 'Download',
+      logoTitle: 'Logo and signet',
+      videoTitle: 'Video and music',
+      formatsTitle: 'Concert formats',
+      riderTitle: 'Technical rider',
+      concertsTitle: 'Past concerts',
+      contactTitle: 'Contact',
+      contactText: 'Write to us about dates, fee and technical requirements.',
+      back: 'Home',
+    },
+    logos: {
+      'podoroz-logo-czarne.png': 'Logo, black, PNG',
+      'podoroz-logo-biale.png': 'Logo, white, PNG',
+      'podoroz-sygnet-czarny.png': 'Signet, black, PNG',
+      'podoroz-sygnet-bialy.png': 'Signet, white, PNG',
+      'podoroz-logo-wektor.pdf': 'Logo, vector, PDF',
+      'podoroz-sygnet-wektor.pdf': 'Signet, vector, PDF',
+    } as Record<string, string>,
+    pressPhotos: {
+      'podoroz-pole.jpg': 'The ensemble in a field',
+      'podoroz-las.jpg': 'The ensemble in a forest',
+      'podoroz-droga.jpg': 'The ensemble on the road',
+      'ewa-karasinska.jpg': 'Ewa Karasińska',
+      'ewa-mysza-starzyk.jpg': 'Ewa “Mysza” Starzyk',
+      'andrzej-golos.jpg': 'Andrzej Gołoś',
+      'wojciak.jpg': 'Wójciak',
+      'amelia-pietroczuk.jpg': 'Amelia Pietroczuk',
+    } as Record<string, string>,
+    notFound: { title: 'Page not found', back: 'Back to the home page' },
+  },
+};
+
+// Bios for promoters. Short and medium versions come from the band later;
+// empty strings hide those tabs.
+export const bios = {
+  pl: { short: '', medium: '', full: about.pl.join('\n\n') },
+  en: { short: '', medium: '', full: about.en.join('\n\n') },
+};
+
+// Fill in when the band delivers them; empty values hide the sections.
+export const pressExtras = {
+  formats: { pl: [] as string[], en: [] as string[] },
+  riderPdf: '',
+  stagePlotPdf: '',
+};

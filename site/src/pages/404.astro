@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, routes } from '../i18n';
+---
+
+<Base lang="pl" page="notFound" theme="paper" title={t.pl.notFound.title}>
+  <section style="padding: 8rem var(--gutter); display: grid; gap: 1.5rem;">
+    <h1 class="label">{t.pl.notFound.title}</h1>
+    <p><a href={routes.home.pl}>{t.pl.notFound.back}</a></p>
+    <p lang="en"><a href={routes.home.en}>{t.en.notFound.back}</a></p>
+  </section>
+</Base>

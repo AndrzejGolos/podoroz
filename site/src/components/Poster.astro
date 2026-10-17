@@ -1,0 +1,24 @@
+---
+// Film still: portrait crop on phones, landscape elsewhere (files from scripts/encode-video.sh).
+interface Props {
+  name: string;
+  priority?: boolean;
+  style?: string;
+}
+
+const { name, priority = false, style } = Astro.props;
+---
+
+<picture>
+  <source media="(orientation: portrait) and (max-width: 900px)" srcset={`/posters/${name}-mobile.webp`} />
+  <img
+    src={`/posters/${name}-desktop.webp`}
+    alt=""
+    width="1600"
+    height="900"
+    decoding="async"
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    style={style}
+  />
+</picture>

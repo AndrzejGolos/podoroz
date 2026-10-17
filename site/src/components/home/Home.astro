@@ -1,0 +1,36 @@
+---
+import '../../styles/scrub.css';
+import Base from '../../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Journey from './Journey.astro';
+import Ensemble from './Ensemble.astro';
+import Music from './Music.astro';
+import Live from './Live.astro';
+import Invite from './Invite.astro';
+import ListenButton from './ListenButton.astro';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Base lang={lang} page="home">
+  <Fragment slot="head">
+    <link rel="preload" as="image" href="/posters/hero-start-mobile.webp" media="(orientation: portrait) and (max-width: 900px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/posters/hero-start-desktop.webp" media="not ((orientation: portrait) and (max-width: 900px))" fetchpriority="high" />
+  </Fragment>
+  <Hero lang={lang} />
+  <Journey lang={lang} />
+  <Ensemble lang={lang} />
+  <Music lang={lang} />
+  <Live lang={lang} />
+  <Invite lang={lang} />
+  <ListenButton lang={lang} />
+</Base>
+
+<script>
+  import '../../scripts/scrub';
+</script>

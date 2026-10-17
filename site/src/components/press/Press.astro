@@ -1,0 +1,339 @@
+---
+import { readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import Base from '../../layouts/Base.astro';
+import { t, bios, contact, concerts, pressExtras, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const c = t[lang];
+const p = c.press;
+
+// Files live in public/press; the ZIP of that folder is made after build (package.json).
+const pressDir = join(process.cwd(), 'public', 'press');
+const files = (sub: string) =>
+  readdirSync(join(pressDir, sub))
+    .filter((f) => !f.startsWith('.'))
+    .map((f) => ({ name: f, href: `/press/${sub}/${f}`, bytes: statSync(join(pressDir, sub, f)).size }));
+const mb = (b: number) => `${(b / 1048576).toFixed(1).replace('.', lang === 'pl' ? ',' : '.')} MB`;
+
+const photoOrder = Object.keys(c.pressPhotos);
+const photos = files('photos').sort((a, b) => photoOrder.indexOf(a.name) - photoOrder.indexOf(b.name));
+const logoOrder = Object.keys(c.logos);
+const logos = files('logo').sort((a, b) => logoOrder.indexOf(a.name) - logoOrder.indexOf(b.name));
+const zipBytes = [...photos, ...logos].reduce((s, f) => s + f.bytes, 0);
+
+const bio = bios[lang];
+const bioTabs = (['short', 'medium', 'full'] as const).filter((k) => bio[k]);
+const formats = pressExtras.formats[lang];
+const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
+---
+
+<Base lang={lang} page="press" theme="paper" title={p.title}>
+  <div class="press">
+    <header class="press__head">
+      <h1 class="press__title">{p.title}</h1>
+      <p class="press__lead">{p.lead}</p>
+      <p class="press__zip">
+        <a class="button" href="/podoroz-press-kit.zip" download>{p.zip}</a>
+        <span class="press__meta">ZIP, ~{mb(zipBytes)}</span>
+      </p>
+    </header>
+
+    <section class="block" aria-labelledby="bio-title">
+      <h2 id="bio-title" class="label">{p.bioTitle}</h2>
+      <div class="bio" data-bio>
+        {
+          bioTabs.length > 1 && (
+            <div class="bio__tabs" role="tablist">
+              {bioTabs.map((k, i) => (
+                <button type="button" role="tab" id={`tab-${k}`} aria-controls={`bio-${k}`} aria-selected={i === bioTabs.length - 1 ? 'true' : 'false'}>
+                  {p.bioLengths[k]}
+                </button>
+              ))}
+            </div>
+          )
+        }
+        {
+          bioTabs.map((k, i) => (
+            <div
+              class="bio__panel"
+              id={`bio-${k}`}
+              role={bioTabs.length > 1 ? 'tabpanel' : undefined}
+              aria-labelledby={bioTabs.length > 1 ? `tab-${k}` : undefined}
+              hidden={i !== bioTabs.length - 1}
+            >
+              <div class="prose bio__text">
+                {bio[k].split('\n\n').map((para) => <p>{para}</p>)}
+              </div>
+              <button type="button" class="button button--ghost" data-copy={bio[k]} data-done={p.copied}>
+                {p.copy}
+              </button>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="photos-title">
+      <h2 id="photos-title" class="label">{p.photosTitle}</h2>
+      <p class="press__note">{p.photosNote}</p>
+      <ul class="photos">
+        {
+          photos.map((f) => (
+            <li>
+              <a href={f.href} download class="photos__link">
+                <img src={`/press-thumbs/${f.name}`} alt={c.pressPhotos[f.name] ?? f.name} width="720" height="480" loading="lazy" decoding="async" />
+                <span class="photos__caption">
+                  <span>{c.pressPhotos[f.name] ?? f.name}</span>
+                  <span class="press__meta">
+                    {p.download} · {mb(f.bytes)}
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="logo-title">
+      <h2 id="logo-title" class="label">{p.logoTitle}</h2>
+      <ul class="files">
+        {
+          logos.map((f) => (
+            <li>
+              <a href={f.href} download>
+                {c.logos[f.name] ?? f.name}
+              </a>
+              <span class="press__meta">{mb(f.bytes)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="video-title">
+      <h2 id="video-title" class="label">{p.videoTitle}</h2>
+      <ul class="files">
+        <li>
+          <a href={contact.youtube}>YouTube: @zespol_podoroz</a>
+        </li>
+        <li>
+          <a href={contact.spotify}>Spotify: Podoroж</a>
+        </li>
+      </ul>
+    </section>
+
+    {
+      formats.length > 0 && (
+        <section class="block" aria-labelledby="formats-title">
+          <h2 id="formats-title" class="label">{p.formatsTitle}</h2>
+          <ul class="files">
+            {formats.map((x) => (
+              <li>{x}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      hasRider && (
+        <section class="block" aria-labelledby="rider-title">
+          <h2 id="rider-title" class="label">{p.riderTitle}</h2>
+          <ul class="files">
+            {pressExtras.riderPdf && (
+              <li>
+                <a href={pressExtras.riderPdf} download>
+                  {p.riderTitle} (PDF)
+                </a>
+              </li>
+            )}
+            {pressExtras.stagePlotPdf && (
+              <li>
+                <a href={pressExtras.stagePlotPdf} download>
+                  Stage plot (PDF)
+                </a>
+              </li>
+            )}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      concerts.length > 0 && (
+        <section class="block" aria-labelledby="concerts-title">
+          <h2 id="concerts-title" class="label">{p.concertsTitle}</h2>
+          <ul class="files">
+            {concerts.map((k) => (
+              <li>
+                <time datetime={k.date}>{k.date}</time> {k.place[lang]}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="block" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="label">{p.contactTitle}</h2>
+      <p class="press__lead">{p.contactText}</p>
+      <p class="press__contact">
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        {contact.phone && <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>}
+      </p>
+    </section>
+  </div>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
+    const label = b.textContent;
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.copy!);
+        b.textContent = b.dataset.done!;
+        setTimeout(() => (b.textContent = label), 2000);
+      } catch {
+        /* clipboard blocked: text stays selectable */
+      }
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-bio]').forEach((bio) => {
+    const tabs = [...bio.querySelectorAll<HTMLButtonElement>('[role=tab]')];
+    tabs.forEach((tab) =>
+      tab.addEventListener('click', () => {
+        tabs.forEach((x) => {
+          const on = x === tab;
+          x.setAttribute('aria-selected', String(on));
+          bio.querySelector<HTMLElement>(`#${x.getAttribute('aria-controls')}`)!.hidden = !on;
+        });
+      }),
+    );
+  });
+</script>
+
+<style>
+  .press {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 4rem var(--gutter) 6rem;
+  }
+  .press__head {
+    display: grid;
+    gap: 1.25rem;
+    padding: 2rem 0 4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .press__title {
+    font-size: var(--step-3);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .press__lead {
+    max-width: 48ch;
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+  .press__meta,
+  .press__note {
+    font-size: var(--step--1);
+    color: var(--fg-dim);
+  }
+  .press__zip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+  }
+  .block {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .block:last-child {
+    border-bottom: 0;
+  }
+  .bio {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+  .bio__tabs {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .bio__tabs button {
+    padding: 0 0 0.3rem;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: none;
+    color: var(--fg-dim);
+    cursor: pointer;
+  }
+  .bio__tabs [aria-selected='true'] {
+    color: var(--fg);
+    border-bottom-color: var(--fg);
+  }
+  .bio__panel {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+  .bio__text {
+    max-width: 65ch;
+  }
+  .photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 2rem 1.25rem;
+    width: 100%;
+  }
+  .photos__link {
+    display: grid;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .photos__link img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    filter: grayscale(1);
+    transition: filter 500ms var(--ease-out);
+  }
+  .photos__link:hover img {
+    filter: none;
+  }
+  .photos__caption {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .files {
+    display: grid;
+    width: 100%;
+    max-width: 44rem;
+  }
+  .files li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .press__contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    font-size: var(--step-1);
+  }
+</style>

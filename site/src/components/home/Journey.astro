@@ -1,0 +1,86 @@
+---
+import Poster from '../Poster.astro';
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const c = t[Astro.props.lang];
+const n = c.about.length;
+---
+
+<section
+  id="o-nas"
+  class="film-section journey"
+  data-scrub
+  data-desktop="/video/journey-desktop.mp4"
+  data-mobile="/video/journey-mobile.mp4"
+  style="--len: 330svh"
+  aria-labelledby="about-title"
+>
+  <div class="stage">
+    <div class="media">
+      <Poster name="journey" />
+      <video muted playsinline preload="none" aria-hidden="true"></video>
+    </div>
+    <div class="journey__scrim" aria-hidden="true"></div>
+    <div class="journey__text">
+      <h2 id="about-title" class="label">{c.aboutTitle}</h2>
+      <div class="journey__paras prose">
+        {c.about.map((p, i) => <p data-from={(i / n).toFixed(3)} data-to={i === n - 1 ? '1.01' : ((i + 1) / n).toFixed(3)}>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .journey__scrim {
+    display: none;
+  }
+  .journey__text {
+    display: grid;
+    gap: 2rem;
+    max-width: 44rem;
+    padding: 4rem var(--gutter) 5rem;
+  }
+
+  :global(.scrub) .journey__scrim {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, oklch(0.16 0.01 250 / 0.85), oklch(0.16 0.01 250 / 0.55) 45%, transparent 75%);
+  }
+  :global(.scrub) .journey__text {
+    position: absolute;
+    inset: 0 auto 0 0;
+    align-content: center;
+    width: min(44rem, 100%);
+    padding: 6rem var(--gutter);
+  }
+  /* One paragraph at a time, stacked in the same grid cell */
+  :global(.scrub) .journey__paras {
+    display: grid;
+  }
+  :global(.scrub) .journey__paras p {
+    grid-area: 1 / 1;
+    margin: 0;
+    font-size: var(--step-1);
+    line-height: 1.65;
+  }
+
+  @media (orientation: portrait) and (max-width: 900px) {
+    :global(.scrub) .journey__scrim {
+      background: linear-gradient(to bottom, oklch(0.16 0.01 250 / 0.9), oklch(0.16 0.01 250 / 0.55) 50%, transparent 70%);
+    }
+    :global(.scrub) .journey__text {
+      inset: 0 0 auto 0;
+      align-content: start;
+      gap: 1.25rem;
+      padding-top: 5rem;
+    }
+    :global(.scrub) .journey__paras p {
+      font-size: var(--step-0);
+    }
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import { t, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const c = t[Astro.props.lang].listen;
+---
+
+<div class="listen">
+  <button class="listen__button" type="button" aria-pressed="false" aria-label={c.label} data-play={c.play} data-pause={c.pause}>
+    <span class="listen__icon" aria-hidden="true"></span>
+    <span class="listen__text">{c.play}</span>
+  </button>
+  <span class="listen__bar" aria-hidden="true"></span>
+  <audio src="/audio/iz-za-hory.mp3" preload="none"></audio>
+</div>
+
+<script>
+  // Plays a track from the album independently of scroll; never autoplays.
+  const root = document.querySelector<HTMLElement>('.listen')!;
+  const btn = root.querySelector<HTMLButtonElement>('button')!;
+  const text = root.querySelector<HTMLElement>('.listen__text')!;
+  const audio = root.querySelector('audio')!;
+  const sync = () => {
+    const playing = !audio.paused;
+    btn.setAttribute('aria-pressed', String(playing));
+    text.textContent = playing ? btn.dataset.pause! : btn.dataset.play!;
+  };
+  btn.addEventListener('click', () => (audio.paused ? audio.play() : audio.pause()));
+  audio.addEventListener('play', sync);
+  audio.addEventListener('pause', sync);
+  audio.addEventListener('ended', sync);
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) root.style.setProperty('--t', String(audio.currentTime / audio.duration));
+  });
+</script>
+
+<style>
+  .listen {
+    position: fixed;
+    right: var(--gutter);
+    bottom: 1rem;
+    z-index: 40;
+    background: var(--silver-deep);
+    border: 1px solid var(--silver-line);
+  }
+  .listen__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    border: 0;
+    background: none;
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .listen__icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0.4rem 0 0.4rem 0.65rem;
+    border-color: transparent transparent transparent currentColor;
+  }
+  [aria-pressed='true'] .listen__icon {
+    width: 0.65rem;
+    height: 0.8rem;
+    border-width: 0 0.2rem;
+    border-color: currentColor;
+  }
+  .listen__bar {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 1px;
+    width: 100%;
+    background: var(--silver-mist);
+    transform-origin: left;
+    transform: scaleX(var(--t, 0));
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { t, routes, members, contact, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  page: keyof typeof routes | 'notFound';
+  theme?: 'film' | 'paper';
+  title?: string;
+}
+
+const { lang, page, theme = 'film', title } = Astro.props;
+const c = t[lang];
+const site = Astro.site!;
+const pageTitle = title ? `${title} | Podoroж` : c.title;
+const alternates = page === 'notFound' ? null : routes[page];
+const canonical = new URL(alternates ? alternates[lang] : Astro.url.pathname, site);
+const ogImage = new URL('/og.jpg', site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Podoroж',
+  url: site.href,
+  description: 'Vocal ensemble performing polyphonic songs from Ukraine, Belarus and Podlasie',
+  genre: ['Traditional', 'Polyphonic singing', 'East Slavic folk'],
+  foundingDate: '2023',
+  member: members.map((m) => ({ '@type': 'Person', name: m.name.pl })),
+  email: contact.email,
+  sameAs: [contact.spotify, contact.youtube, contact.facebook],
+};
+---
+
+<!doctype html>
+<html lang={c.htmlLang} class={theme === 'paper' ? 'theme-paper' : 'theme-film'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={c.description} />
+    <link rel="canonical" href={canonical} />
+    {
+      alternates && (
+        <>
+          <link rel="alternate" hreflang="pl" href={new URL(alternates.pl, site)} />
+          <link rel="alternate" hreflang="en" href={new URL(alternates.en, site)} />
+          <link rel="alternate" hreflang="x-default" href={new URL(alternates.pl, site)} />
+        </>
+      )
+    }
+    <meta name="theme-color" content={theme === 'paper' ? '#fdf8f4' : '#16191d'} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={c.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'pl' ? 'pl_PL' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!--
+      "scrub" mode (tall pinned sections driven by scroll) only when motion is welcome
+      and the connection can carry the video. Otherwise the page stays a static,
+      poster-based layout, the same one shown without JS.
+    -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var c = navigator.connection || {};
+        var slow = c.saveData || /(^|-)2g$/.test(c.effectiveType || '');
+        if (!slow && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('scrub');
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{c.skip}</a>
+    <Nav lang={lang} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

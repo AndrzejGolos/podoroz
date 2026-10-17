@@ -1,0 +1,118 @@
+/*
+  Film sections. Default (no JS, reduced motion, slow connection): the media is a
+  poster block and the text flows below it. In "scrub" mode the section grows to
+  --len and its stage sticks to the viewport while scroll drives the video.
+*/
+
+.film-section {
+  position: relative;
+}
+
+.stage {
+  position: relative;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--silver-deep);
+}
+
+.media img,
+.media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media video {
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+
+.is-ready .media video {
+  opacity: 1;
+}
+
+.media video:not([src]) {
+  visibility: hidden;
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  .media {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* ---------- Scrub mode ---------- */
+
+.scrub .film-section {
+  height: var(--len, 300svh);
+}
+
+.scrub .stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.scrub .media {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+}
+
+/* Feathered dark edges while a stage enters (top edge) or leaves (bottom edge);
+   driven by --enter / --exit from scrub.ts, invisible while the stage is pinned. */
+.scrub .stage::before,
+.scrub .stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.scrub .stage::before {
+  background: linear-gradient(to bottom, var(--silver-ink) 0%, var(--silver-ink) 8%, transparent 60%);
+  opacity: min(1, calc(var(--enter, 0) * 4));
+}
+.scrub .stage::after {
+  background: linear-gradient(to top, var(--silver-ink) 0%, var(--silver-ink) 8%, transparent 60%);
+  opacity: min(1, calc(var(--exit, 0) * 4));
+}
+
+/* Elements that appear within a progress range */
+.scrub [data-from] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+}
+
+.scrub [data-from].is-active {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Scroll-linked reveals after the film ([data-view]) ----------
+   --in / --v come from scrub.ts; both default to the finished state. */
+
+.scrub [data-view='rise'] {
+  opacity: var(--in, 1);
+  transform: translateY(calc((1 - var(--in, 1)) * 3.5rem));
+}
+
+.scrub [data-view='slide'] {
+  opacity: var(--in, 1);
+  transform: translateX(calc((1 - var(--in, 1)) * 5rem));
+}
+
+/* Section labels type themselves out, like a film title card */
+.scrub [data-view='wipe'] {
+  clip-path: inset(-0.2em calc((1 - var(--in, 1)) * 100%) -0.2em 0);
+}
