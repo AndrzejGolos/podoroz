@@ -59,7 +59,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
         <p class="form__status" role="status" aria-live="polite" data-ok={f.ok} data-error={f.error}></p>
       </div>
       <p class="form__note">
-        {f.note} <a href={routes.privacy[lang]}>{f.noteLink}</a>.
+        {f.note}
       </p>
     </form>
   </div>
