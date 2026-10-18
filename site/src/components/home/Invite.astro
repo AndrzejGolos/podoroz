@@ -9,7 +9,7 @@ const { lang } = Astro.props;
 const c = t[lang];
 const f = c.form;
 // Where the contact form posts. Unset = Netlify Forms (staging only); on the VPS set
-// PUBLIC_FORM_ENDPOINT at build time to the mail endpoint (e.g. an n8n webhook).
+// PUBLIC_FORM_ENDPOINT=/api/contact at build time (proxied to form-relay/).
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
 ---
 

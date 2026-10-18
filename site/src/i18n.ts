@@ -45,7 +45,7 @@ export const concerts: { date: string; place: { pl: string; en: string }; href?:
 export const showFilm = false;
 
 export const contact = {
-  email: 'zespolpodoroz@gmail.com',
+  email: 'kontakt@podoroz.art',
   phone: '',
   youtube: 'https://www.youtube.com/@zespol_podoroz',
   facebook: 'https://www.facebook.com/zespol.podoroz',

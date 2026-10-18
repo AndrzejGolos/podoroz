@@ -1,0 +1,14 @@
+{
+  "name": "podoroz-form-relay",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file=.env server.mjs"
+  },
+  "dependencies": {
+    "nodemailer": "^10.1.3"
+  }
+}

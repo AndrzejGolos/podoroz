@@ -1,0 +1,36 @@
+# Contact form relay (form-relay/server.mjs). Installed as /etc/systemd/system/podoroz-form.service.
+[Unit]
+Description=podoroz.art contact form relay
+After=network.target postfix.service
+
+[Service]
+ExecStart=/usr/bin/node /srv/podoroz/form-relay/server.mjs
+EnvironmentFile=/etc/podoroz-form/env
+LoadCredential=dkim:/etc/podoroz-form/dkim.key
+Environment=DKIM_KEY_FILE=%d/dkim
+Restart=on-failure
+
+# Throwaway unprivileged user, read-only system, no access to /home (Hermes lives there).
+DynamicUser=yes
+MemoryMax=128M
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
