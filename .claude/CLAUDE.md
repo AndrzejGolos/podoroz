@@ -1,16 +1,14 @@
-# Podoroz — Band Website
+# Podoroж — Band Website
 
-> **Project:** Official website for Podoroz
-> **Stack:** HTML/CSS/JS (Google Stitch design → custom code + animations)
-> **Deploy:** Netlify (auto-deploy from git)
-> **Branch preview:** `layout-v2--podoroz.netlify.app`
-> **Production:** `main` branch
+> **Live:** https://podoroz.art (v2, Astro), served from a Hetzner VPS behind Cloudflare
+> **Working branch:** `v2` (pushed to GitHub). `main` and `loveable-src/` hold the old v1 and are not deployed to podoroz.art.
+> **Repo is public:** no prices, offer terms, credentials or private band matters in tracked files.
 
 ---
 
 ## Rules
 
-1. **Polish for conversation** — always use Polish diacritics (ą, ć, ę, ł, ń, ó, ś, ź, ż)
+1. **Polish for conversation** — always with diacritics (ą, ć, ę, ł, ń, ó, ś, ź, ż)
 2. **English for code** — comments, commits, variable names, documentation
 3. **Critical feedback** — honest evaluation, pushback when needed
 4. **No emojis** unless requested
@@ -18,85 +16,39 @@
 6. **Performance** — target Lighthouse 90+ (performance, accessibility)
 7. **Semantic HTML** — proper heading hierarchy, ARIA where needed
 8. **Progressive enhancement** — core content works without JS
+9. **Deploying reaches the public** — build and verify locally, deploy only on the user's go, then check the live site. Push `v2` to GitHub after each deploy so the repo matches production.
 
 ---
 
-## Tech Stack
+## Stack and layout
 
-- **Design source:** Google Stitch (exported assets/layouts)
-- **Build:** Static site (no framework unless complexity demands it)
-- **Animations:** CSS animations + Intersection Observer (JS)
-- **Interactions:** Vanilla JS (or lightweight library if justified)
-- **Hosting:** Netlify (free tier, auto-deploy, forms)
+- `site/` — Astro 7 static site, PL at `/`, EN at `/en/`. Routes, all UI copy, tracklist, links and the `legal` owner live in `site/src/i18n.ts`.
+  - Pages: home (dark "film" theme, scroll-driven video), `/dla-organizatorow/` + `/en/promoters/` (press kit, cream "paper" theme), `/polityka-prywatnosci/` + `/en/privacy/`.
+  - Font: JetBrains Mono, self-hosted via @fontsource. No external requests before a user click.
+  - `showFilm = false`: the OSKAR STUDIO WARSZAWA film is not the band's official clip; its YouTube embed stays hidden unless the band decides otherwise.
+- `form-relay/` — Node service behind `/api/contact`; mails the contact form through the VPS's local postfix. See its README.
+- `deploy/` — nginx config (strict CSP), systemd unit, one-time `setup-server.sh`, and `deploy-site.sh` (build + rsync + relay restart).
+- `docs/v2-brief.md` — design brief; `content/` — source copy; `scripts/encode-video.sh` — video encoding.
+- Loose files in the repo root (photos, zips, mp3, handouts) are untracked working material; do not commit them unprompted.
 
----
+## Deploy
 
-## File Structure
+`./deploy/deploy-site.sh` from the repo root. It refuses to deploy while the privacy policy shows "DO UZUPEŁNIENIA".
+Netlify still builds `v2` as a preview (`v2--podoroz.netlify.app`, root `netlify.toml`), but production is the VPS.
 
-```
-src/
-├── index.html
-├── css/
-│   ├── reset.css
-│   ├── variables.css
-│   ├── main.css
-│   └── animations.css
-├── js/
-│   └── main.js
-├── assets/
-│   ├── images/
-│   ├── fonts/
-│   └── video/
-└── favicon.ico
-```
+**CSP:** any new external source (analytics, fonts, embeds, payment) needs `deploy/nginx-podoroz.conf` updated and nginx reloaded on the VPS, then a browser check.
+
+## Mail
+
+`kontakt@podoroz.art` → band Gmail via Cloudflare Email Routing. The form is sent by the VPS's postfix (SPF, DKIM, DMARC set for podoroz.art).
 
 ---
 
-## Design Principles
+## Decisions log
 
-- Band identity first — design serves the music
-- Bold typography, high contrast
-- Smooth scroll, subtle parallax (no jarring effects)
-- Fast loading — optimize all images (WebP), lazy load below fold
-- Light cream theme (`#FEF9F5`) with charcoal text (`#414042` area)
-- Monospace typography (Consolas) — per album designer guidelines
-
----
-
-## Deployment
-
-- **Netlify** — auto-deploy from `main`, branch deploys for PRs
-- `main` = production
-- `layout-v2` = current design iteration (branch deploy)
-
----
-
-## Version History
-
-### v0.3 — layout-v2 (2026-02-14)
-- Designer guidelines applied (album cover designer typography/color specs)
-- Font: DM Sans → Consolas monospace stack (`index.css` + `tailwind.config.ts`)
-- Palette: warm stone → cream bg `#FEF9F5` + charcoal fg, high contrast
-- Hero: band photo (`hero-band.png`) as full-bleed image overlapping hero, logo + subtitle layered on top (z-10)
-- Album cover replaced with new artwork (`album-cover-new.png`)
-- Form inputs: visible white bg + full border (was transparent + bottom-only)
-- Font sizes bumped +1 step across all components (mono renders smaller than sans)
-- Section titles: subtle underline decoration (`border-b border-foreground/25`)
-- Album cover: subtle border (`border-foreground/15`)
-- Responsive hero/photo overlap: `-mt-[40vh]` mobile → `-mt-[100vh]` desktop
-- Navigation hidden on mobile (`hidden sm:flex`) — no hamburger menu (intentional)
-- All changes on `layout-v2` branch; `main` unchanged
-
-#### Known decisions / next steps
-- Mobile nav: links hidden on small screens, no hamburger — acceptable for now
-- `layout-v2` not yet merged to `main` — awaiting final approval
-- Old assets (`landscape-1.jpg`, `album-cover.jpg`) still in repo, no longer referenced — can be cleaned up
-
-### v0.2 (2026-02-14)
-- Full site implementation: Hero, About, Music, Contact, Footer
-- Earth texture background, grayscale photo bands
-- Netlify deployment with contact form
-- Bilingual PL/EN support
-
-### v0.1 (2026-02-14)
-- Project initialized
+- **2026-10-16** — v2 rebuilt in Astro around the OSKAR STUDIO WARSZAWA film; the studio approved its use.
+- **2026-10-17** — "Posłuchaj" plays the official album master (`site/public/audio/iz-za-hory.mp3`), not audio from the film.
+- **2026-10-18** — Self-hosted on the VPS with a no-third-party form relay (rejected: Web3Forms, Gmail app passwords). Band approved v2; it went live.
+- **2026-10-18** — No analytics, no cookies, no consent banner, no terms page. The band has no legal entity and no postal address is published; only a GDPR Art. 13 privacy policy naming Andrzej Gołoś as controller. Adding analytics means a consent banner and revisiting this.
+- **2026-10-18** — The CD links to the band's page on folk.pl (the shop has no per-album pages).
+- **2026-10-18** — "Koncerty na okazje" (occasion-based concerts for culture centres and parishes): concept is with the band in a private doc. Build occasion pages only after the band approves it.
