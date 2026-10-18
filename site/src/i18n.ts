@@ -6,7 +6,15 @@ export type Lang = 'pl' | 'en';
 export const routes = {
   home: { pl: '/', en: '/en/' },
   press: { pl: '/dla-organizatorow/', en: '/en/promoters/' },
+  privacy: { pl: '/polityka-prywatnosci/', en: '/en/privacy/' },
 } as const;
+
+// The data controller named in the privacy policy (GDPR Art. 13); contact goes through contact.email.
+// deploy-site.sh refuses to deploy while the name is empty.
+export const legal = {
+  owner: { name: 'Andrzej Gołoś' },
+  effective: '2026-10-18',
+};
 
 export const members = [
   { id: 'm1', name: { pl: 'Ewa Karasińska', en: 'Ewa Karasińska' } },
@@ -112,11 +120,15 @@ export const t = {
       sending: 'Wysyłanie…',
       ok: 'Dziękujemy. Wiadomość dotarła, odpiszemy wkrótce.',
       error: 'Nie udało się wysłać. Napisz bezpośrednio na adres email poniżej.',
+      note: 'Imię, e-mail i treść wiadomości wykorzystamy tylko po to, żeby odpowiedzieć.',
+      noteLink: 'Polityka prywatności',
     },
     orEmail: 'albo bezpośrednio',
     english: 'We also speak English.',
     listen: { play: 'Posłuchaj', pause: 'Pauza', label: 'Odtwórz utwór „Iz-za hory kamjanoji” z płyty' },
     footerCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    footerLegal: { privacy: 'Polityka prywatności' },
+    legalPages: { privacy: 'Polityka prywatności', effective: 'Obowiązuje od', missing: 'DO UZUPEŁNIENIA' },
     press: {
       title: 'Dla organizatorów',
       lead: 'Wszystko, czego potrzeba, żeby zaprosić Podoroж i zapowiedzieć koncert.',
@@ -201,11 +213,15 @@ export const t = {
       sending: 'Sending…',
       ok: 'Thank you. Your message arrived, we will reply soon.',
       error: 'Sending failed. Please write directly to the email address below.',
+      note: 'We use your name, email and message only to reply.',
+      noteLink: 'Privacy policy',
     },
     orEmail: 'or directly',
     english: '',
     listen: { play: 'Listen', pause: 'Pause', label: 'Play “Iz-za hory kamjanoji” from the album' },
     footerCredit: 'Film: OSKAR STUDIO WARSZAWA',
+    footerLegal: { privacy: 'Privacy policy' },
+    legalPages: { privacy: 'Privacy policy', effective: 'Effective from', missing: 'TO BE COMPLETED' },
     press: {
       title: 'For promoters',
       lead: 'Everything you need to book Podoroж and announce the concert.',

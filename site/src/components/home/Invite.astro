@@ -58,6 +58,9 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
         <button class="button" type="submit" data-label={f.send} data-sending={f.sending}>{f.send}</button>
         <p class="form__status" role="status" aria-live="polite" data-ok={f.ok} data-error={f.error}></p>
       </div>
+      <p class="form__note">
+        {f.note} <a href={routes.privacy[lang]}>{f.noteLink}</a>.
+      </p>
     </form>
   </div>
 </section>
@@ -189,6 +192,11 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
   }
   .form textarea {
     resize: vertical;
+  }
+  .form__note {
+    max-width: 60ch;
+    font-size: var(--step--1);
+    color: var(--fg-dim);
   }
   .form__foot {
     display: flex;

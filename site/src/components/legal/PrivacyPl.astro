@@ -1,0 +1,57 @@
+---
+import Owner from './Owner.astro';
+import { contact, showFilm } from '../../i18n';
+
+const mail = contact.email;
+---
+
+<h2>1. Administrator</h2>
+<p>
+  Administratorem danych osobowych zbieranych przez stronę zespołu Podoroж (podoroz.art) jest <Owner lang="pl" />.
+  Kontakt w sprawach danych:{' '}
+  <a href={`mailto:${mail}`}>{mail}</a>.
+</p>
+
+<h2>2. Formularz kontaktowy i e-mail</h2>
+<ul>
+  <li><strong>Dane:</strong> imię, adres e-mail, treść wiadomości.</li>
+  <li><strong>Cel:</strong> odpowiedź na wiadomość, a przy zapytaniu o koncert ustalenie jego warunków.</li>
+  <li>
+    <strong>Podstawa prawna:</strong> prawnie uzasadniony interes, czyli odpowiadanie na wiadomości (art. 6 ust. 1
+    lit. f RODO), a przy zapytaniu o koncert działania przed zawarciem umowy (art. 6 ust. 1 lit. b RODO).
+  </li>
+  <li>
+    <strong>Okres przechowywania:</strong> do zakończenia korespondencji, a jeśli zawrzemy umowę, do upływu terminów
+    przedawnienia roszczeń.
+  </li>
+  <li>Podanie danych jest dobrowolne, ale bez adresu e-mail nie możemy odpowiedzieć.</li>
+</ul>
+
+<h2>3. Logi serwera</h2>
+<p>
+  Serwer zapisuje adres IP, czas wejścia, otwartą podstronę i nazwę przeglądarki, żeby chronić stronę przed atakami
+  (art. 6 ust. 1 lit. f RODO). Logi są usuwane po 14 dniach. Adres IP nadawcy formularza serwer trzyma w pamięci przez
+  10 minut jako ochronę przed spamem.
+</p>
+
+<h2>4. Odbiorcy danych</h2>
+<p>
+  Dane przetwarzają w naszym imieniu: Hetzner Online GmbH (serwer), Cloudflare, Inc. (przesyłanie ruchu i poczty) oraz
+  Google (skrzynka Gmail). Cloudflare i Google mogą przetwarzać dane w USA na podstawie EU–US Data Privacy Framework.
+  Nie przekazujemy danych nikomu innemu.
+</p>
+
+<h2>5. Cookies</h2>
+<p>
+  Strona nie używa plików cookies ani narzędzi analitycznych.{
+    showFilm &&
+      ' Film z YouTube (youtube-nocookie.com) ładuje się dopiero po kliknięciu i od tej chwili dane przetwarza Google na własnych zasadach.'
+  }
+</p>
+
+<h2>6. Twoje prawa</h2>
+<p>
+  Masz prawo do dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przeniesienia oraz do
+  sprzeciwu. Napisz na <a href={`mailto:${mail}`}>{mail}</a>. Możesz też złożyć skargę do Prezesa Urzędu Ochrony Danych
+  Osobowych (ul. Stawki 2, 00-193 Warszawa).
+</p>

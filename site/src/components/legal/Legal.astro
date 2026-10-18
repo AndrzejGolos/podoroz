@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t, legal, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  page: 'privacy';
+}
+
+const { lang, page } = Astro.props;
+const l = t[lang].legalPages;
+const title = l[page];
+const effective = new Intl.DateTimeFormat(lang === 'pl' ? 'pl-PL' : 'en-GB', { dateStyle: 'long', timeZone: 'UTC' }).format(
+  new Date(legal.effective),
+);
+---
+
+<Base lang={lang} page={page} theme="paper" title={title}>
+  <article class="legal">
+    <header class="legal__head">
+      <h1 class="legal__title">{title}</h1>
+      <p class="legal__meta">{l.effective} {effective}</p>
+    </header>
+    <div class="legal__body">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 4rem var(--gutter) 6rem;
+  }
+  .legal__head {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+  .legal__title {
+    font-size: var(--step-3);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+  .legal__meta {
+    font-size: var(--step--1);
+    color: var(--fg-dim);
+  }
+  .legal__body :global(h2) {
+    margin: 2.75rem 0 1rem;
+    font-size: var(--step-1);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .legal__body :global(h3) {
+    margin: 1.75rem 0 0.75rem;
+    font-size: var(--step-0);
+    font-weight: 500;
+  }
+  .legal__body :global(p + p),
+  .legal__body :global(p + ul),
+  .legal__body :global(ul + p),
+  .legal__body :global(ol + p),
+  .legal__body :global(p + ol) {
+    margin-top: 1em;
+  }
+  .legal__body :global(ul),
+  .legal__body :global(ol) {
+    padding-left: 1.5rem;
+  }
+  .legal__body :global(ul) {
+    list-style: disc;
+  }
+  .legal__body :global(ol) {
+    list-style: decimal;
+  }
+  .legal__body :global(li + li) {
+    margin-top: 0.5em;
+  }
+  .legal__body :global(.missing) {
+    padding: 0 0.3em;
+    background: var(--paper-shade);
+    outline: 1px dashed var(--fg-dim);
+  }
+</style>

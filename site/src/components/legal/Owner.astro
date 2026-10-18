@@ -1,0 +1,14 @@
+---
+// The data controller's name from i18n `legal`, or a visible gap while it is missing.
+import { t, legal, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { name } = legal.owner;
+const missing = t[lang].legalPages.missing;
+---
+
+{name ? <strong>{name}</strong> : <span class="missing">[{missing}]</span>}
