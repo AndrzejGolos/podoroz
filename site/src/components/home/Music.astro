@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import cover from '../../assets/album-cover.png';
-import { t, tracks, streaming, contact, showFilm, type Lang } from '../../i18n';
+import { t, tracks, streaming, shop, contact, showFilm, type Lang } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -34,6 +34,14 @@ const c = t[Astro.props.lang];
           </div>
         )
       }
+      <div class="music__streaming" data-view="rise">
+        <p class="music__small">{c.buy.label}</p>
+        <ul>
+          <li>
+            <a href={shop} hreflang="pl">{c.buy.link}</a>
+          </li>
+        </ul>
+      </div>
       <h4 class="music__small">{c.tracklist}</h4>
       <ol class="tracks">
         {

@@ -46,6 +46,8 @@ export const tracks: [string, string][] = [
 export const streaming: { label: string; href: string }[] = [
   { label: 'Spotify', href: 'https://open.spotify.com/artist/3qTzRZqGj2qf0fLeVHZtt7' },
 ];
+// Where to buy the CD. folk.pl has no per-album pages, so this is the band's page there.
+export const shop = 'https://folk.pl/folk/Zespoly/Zespol.php?Podoroz';
 export const concerts: { date: string; place: { pl: string; en: string }; href?: string }[] = [];
 
 // Studio film embed in the Music section. Shown for the band review; it is not the
@@ -100,6 +102,7 @@ export const t = {
     filmNote: 'Odtwarzacz YouTube załaduje się dopiero po kliknięciu.',
     filmCredit: 'Film: OSKAR STUDIO WARSZAWA',
     listenOn: 'Słuchaj w serwisach',
+    buy: { label: 'Płyta CD', link: 'Kup w sklepie folk.pl' },
     liveTitle: 'Na żywo',
     liveText: [
       'Gramy koncerty kameralne i plenerowe. Nasz repertuar sprawdza się wszędzie tam, gdzie jest przestrzeń na uważne słuchanie: od kameralnych scen i sal koncertowych, przez kościoły i galerie, po festiwale muzyki tradycyjnej.',
@@ -193,6 +196,7 @@ export const t = {
     filmNote: 'The YouTube player loads only after you click.',
     filmCredit: 'Film: OSKAR STUDIO WARSZAWA',
     listenOn: 'Listen on',
+    buy: { label: 'CD', link: 'Buy at folk.pl (Polish shop)' },
     liveTitle: 'Live',
     liveText: [
       'We perform intimate and outdoor concerts. Our repertoire works best where there is space for attentive listening: from small stages and concert halls, through churches and galleries, to traditional music festivals.',
