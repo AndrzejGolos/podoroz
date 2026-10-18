@@ -10,25 +10,7 @@ VPS's own postfix on 127.0.0.1:25 (needs SPF + DKIM for podoroz.art); optional: 
 
 ## Deploy (VPS)
 
-```sh
-cp .env.example .env   # chmod 600 .env; SMTP_* only for an external mailbox
-npm ci --omit=dev
-```
-
-systemd unit `/etc/systemd/system/podoroz-form.service`:
-
-```ini
-[Service]
-WorkingDirectory=/srv/podoroz/form-relay
-ExecStart=/usr/bin/node --env-file=.env server.mjs
-Restart=on-failure
-User=www-data
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Proxy (nginx): `location = /api/contact { proxy_pass http://127.0.0.1:8787; proxy_set_header X-Real-IP $remote_addr; }`
-Proxy (Caddy): `handle /api/contact { reverse_proxy 127.0.0.1:8787 { header_up X-Real-IP {remote_host} } }`
-
-Build the site with `PUBLIC_FORM_ENDPOINT=/api/contact`.
+Production runs on hermes-vps as the `podoroz-form` systemd service (unprivileged
+DynamicUser, DKIM key passed as a credential). See `../deploy/`:
+`setup-server.sh` (one-time), `podoroz-form.service`, `nginx-podoroz.conf`,
+and `deploy-site.sh` for every release.
