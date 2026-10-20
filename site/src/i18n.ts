@@ -111,7 +111,7 @@ export const t = {
     description:
       'Podoroж to zespół wokalny śpiewający wielogłosowe pieśni z tradycji wschodniosłowiańskiej. Koncerty, muzyka, kontakt.',
     skip: 'Przejdź do treści',
-    nav: { about: 'O nas', ensemble: 'Zespół', music: 'Muzyka', live: 'Koncerty', press: 'Dla organizatorów', contact: 'Kontakt' },
+    nav: { about: 'O nas', ensemble: 'Zespół', music: 'Muzyka', press: 'Dla organizatorów', contact: 'Kontakt' },
     langSwitch: { label: 'English version', short: 'EN' },
     subtitle: 'Wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia',
     scrollCue: 'Przewiń',
@@ -134,7 +134,6 @@ export const t = {
     liveText: [
       'Gramy koncerty kameralne i plenerowe. Nasz repertuar sprawdza się wszędzie tam, gdzie jest przestrzeń na uważne słuchanie: od kameralnych scen i sal koncertowych, przez kościoły i galerie, po festiwale muzyki tradycyjnej.',
     ],
-    concertsTitle: 'Gdzie graliśmy',
     photoAlts: {
       outdoor: 'Zespół śpiewa boso na drewnianym pomoście nad jeziorem, o zachodzie słońca',
       stage: 'Zespół śpiewa na scenie przy mikrofonach, z nutami w dłoniach',
@@ -208,7 +207,7 @@ export const t = {
     description:
       'Podoroж is a vocal ensemble performing polyphonic songs from the East Slavic tradition. Concerts, music, contact.',
     skip: 'Skip to content',
-    nav: { about: 'About', ensemble: 'Ensemble', music: 'Music', live: 'Concerts', press: 'For promoters', contact: 'Contact' },
+    nav: { about: 'About', ensemble: 'Ensemble', music: 'Music', press: 'For promoters', contact: 'Contact' },
     langSwitch: { label: 'Wersja polska', short: 'PL' },
     subtitle: 'Polyphonic songs from Ukraine, Belarus and Podlasie',
     scrollCue: 'Scroll',
@@ -231,7 +230,6 @@ export const t = {
     liveText: [
       'We perform intimate and outdoor concerts. Our repertoire works best where there is space for attentive listening: from small stages and concert halls, through churches and galleries, to traditional music festivals.',
     ],
-    concertsTitle: 'Where we have played',
     photoAlts: {
       outdoor: 'The ensemble singing barefoot on a wooden pier by a lake at sunset',
       stage: 'The ensemble singing on stage at the microphones, holding their scores',

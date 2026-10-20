@@ -37,7 +37,6 @@ const anchor = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
       <li class="nav__wide"><a href={anchor('o-nas')}>{c.nav.about}</a></li>
       <li class="nav__wide"><a href={anchor('zespol')}>{c.nav.ensemble}</a></li>
       <li class="nav__wide"><a href={anchor('muzyka')}>{c.nav.music}</a></li>
-      <li class="nav__wide"><a href={anchor('na-zywo')}>{c.nav.live}</a></li>
       <li><a href={routes.press[lang]} aria-current={page === 'press' ? 'page' : page === 'program' ? 'true' : undefined}>{c.nav.press}</a></li>
       <li class="nav__wide"><a href={anchor('kontakt')}>{c.nav.contact}</a></li>
       <li>
