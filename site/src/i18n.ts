@@ -281,8 +281,8 @@ export const pressExtras = {
 };
 
 // Concert programmes for organizers (PL only: the buyers are Polish institutions).
-// Each gets a page at /dla-organizatorow/<slug>/. Empty songs or video show a
-// "DO UZUPEŁNIENIA" marker, which deploy-site.sh refuses to publish.
+// Each gets a page at /dla-organizatorow/<slug>/. No song lists: the band changes the
+// repertoire from concert to concert. The clips section shows only when videos exist.
 export type Program = {
   slug: string;
   name: string;
@@ -290,7 +290,6 @@ export type Program = {
   where: string;
   short: string;
   text: string[];
-  songs: { title: string; note: string }[];
   // Concert clips in public/video/programy, posters in public/posters/programy.
   videos: { src: string; poster: string; title: string }[];
   videoCaption?: string;
@@ -307,7 +306,6 @@ export const programs: Program[] = [
       'Szczedriwki to pieśni noworoczne, śpiewane w szczodry wieczór, który w kalendarzu juliańskim przypada 13 stycznia. Boże Narodzenie według tego kalendarza wypada 7 stycznia.',
       'Dlatego ten koncert dobrze zaplanować na styczeń, kiedy w kalendarzu imprez robi się pusto.',
     ],
-    songs: [],
     videos: [],
   },
   {
@@ -319,7 +317,6 @@ export const programs: Program[] = [
     text: [
       'Psalmy, pieśni zaduszne i cerkiewne najlepiej brzmią we wnętrzu kościoła. Kilka naszych najlepszych koncertów zagraliśmy właśnie w kościołach.',
     ],
-    songs: [],
     videos: [
       { src: '/video/programy/psalmy-1.mp4', poster: '/posters/programy/psalmy-1.webp', title: 'Psalm' },
       { src: '/video/programy/psalmy-2.mp4', poster: '/posters/programy/psalmy-2.webp', title: 'Psalm „Oj u nedileńku”' },
@@ -336,7 +333,6 @@ export const programs: Program[] = [
     where: 'sala, plener',
     short: 'Wiesnianki, którymi witano wiosnę, przeplatane pieśniami lirycznymi.',
     text: ['Wiesnianki to pieśni obrzędowe, którymi na wsi witano wiosnę. Przeplatamy je pieśniami lirycznymi.'],
-    songs: [],
     videos: [],
   },
   {
@@ -348,7 +344,6 @@ export const programs: Program[] = [
     text: [
       'Noc Kupały przypada z 23 na 24 czerwca, a w kalendarzu juliańskim z 6 na 7 lipca. Pieśni kupalne przeplatamy pieśniami lirycznymi.',
     ],
-    songs: [],
     videos: [],
   },
   {
@@ -361,7 +356,6 @@ export const programs: Program[] = [
       'Pieśni żniwne śpiewano przy pracy w polu i na zakończenie żniw. Przeplatamy je pieśniami lirycznymi.',
       'To koncert do słuchania w sali albo w kościele. Na scenie dożynkowej śpiew wielogłosowy bez instrumentów ginie, dlatego tam nie występujemy.',
     ],
-    songs: [],
     videos: [],
   },
   {
@@ -371,7 +365,6 @@ export const programs: Program[] = [
     where: 'sala, kościół, festiwal',
     short: 'Wielogłosowe pieśni z różnych regionów Ukrainy i Białorusi, w wyborze zespołu. Na festiwal i na każdy termin.',
     text: ['Koncert bez okazji: przegląd pieśni wielogłosowych z różnych regionów Ukrainy i Białorusi, które sami wybraliśmy.'],
-    songs: [],
     videos: [],
   },
 ];
@@ -389,9 +382,8 @@ export const programUi = {
   fee: 'Honorarium',
   feeValue: 'podajemy w odpowiedzi na zapytanie, jedną kwotą razem z dojazdem',
   repertoire: 'Repertuar',
+  repertoireValue: 'zmieniamy go z koncertu na koncert, w ramach tematu programu',
   video: 'Z koncertu',
-  missingSongs: 'DO UZUPEŁNIENIA: 3–5 pieśni ze streszczeniem po polsku',
-  missingVideo: 'DO UZUPEŁNIENIA: nagranie z koncertu',
   pack: 'Zdjęcia, logo i biogram do zapowiedzi',
   back: 'Wszystkie programy',
   form: {
