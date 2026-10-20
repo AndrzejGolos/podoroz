@@ -48,15 +48,19 @@ export const streaming: { label: string; href: string }[] = [
 ];
 // Where to buy the CD. folk.pl has no per-album pages, so this is the band's page there.
 export const shop = 'https://folk.pl/folk/Zespoly/Zespol.php?Podoroz';
-// Where the band has sung, newest first; `date` is a year.
-export const concerts: { date: string; place: { pl: string; en: string }; href?: string }[] = [
+// Where the band has sung, newest first; `date` is a year. `highlight` sets an entry in bold.
+export const concerts: { date: string; place: { pl: string; en: string }; href?: string; highlight?: boolean }[] = [
   { date: '2026', place: { pl: 'Perepelica w Toporkach', en: 'Perepelica festival, Toporki' } },
   { date: '2026', place: { pl: 'Dni Kleszczel', en: 'Kleszczele Days' } },
   { date: '2026', place: { pl: 'Impreza lokalna w Repczycach', en: 'Local festivity, Repczyce' } },
   { date: '2026', place: { pl: 'Kolędowanie w Dobrowodzie', en: 'Carol singing in Dobrowoda' } },
   { date: '2025', place: { pl: 'Koncert w domu kultury w Knyszynie', en: 'Concert at the cultural centre in Knyszyn' } },
   { date: '2025', place: { pl: 'Scena Letnia Chaty Numinosum', en: 'Chata Numinosum Summer Stage' } },
-  { date: '2024', place: { pl: 'Mikołajki Folkowe, Lublin', en: 'Mikołajki Folkowe festival, Lublin' } },
+  {
+    date: '2024',
+    place: { pl: 'Mikołajki Folkowe w Lublinie, scena główna', en: 'Mikołajki Folkowe festival, Lublin, main stage' },
+    highlight: true,
+  },
   {
     date: '2024',
     place: {
@@ -170,7 +174,6 @@ export const t = {
       formatsTitle: 'Formaty koncertu',
       riderTitle: 'Rider techniczny',
       concertsTitle: 'Gdzie graliśmy',
-      concertsNote: 'Śpiewaliśmy też kameralnie, między stolikami restauracji.',
       contactTitle: 'Kontakt',
       contactText: 'Napisz do nas w sprawie terminu, honorarium i warunków technicznych.',
       back: 'Strona główna',
@@ -264,7 +267,6 @@ export const t = {
       formatsTitle: 'Concert formats',
       riderTitle: 'Technical rider',
       concertsTitle: 'Where we have played',
-      concertsNote: 'We have also sung intimately, among restaurant tables.',
       contactTitle: 'Contact',
       contactText: 'Write to us about dates, fee and technical requirements.',
       back: 'Home',

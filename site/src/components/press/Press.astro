@@ -77,13 +77,12 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
           <h2 id="concerts-title" class="label">{p.concertsTitle}</h2>
           <ul class="files">
             {concerts.map((k) => (
-              <li class="played">
+              <li class:list={['played', { 'played--top': k.highlight }]}>
                 <time datetime={k.date}>{k.date}</time>
                 <span>{k.place[lang]}</span>
               </li>
             ))}
           </ul>
-          <p class="press__note">{p.concertsNote}</p>
         </section>
       )
     }
@@ -398,6 +397,9 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
   }
   .played time {
     color: var(--fg-dim);
+  }
+  .played--top {
+    font-weight: 500;
   }
   .press__contact {
     display: flex;

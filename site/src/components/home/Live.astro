@@ -31,7 +31,7 @@ const photos = [
         <h3 class="label">{c.concertsTitle}</h3>
         <ul>
           {concerts.map((k) => (
-            <li>
+            <li class:list={{ 'is-top': k.highlight }}>
               <time datetime={k.date}>{k.date}</time>
               {k.href ? <a href={k.href}>{k.place[lang]}</a> : <span>{k.place[lang]}</span>}
             </li>
@@ -78,6 +78,9 @@ const photos = [
     gap: 1rem;
     padding: 0.6rem 0;
     border-bottom: 1px solid var(--line);
+  }
+  .live__concerts .is-top {
+    font-weight: 500;
   }
   /* Grayscale like the rest of the site; colour returns on hover, as on the album cover */
   .live__photos {
