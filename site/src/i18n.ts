@@ -287,6 +287,10 @@ export type Program = {
   slug: string;
   name: string;
   when: string;
+  // Calendar bars on the organizer page: inclusive 'MM-DD' ranges, wrapping at year end
+  // is split in two. `anytime` draws one hatched bar over the whole year.
+  seasons: [string, string][];
+  anytime?: boolean;
   where: string;
   short: string;
   text: string[];
@@ -300,6 +304,7 @@ export const programs: Program[] = [
     slug: 'koledy',
     name: 'Kolędy i szczedriwki',
     when: 'od połowy grudnia do 2 lutego',
+    seasons: [['12-15', '12-31'], ['01-01', '02-02']],
     where: 'sala, kościół',
     short: 'Kolędy i szczedriwki z Ukrainy, Białorusi i Podlasia na cały okres świąteczny.',
     text: [
@@ -312,6 +317,7 @@ export const programs: Program[] = [
     slug: 'psalmy',
     name: 'Psalmy, pieśni zaduszne i cerkiewne',
     when: 'Wielki Post (luty – kwiecień, w kalendarzu prawosławnym do maja) oraz koniec października i listopad',
+    seasons: [['02-01', '04-30'], ['10-25', '11-30']],
     where: 'kościół, cerkiew, sala kameralna',
     short: 'Jeden program na dwie pory roku: Wielki Post i czas zaduszny.',
     text: [
@@ -330,6 +336,7 @@ export const programs: Program[] = [
     slug: 'wiosna',
     name: 'Wiosna',
     when: 'kwiecień – maj',
+    seasons: [['04-01', '05-31']],
     where: 'sala, plener',
     short: 'Wiesnianki, którymi witano wiosnę, przeplatane pieśniami lirycznymi.',
     text: ['Wiesnianki to pieśni obrzędowe, którymi na wsi witano wiosnę. Przeplatamy je pieśniami lirycznymi.'],
@@ -339,6 +346,7 @@ export const programs: Program[] = [
     slug: 'kupala',
     name: 'Kupała',
     when: '20 czerwca – 7 lipca',
+    seasons: [['06-20', '07-07']],
     where: 'plener, sala',
     short: 'Pieśni kupalne na najkrótszą noc roku, przeplatane lirycznymi.',
     text: [
@@ -350,6 +358,7 @@ export const programs: Program[] = [
     slug: 'zniwa',
     name: 'Żniwa',
     when: 'koniec lipca – wrzesień',
+    seasons: [['07-20', '09-30']],
     where: 'sala, kościół',
     short: 'Pieśni żniwne przeplatane pieśniami lirycznymi.',
     text: ['Pieśni żniwne śpiewano przy pracy w polu i na zakończenie żniw. Przeplatamy je pieśniami lirycznymi.'],
@@ -359,6 +368,8 @@ export const programs: Program[] = [
     slug: 'przeglad',
     name: 'Przegląd: pieśni Ukrainy i Białorusi',
     when: 'cały rok',
+    seasons: [['01-01', '12-31']],
+    anytime: true,
     where: 'sala, kościół, festiwal',
     short: 'Wielogłosowe pieśni z różnych regionów Ukrainy i Białorusi, w wyborze zespołu. Na festiwal i na każdy termin.',
     text: ['Koncert bez okazji: przegląd pieśni wielogłosowych z różnych regionów Ukrainy i Białorusi, które sami wybraliśmy.'],
@@ -368,8 +379,10 @@ export const programs: Program[] = [
 
 export const programUi = {
   sectionTitle: 'Programy koncertowe',
-  sectionLead: 'Pięć programów na okazje z kalendarza i przegląd na każdy termin.',
-  more: 'Szczegóły programu',
+  sectionLead: 'Pięć programów na pory roku i przegląd na każdy termin. Znajdź miesiąc koncertu i sprawdź, co do niego pasuje.',
+  bookingNote: 'Rezerwacja najpóźniej 2 miesiące przed koncertem.',
+  months: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'],
+  now: 'teraz',
   when: 'Kiedy',
   where: 'Gdzie',
   length: 'Czas',

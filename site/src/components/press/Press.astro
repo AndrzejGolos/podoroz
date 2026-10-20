@@ -2,7 +2,8 @@
 import { readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import Base from '../../layouts/Base.astro';
-import { t, bios, contact, concerts, pressExtras, programs, programUi, routes, type Lang } from '../../i18n';
+import ProgramCalendar from './ProgramCalendar.astro';
+import { t, bios, contact, concerts, pressExtras, programUi, type Lang } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -48,18 +49,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
         <section class="block" id="programy" aria-labelledby="programs-title">
           <h2 id="programs-title" class="label">{programUi.sectionTitle}</h2>
           <p class="press__lead">{programUi.sectionLead}</p>
-          <ul class="programs">
-            {programs.map((x) => (
-              <li>
-                <a class="programs__card" href={`${routes.press.pl}${x.slug}/`}>
-                  <span class="programs__name">{x.name}</span>
-                  <span class="press__meta">{x.when}</span>
-                  <span>{x.short}</span>
-                  <span class="programs__more">{programUi.more} →</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <ProgramCalendar />
         </section>
       )
     }
@@ -354,39 +344,6 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     gap: 0.25rem 1.5rem;
     padding: 0.7rem 0;
     border-bottom: 1px solid var(--line);
-  }
-  .programs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-    gap: 1.25rem;
-    width: 100%;
-  }
-  .programs li {
-    display: grid;
-  }
-  .programs__card {
-    display: grid;
-    align-content: start;
-    gap: 0.6rem;
-    padding: 1.25rem;
-    border: 1px solid var(--line);
-    text-decoration: none;
-    transition: border-color 200ms var(--ease-out);
-  }
-  .programs__card:hover {
-    border-color: var(--fg);
-  }
-  .programs__name {
-    font-size: var(--step-1);
-    font-weight: 400;
-    line-height: 1.35;
-  }
-  .programs__more {
-    margin-top: 0.4rem;
-    font-size: var(--step--1);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--fg-dim);
   }
   .press__contact {
     display: flex;

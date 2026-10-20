@@ -1,0 +1,192 @@
+---
+import { programs, programUi as u, routes } from '../../i18n';
+
+// Position on a 365-day year (a non-leap year; one day either way is invisible here).
+const day = (md: string) => {
+  const [m, d] = md.split('-').map(Number);
+  return (Date.UTC(2027, m - 1, d) - Date.UTC(2027, 0, 1)) / 864e5;
+};
+const bar = ([from, to]: [string, string]) => {
+  const start = day(from);
+  return `--from:${((start / 365) * 100).toFixed(2)}%;--len:${(((day(to) + 1 - start) / 365) * 100).toFixed(2)}%`;
+};
+---
+
+<div class="cal" data-cal>
+  <div class="cal__months" aria-hidden="true">
+    <span></span>
+    <ol class="cal__axis">
+      {
+        u.months.map((m, i) => (
+          <li data-month={i}>
+            <span class="cal__m-long">{m}</span>
+            <span class="cal__m-short">{m.slice(0, 1).toUpperCase()}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+  <ol class="cal__rows">
+    {
+      programs.map((p) => (
+        <li class="cal__row">
+          <div class="cal__label">
+            <a class="cal__name" href={`${routes.press.pl}${p.slug}/`}>
+              {p.name} <span aria-hidden="true">→</span>
+            </a>
+            <span class="cal__where">{p.where}</span>
+          </div>
+          <div class="cal__lane">
+            <div class="cal__track" aria-hidden="true">
+              {p.seasons.map((s) => (
+                <span class:list={['cal__bar', { 'cal__bar--anytime': p.anytime }]} style={bar(s)} />
+              ))}
+            </div>
+            <span class="cal__when">{p.when}</span>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="cal__note">{u.bookingNote}</p>
+</div>
+
+<script>
+  // Mark the current month so organizers see how close each season is. Without JS the
+  // calendar reads the same, just without the marker.
+  document.querySelectorAll<HTMLElement>('[data-cal]').forEach((cal) => {
+    const m = new Date().getMonth();
+    cal.style.setProperty('--now', `${(m / 12) * 100}%`);
+    cal.classList.add('has-now');
+    cal.querySelector(`[data-month="${m}"]`)?.classList.add('is-now');
+  });
+</script>
+
+<style>
+  .cal {
+    --label: 18rem;
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .cal__months,
+  .cal__row {
+    display: grid;
+    gap: 0.6rem 1.5rem;
+  }
+  .cal__months > span {
+    display: none;
+  }
+  .cal__axis {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    font-size: var(--step--1);
+    color: var(--fg-dim);
+  }
+  .cal__axis li {
+    padding: 0 0 0.3rem 0.3rem;
+    border-left: 1px solid var(--line);
+  }
+  .cal__axis .is-now {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  .cal__m-long {
+    display: none;
+  }
+  .cal__rows {
+    display: grid;
+  }
+  .cal__row {
+    position: relative;
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .cal__row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .cal__label {
+    display: grid;
+    gap: 0.15rem;
+    align-content: start;
+  }
+  .cal__name {
+    font-size: var(--step-1);
+    font-weight: 400;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  /* The whole row opens the programme page. */
+  .cal__name::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .cal__row:hover .cal__name {
+    text-decoration: underline;
+  }
+  .cal__where,
+  .cal__when,
+  .cal__note {
+    font-size: var(--step--1);
+    color: var(--fg-dim);
+  }
+  .cal__lane {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .cal__track {
+    position: relative;
+    height: 1.5rem;
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size: calc(100% / 12) 100%;
+  }
+  .has-now .cal__track::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 var(--now);
+    width: calc(100% / 12);
+    background: color-mix(in oklch, var(--fg) 7%, transparent);
+  }
+  .cal__bar {
+    position: absolute;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    left: var(--from);
+    width: var(--len);
+    min-width: 4px;
+    background: var(--fg);
+  }
+  .cal__bar--anytime {
+    background: repeating-linear-gradient(135deg, var(--fg) 0 1.5px, transparent 1.5px 6px);
+    outline: 1px solid var(--fg);
+    outline-offset: -1px;
+  }
+  .cal__note {
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 40rem) {
+    .cal__m-long {
+      display: inline;
+    }
+    .cal__m-short {
+      display: none;
+    }
+  }
+  @media (min-width: 56rem) {
+    .cal__months,
+    .cal__row {
+      grid-template-columns: var(--label) 1fr;
+    }
+    .cal__months > span {
+      display: block;
+    }
+    .cal__row {
+      padding: 1.25rem 0;
+    }
+    .cal__track {
+      margin-top: 0.25rem;
+    }
+  }
+</style>
