@@ -77,3 +77,12 @@ Version reviewed: commit 26bf626. Same session. Verdict: APPROVED, 1 finding (mi
 | # | Weight | Claim | Bucket | Resolution |
 |---|---|---|---|---|
 | R7-1 | minor | The PL switch on the EN press kit lands at the top of the PL sales page, though the visitor is organizing | repaired | PL switch on `/en/promoters/` → `/dla-organizatorow/#materialy`; check 7 updated. |
+
+## Round 8
+
+Version reviewed: commit d717841. Same session. Verdict: APPROVED, no findings; R7-1 accepted as repaired.
+
+## Stop condition (revision 2)
+
+1. Critical and important claims of rounds 6–8: all repaired. Pending human decisions carried over: R1-3 (how songs are explained to a Polish audience; production stays blocked until answered, check 12) and R3-2 ("scena główna" at Mikołajki Folkowe).
+2. Rounds 7 and 8: no new critical or important findings.
