@@ -29,3 +29,13 @@ Version reviewed: commit 28d30e2. Same session. Verdict: REVISE, 5 findings (4 i
 | R2-3 | important | A5 says the language answer is required, open question 1 says the FAQ is dropped without it | repaired | Open question 1 now says a missing answer blocks publishing page A only; acceptance check 12 added. Decision itself stays with R1-3. |
 | R2-4 | important | Checks claim to run the deploy guard and relay on the preview; `deploy-site.sh` rsyncs to production and restarts the relay | repaired | Checks split into L / P / R; the guard is its own grep run on `site/dist`; the relay is tested locally against a throwaway SMTP sink; `deploy-site.sh` is never run as a test. |
 | R2-5 | minor | Two identical links to B in adjacent technical answers, against the "once" rule | repaired | One link after the technical answers; rule 3 reworded to one main hand-over plus one contextual technical link. |
+
+## Round 3
+
+Version reviewed: commit 009e271. Same session. Verdict: REVISE, 3 findings (2 important, 1 minor).
+
+| # | Weight | Claim | Bucket | Resolution |
+|---|---|---|---|---|
+| R3-1 | important | B7 on the EN page would send foreign organizers to the Polish page A without warning | repaired | B7 split by language: PL links to page A; EN asks for date and place by e-mail with the 3-day reply, no link to page A. |
+| R3-2 | important | "Keep" is not a valid option for "scena główna" while the festival's own description says "Mała Sala Widowiskowa"; "program główny" is not supported either | decision: oczekuje | Options narrowed to: confirm with ACKiM, or neutral "Mikołajki Folkowe w Lublinie" until confirmed; highlight kept. Who decides: Andrzej. |
+| R3-3 | minor | Band check of the EN on-site texts is a manual step missing from the list | repaired | Added to "Manual steps for Andrzej"; EN page with those texts publishes only after the check. |

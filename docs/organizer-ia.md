@@ -1,6 +1,6 @@
 # Organizer pages: information architecture
 
-Status: draft for review, revised after Codex rounds 1–2 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
+Status: draft for review, revised after Codex rounds 1–3 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
 
 ## Objective
 
@@ -61,7 +61,7 @@ Removed from page A: ZIP button, bio, photos, logo, video/music links, contact b
 | B4 | Logo i sygnet | As today. |
 | B5 | Wideo i muzyka | As today. |
 | B6 | Warunki techniczne (`id="warunki"`) | Full on-site needs (PA, space, changing room, set-up time) + rider PDF when it exists. |
-| B7 | Kontakt | E-mail. Line: "Nie masz jeszcze terminu? Wybierz program →" to page A. |
+| B7 | Kontakt | E-mail. PL line: "Nie masz jeszcze terminu? Wybierz program →" to page A. EN line, no link to the Polish page A: "Looking for a date? Write to kontakt@podoroz.art with the date and place; we reply within 3 days." |
 
 EN `/en/promoters/` = page B in English, plus "Where we have played" (there is no EN choosing page, and foreign festivals need proof). On-site texts become `onSite: { pl, en }` in `i18n.ts`; `OnSite.astro` takes `lang`. I write the EN version; the band checks it.
 
@@ -83,7 +83,10 @@ Stay in the choosing family. Keep: facts table, text, on-site needs, clips, inqu
 
 ### Manual steps for Andrzej
 
-Answer the open questions below; nothing else. The band does not need to supply new material for this change.
+1. Answer the open questions below.
+2. Have the band check the English on-site texts I write (PA, space, changing room, set-up time); the EN page with them is published only after that check.
+
+Nothing else; the band does not need to supply new material for this change.
 
 ### Scale
 
@@ -111,7 +114,7 @@ Each is a pass/fail observation, not a reading of the code. Where it runs: **L**
 ## Open questions
 
 1. Do you introduce or translate the songs in Polish during concerts? Needed for "Czy publiczność zrozumie pieśni?". No answer blocks publishing page A (acceptance check 12); page B and the programme pages are not blocked.
-2. Mikołajki Folkowe 2024: the list says "scena główna", the festival's Vimeo description says "Mała Sala Widowiskowa ACKiM". Keep, reword ("program główny"), or confirm with the festival?
+2. Mikołajki Folkowe 2024: the list says "scena główna", the festival's own Vimeo description says "Mała Sala Widowiskowa ACKiM". Two options: confirm "scena główna" with the festival (ACKiM), or use the neutral "Mikołajki Folkowe w Lublinie" until then. The highlight stays either way.
 3. Featured clip for A3: "Oj u nedileńku" (psalm, 2:15) now, replaced by a przegląd clip when it arrives?
 4. Is there a rider PDF or stage plot to put in B6?
 
