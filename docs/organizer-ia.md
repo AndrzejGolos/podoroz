@@ -1,6 +1,6 @@
 # Organizer pages: information architecture
 
-Status: draft for review, revised after Codex round 1 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
+Status: draft for review, revised after Codex rounds 1–2 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
 
 ## Objective
 
@@ -33,7 +33,7 @@ Problems the user named, plus one found while inventorying:
 
 1. One page, one job, one primary action. Choosing page: "Zapytaj o termin". Materials page: "Pobierz cały pakiet".
 2. Every block has a visible H2. No orphan lists.
-3. The choosing page holds no downloads; the materials page does no selling. Each links to the other once, in words that name the moment ("Masz już termin?" / "Nie masz jeszcze terminu?").
+3. The choosing page holds no downloads; the materials page does no selling. One main hand-over between the moments on each page, in words that name the moment ("Masz już termin?" / "Nie masz jeszcze terminu?"); one contextual link from page A's technical answers to page B's technical section is allowed.
 4. A fact lives once in `site/src/i18n.ts` and may render at two depths (e.g. on-site needs: a short answer on the choosing page, the full list on the materials page).
 5. Order on the choosing page follows the organizer's questions: what is it, when, how does it sound, can I trust them, what about cost and logistics, how do I ask.
 
@@ -45,7 +45,7 @@ Problems the user named, plus one found while inventorying:
 | A2 | Programy na cały rok | The existing calendar (rows link to programme pages, recording badge, current month). The section keeps `id="programy"`: every programme page links back to `/dla-organizatorow/#programy`. | Fit to the calendar |
 | A3 | Posłuchaj | One featured clip (self-hosted, loads on play) + link to the debut album on Spotify + "więcej nagrań: Psalmy, pieśni zaduszne i cerkiewne →". | Remove "I have not heard them" |
 | A4 | Gdzie graliśmy | The concerts list, Mikołajki Folkowe highlighted. One line above it on the ensemble: in this line-up since 2023, each member has sung this music for years (from the existing bio). | Trust |
-| A5 | Pytania organizatorów | Short Q&A, answers of 1–2 sentences: Ile kosztuje koncert? (one total incl. travel, sent within 3 days) · Czy potrzebne jest nagłośnienie? (no in halls up to 100 m² and good-acoustic interiors; yes in big halls and outdoors) · Ile miejsca potrzebujecie? (8–10 m², a changing room helps). The two technical answers end with a text link "Pełne warunki techniczne →" to page B's `#warunki` (B6), for an organizer who must judge feasibility before booking · Jak długo trwa koncert? (45 or 60 min) · Kiedy rezerwować? (at least 2 months ahead) · Czy repertuar jest stały? (changes every concert within the programme theme) · Czy publiczność zrozumie pieśni? (open question 1; this answer is required before page A ships, because Ukrainian and Belarusian lyrics are the most likely reason a culture house or parish hesitates). Rendered as a definition list, all visible, no accordions. | Remove objections |
+| A5 | Pytania organizatorów | Short Q&A, answers of 1–2 sentences: Ile kosztuje koncert? (one total incl. travel, sent within 3 days) · Czy potrzebne jest nagłośnienie? (no in halls up to 100 m² and good-acoustic interiors; yes in big halls and outdoors) · Ile miejsca potrzebujecie? (8–10 m², a changing room helps). One text link after the technical answers (not one per answer), "Pełne warunki techniczne →", leads to page B's `#warunki` (B6), for an organizer who must judge feasibility before booking · Jak długo trwa koncert? (45 or 60 min) · Kiedy rezerwować? (at least 2 months ahead) · Czy repertuar jest stały? (changes every concert within the programme theme) · Czy publiczność zrozumie pieśni? (open question 1; this answer is required before page A ships, because Ukrainian and Belarusian lyrics are the most likely reason a culture house or parish hesitates). Rendered as a definition list, all visible, no accordions. | Remove objections |
 | A6 | Zapytaj o termin | The three booking steps as the section's lead, then the form (no programme preselected, "zaznacz kilka" allowed). | Convert |
 | — | (closing line, not a section) | "Masz już termin? Materiały do zapowiedzi i warunki techniczne →" to page B. | Hand over to page B |
 
@@ -72,7 +72,11 @@ Stay in the choosing family. Keep: facts table, text, on-site needs, clips, inqu
 ### Navigation and links
 
 - Main nav "Dla organizatorów" → page A. Page B is not in the main nav; it is reached from page A's closing line, programme pages, page B's own URL in confirmation e-mails, and the EN switch.
-- Language pairs (`routes` in `i18n.ts`, `hreflang`, canonical): only page B ↔ `/en/promoters/` is a pair. Page A and programme pages have no EN alternate and no `hreflang`; their EN switch is a plain fallback link to `/en/promoters/`. The EN switch on `/en/promoters/` leads to page B. `routes.press` becomes the materials pair; page A gets its own PL-only route.
+- Language pairs (`hreflang`, canonical): only page B ↔ `/en/promoters/` is a pair. Page A and programme pages have no EN alternate and no `hreflang`; their EN switch is a plain fallback link to `/en/promoters/`. The PL switch on `/en/promoters/` leads to page B.
+- Routes in `i18n.ts`, replacing today's `routes.press`:
+  - `materials: { pl: '/dla-organizatorow/materialy/', en: '/en/promoters/' }`, a normal pair. Consumers: page B and `/en/promoters/` (`Base` alternates, `Nav` switch), programme pages' materials link, page A's closing line, home PL text link, EN home button (`Invite.astro`), EN nav item "For promoters".
+  - `organizers: '/dla-organizatorow/'`, a plain PL string outside the pairs, so `Base` never reads an `.en` for it. Consumers: PL nav item "Dla organizatorów", calendar row links (`ProgramCalendar.astro`) and the programme pages' back link `#programy`, page B's "Nie masz jeszcze terminu?" line, home PL button.
+  - `Base.astro` and `Nav.astro` already treat `page="program"` as a page with no alternate (no `hreflang`, switch falls back to the EN press page). Page A uses the same mode (`page="organizers"`), with the fallback pointing to `materials.en`. `Nav`'s `aria-current` marks "Dla organizatorów" on page A and programme pages, and on page B too (same section of the site).
 - Home "Zaproś nas" section: the ghost button becomes "Programy koncertowe dla organizatorów" → page A (choosing is the intent of that section); a quiet text link "Materiały prasowe: zdjęcia, logo, biogram" → page B for journalists and booked organizers. EN home: the button leads to `/en/promoters/` as today.
 - Anchors that must keep working: `/dla-organizatorow/#programy` (back link from every programme page) and `/dla-organizatorow/#zapytanie` (header button, possible mail links).
 - Forms keep their names: `zapytanie` (programme inquiry, pages A and programme pages) and `contact` (home).
@@ -87,25 +91,26 @@ New programmes, concerts and recordings are data in `i18n.ts`; the layout does n
 
 ## Acceptance checks
 
-Run on the local build and again on the Netlify preview; each is a pass/fail observation, not a reading of the code.
+Each is a pass/fail observation, not a reading of the code. Where it runs: **L** local build and local browser, **P** Netlify preview, **R** production after Andrzej's go (not part of this change's checks: `deploy-site.sh` rsyncs to the live server and restarts the relay, so it is never run as a test).
 
-| # | Path or check | Pass when |
-|---|---|---|
-| 1 | Mail → `/dla-organizatorow/kupala/` | Inquiry form has Kupała ticked; "materiały" link opens page B; back link lands on the calendar (`#programy`) |
-| 2 | Home (PL) → "Zaproś nas" | Button opens page A; text link opens page B |
-| 3 | Nav "Dla organizatorów" | Opens page A; header shows one button, "Zapytaj o termin", which scrolls to the form |
-| 4 | Booked organizer / journalist | Page A closing line opens page B; page B header shows one button, the ZIP, and it downloads a non-empty ZIP |
-| 5 | Search entry on page A, technical doubt | "Pełne warunki techniczne →" lands on page B `#warunki` |
-| 6 | EN visitor | `/en/promoters/` shows no Polish on-site text; EN switch on page A and programme pages opens `/en/promoters/`; PL switch on `/en/promoters/` opens page B |
-| 7 | `hreflang` / canonical | Page B and `/en/promoters/` reference each other; page A and programme pages carry no `hreflang`; every canonical is the page's own URL |
-| 8 | Every H2 | Each block on A and B has a visible heading; no list stands without one |
-| 9 | Forms | Built HTML has one `form-name` `zapytanie` per inquiry form and `contact` on home; a local relay test with two programmes ticked sends one mail listing both |
-| 10 | Build and deploy | `npm run build` passes; `deploy-site.sh` guard passes on the build; Netlify draft deploy serves A, B, all six programme pages with 200 |
-| 11 | Widths | A, B and one programme page at 375, 768 and 1440 px with no horizontal scroll |
+| # | Path or check | Pass when | Where |
+|---|---|---|---|
+| 1 | Mail → `/dla-organizatorow/kupala/` | Inquiry form has Kupała ticked; "materiały" link opens page B; back link lands on the calendar (`#programy`) | L, P |
+| 2 | Home (PL) → "Zaproś nas" | Button opens page A; text link opens page B | L, P |
+| 3 | Nav "Dla organizatorów" | Opens page A; header shows one button, "Zapytaj o termin", which scrolls to the form | L, P |
+| 4 | Booked organizer / journalist | Page A closing line opens page B; page B header shows one button, the ZIP; `unzip -l` on the built ZIP lists `biogram-pl.txt`, `biogram-en.txt`, every file under `public/press/photos` and `public/press/logo` (a rider or stage plot, once it exists, goes under `public/press/` so it lands in the ZIP too) | L |
+| 5 | Search entry on page A, technical doubt | "Pełne warunki techniczne →" lands on page B `#warunki` | L, P |
+| 6 | EN visitor | `/en/promoters/` shows no Polish on-site text; EN switch on page A and programme pages opens `/en/promoters/`; PL switch on `/en/promoters/` opens page B | L, P |
+| 7 | `hreflang` / canonical | Page B and `/en/promoters/` reference each other; page A and programme pages carry no `hreflang`; every canonical is the page's own URL | L |
+| 8 | Every H2 | Each block on A and B has a visible heading; no list stands without one | L |
+| 9 | Forms | Built HTML has one `form-name` `zapytanie` per inquiry form and `contact` on home; the relay, run locally against a throwaway SMTP sink (as on 20.10), accepts a post with two programmes ticked and the sink receives one mail listing both | L |
+| 10 | Build and deploy | `npm run build` passes; the guard's own command, run alone on `site/dist` (`grep -rlq -e 'DO UZUPEŁNIENIA' -e 'TO BE COMPLETED' site/dist` finds nothing), passes; Netlify draft deploy serves A, B, `/en/promoters/` and all six programme pages with 200 | L, P |
+| 11 | Widths | A, B and one programme page at 375, 768 and 1440 px with no horizontal scroll | L |
+| 12 | Language FAQ | Page A's "Pytania organizatorów" contains "Czy publiczność zrozumie pieśni?" with the band's answer | L, P |
 
 ## Open questions
 
-1. Do you introduce or translate the songs in Polish during concerts? Needed for "Czy publiczność zrozumie pieśni?"; without an answer the question is left out.
+1. Do you introduce or translate the songs in Polish during concerts? Needed for "Czy publiczność zrozumie pieśni?". No answer blocks publishing page A (acceptance check 12); page B and the programme pages are not blocked.
 2. Mikołajki Folkowe 2024: the list says "scena główna", the festival's Vimeo description says "Mała Sala Widowiskowa ACKiM". Keep, reword ("program główny"), or confirm with the festival?
 3. Featured clip for A3: "Oj u nedileńku" (psalm, 2:15) now, replaced by a przegląd clip when it arrives?
 4. Is there a rider PDF or stage plot to put in B6?
