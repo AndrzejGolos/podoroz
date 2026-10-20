@@ -391,7 +391,10 @@ export const programs: Program[] = [
     text: [
       'Noc Kupały przypada z 23 na 24 czerwca, a w kalendarzu juliańskim z 6 na 7 lipca. Pieśni kupalne przeplatamy pieśniami lirycznymi.',
     ],
-    videos: [],
+    videos: [
+      { src: '/video/programy/kupala-1.mp4', poster: '/posters/programy/kupala-1.webp', title: 'Pieśń kupalna „Oj, ne kuj zozule”' },
+    ],
+    videoCaption: 'Mikołajki Folkowe w Lublinie, scena główna, 2024.',
   },
   {
     slug: 'zniwa',
@@ -412,7 +415,13 @@ export const programs: Program[] = [
     where: 'sala, kościół, festiwal',
     short: 'Wielogłosowe pieśni z różnych regionów Ukrainy i Białorusi, w wyborze zespołu. Na festiwal i na każdy termin.',
     text: ['Koncert bez okazji: przegląd pieśni wielogłosowych z różnych regionów Ukrainy i Białorusi, które sami wybraliśmy.'],
-    videos: [],
+    videos: [
+      { src: '/video/programy/przeglad-1.mp4', poster: '/posters/programy/przeglad-1.webp', title: '„Cyhanka-worożka”' },
+      { src: '/video/programy/przeglad-2.mp4', poster: '/posters/programy/przeglad-2.webp', title: 'Bylina „Oj, u poli bylyna stojała”' },
+      { src: '/video/programy/przeglad-3.mp4', poster: '/posters/programy/przeglad-3.webp', title: '„Koły b Boh daw zweczora pohodu”' },
+      { src: '/video/programy/przeglad-4.mp4', poster: '/posters/programy/przeglad-4.webp', title: '„Iz-za hory kamjanoji”' },
+    ],
+    videoCaption: 'Mikołajki Folkowe w Lublinie, scena główna, 2024.',
   },
 ];
 
@@ -449,10 +458,10 @@ export const programUi = {
   backToForm: 'Nie masz jeszcze terminu? Zapytaj o termin ↑',
   listen: {
     title: 'Posłuchaj',
-    program: 'psalmy',
-    clip: '/video/programy/psalmy-2.mp4',
+    program: 'przeglad',
+    clip: '/video/programy/przeglad-4.mp4',
     album: 'Debiutancki album na Spotify →',
-    more: 'Więcej nagrań: Psalmy, pieśni zaduszne i cerkiewne →',
+    more: 'Więcej nagrań z tego koncertu w programie „Przegląd” →',
   },
   playedLead: 'W obecnym składzie śpiewamy od 2023 roku. Wcześniej każde z nas szło tym szlakiem przez kilka, kilkanaście albo kilkadziesiąt lat.',
   faq: {

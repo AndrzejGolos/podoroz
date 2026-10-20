@@ -105,7 +105,7 @@ Each is a pass/fail observation, not a reading of the code. **L** local build an
 
 1. Resolved 20.10 (Andrzej): every song is introduced in Polish, in a way that engages the audience.
 2. Resolved 20.10 (Andrzej): the band sang on the main stage; the venue was changed on the day of the concert, after the festival's description was published. "Scena główna" stays.
-3. Featured clip for "Posłuchaj": "Oj u nedileńku" (psalm, 2:15) now, replaced by a przegląd clip when it arrives?
+3. Resolved 20.10 (Andrzej): the featured clip is the live "Iz-za hory kamjanoji" from Mikołajki Folkowe 2024, in the przegląd programme.
 4. Is there a rider PDF or stage plot for "Warunki techniczne"?
 
 ## Next actions
