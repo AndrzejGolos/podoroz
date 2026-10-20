@@ -36,6 +36,14 @@ const transport = nodemailer.createTransport({
 });
 
 const LIMITS = { name: 200, email: 254, message: 5000 };
+const EXTRAS = [
+  ['program', 'Program'],
+  ['institution', 'Instytucja'],
+  ['phone', 'Telefon'],
+  ['date', 'Proponowana data'],
+  ['town', 'Miejscowość'],
+  ['venue', 'Miejsce'],
+];
 const MAX_BODY = 20_000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -91,10 +99,15 @@ const server = http.createServer((req, res) => {
     const name = (data.get('name') || '').trim();
     const email = (data.get('email') || '').trim();
     const message = (data.get('message') || '').trim();
+    // Programme inquiry form (/dla-organizatorow/<programme>/): one-line extras, message optional.
+    const extras = EXTRAS.map(([key, label]) => [label, (data.get(key) || '').trim()]);
+    const program = extras[0][1];
     const valid =
-      name && message && EMAIL_RE.test(email) && !/[\r\n]/.test(name) &&
-      name.length <= LIMITS.name && email.length <= LIMITS.email && message.length <= LIMITS.message;
+      name && (message || program) && EMAIL_RE.test(email) && !/[\r\n]/.test(name) &&
+      name.length <= LIMITS.name && email.length <= LIMITS.email && message.length <= LIMITS.message &&
+      extras.every(([, v]) => v.length <= LIMITS.name && !/[\r\n]/.test(v));
     if (!valid) return reply(req, res, 400, lang);
+    const details = extras.filter(([, v]) => v).map(([label, v]) => `${label}: ${v}`).join('\n');
 
     const ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
     if (rateLimited(ip)) return reply(req, res, 429, lang);
@@ -104,8 +117,8 @@ const server = http.createServer((req, res) => {
         from: { name: 'Formularz podoroz.art', address: MAIL_FROM },
         to: MAIL_TO,
         replyTo: { name, address: email },
-        subject: `Formularz: ${name}`,
-        text: `${message}\n\n--\n${name} <${email}>\nJęzyk strony: ${lang}`,
+        subject: program ? `Zapytanie: ${program}, ${extras[1][1] || name}` : `Formularz: ${name}`,
+        text: `${[details, message].filter(Boolean).join('\n\n')}\n\n--\n${name} <${email}>\nJęzyk strony: ${lang}`,
       });
       reply(req, res, 200, lang);
     } catch (err) {

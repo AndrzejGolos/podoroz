@@ -1,0 +1,166 @@
+---
+import { t, programs, programUi, contact } from '../../i18n';
+
+interface Props {
+  selected: string;
+}
+
+const { selected } = Astro.props;
+const f = programUi.form;
+const base = t.pl.form;
+// Same endpoint as the home page form (see Invite.astro).
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
+---
+
+<form class="inquiry" name="zapytanie" method="POST" action={endpoint} data-netlify="true" netlify-honeypot="bot-field" data-inquiry>
+  <input type="hidden" name="form-name" value="zapytanie" />
+  <input type="hidden" name="lang" value="pl" />
+  <p class="visually-hidden">
+    <label>Bot <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+  <label class="inquiry__field">
+    <span>{f.program}</span>
+    <select name="program" required>
+      {programs.map((p) => <option value={p.name} selected={p.slug === selected}>{p.name}</option>)}
+    </select>
+  </label>
+  <label class="inquiry__field">
+    <span>{f.institution}</span>
+    <input name="institution" type="text" autocomplete="organization" required />
+  </label>
+  <label class="inquiry__field">
+    <span>{f.name}</span>
+    <input name="name" type="text" autocomplete="name" required />
+  </label>
+  <div class="inquiry__pair">
+    <label class="inquiry__field">
+      <span>{f.email}</span>
+      <input name="email" type="email" autocomplete="email" required />
+    </label>
+    <label class="inquiry__field">
+      <span>{f.phone}</span>
+      <input name="phone" type="tel" autocomplete="tel" />
+    </label>
+  </div>
+  <div class="inquiry__pair">
+    <label class="inquiry__field">
+      <span>{f.date}</span>
+      <input name="date" type="text" placeholder={f.datePlaceholder} />
+    </label>
+    <label class="inquiry__field">
+      <span>{f.town}</span>
+      <input name="town" type="text" autocomplete="address-level2" />
+    </label>
+  </div>
+  <label class="inquiry__field">
+    <span>{f.venue}</span>
+    <select name="venue">
+      <option value="">–</option>
+      {f.venues.map((v) => <option>{v}</option>)}
+    </select>
+  </label>
+  <label class="inquiry__field">
+    <span>{f.message}</span>
+    <textarea name="message" rows="4"></textarea>
+  </label>
+  <div class="inquiry__foot">
+    <button class="button" type="submit" data-label={f.send} data-sending={base.sending}>{f.send}</button>
+    <p class="inquiry__status" role="status" aria-live="polite" data-ok={base.ok} data-error={base.error}></p>
+  </div>
+  <p class="inquiry__note">
+    {f.note} {f.direct}: <a href={`mailto:${contact.email}`}>{contact.email}</a>
+  </p>
+</form>
+
+<script>
+  // Inline submit, as on the home page; without JS the form posts normally.
+  document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const status = form.querySelector<HTMLElement>('.inquiry__status')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending!;
+      status.textContent = '';
+      try {
+        const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        const program = form.querySelector<HTMLSelectElement>('select[name=program]')!.value;
+        form.reset();
+        form.querySelector<HTMLSelectElement>('select[name=program]')!.value = program;
+        status.textContent = status.dataset.ok!;
+      } catch {
+        status.textContent = status.dataset.error!;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btn.dataset.label!;
+      }
+    });
+  });
+</script>
+
+<style>
+  .inquiry {
+    display: grid;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 44rem;
+  }
+  .inquiry__pair {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .inquiry__field {
+    display: grid;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    color: var(--fg-dim);
+  }
+  .inquiry input,
+  .inquiry select,
+  .inquiry textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: color-mix(in oklch, var(--fg) 4%, transparent);
+    color: var(--fg);
+    font: inherit;
+    font-size: var(--step-0);
+    letter-spacing: normal;
+  }
+  .inquiry input:focus,
+  .inquiry select:focus,
+  .inquiry textarea:focus {
+    border-color: var(--fg);
+    outline: none;
+  }
+  .inquiry textarea {
+    resize: vertical;
+  }
+  .inquiry__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+  .inquiry__status,
+  .inquiry__note {
+    max-width: 60ch;
+    font-size: var(--step--1);
+  }
+  .inquiry__note {
+    color: var(--fg-dim);
+  }
+  @media (min-width: 40rem) {
+    .inquiry__pair {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

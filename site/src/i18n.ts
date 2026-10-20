@@ -279,3 +279,127 @@ export const pressExtras = {
   riderPdf: '',
   stagePlotPdf: '',
 };
+
+// Concert programmes for organizers (PL only: the buyers are Polish institutions).
+// Each gets a page at /dla-organizatorow/<slug>/. Empty songs or video show a
+// "DO UZUPEŁNIENIA" marker, which deploy-site.sh refuses to publish.
+export type Program = {
+  slug: string;
+  name: string;
+  when: string;
+  where: string;
+  short: string;
+  text: string[];
+  songs: { title: string; note: string }[];
+  video: string;
+};
+
+export const programs: Program[] = [
+  {
+    slug: 'koledy',
+    name: 'Kolędy i szczedriwki',
+    when: 'od połowy grudnia do 2 lutego',
+    where: 'sala, kościół',
+    short: 'Kolędy i szczedriwki z Ukrainy, Białorusi i Podlasia na cały okres świąteczny.',
+    text: [
+      'Szczedriwki to pieśni noworoczne, śpiewane w szczodry wieczór, który w kalendarzu juliańskim przypada 13 stycznia. Boże Narodzenie według tego kalendarza wypada 7 stycznia.',
+      'Dlatego ten koncert dobrze zaplanować na styczeń, kiedy w kalendarzu imprez robi się pusto.',
+    ],
+    songs: [],
+    video: '',
+  },
+  {
+    slug: 'psalmy',
+    name: 'Psalmy, pieśni zaduszne i cerkiewne',
+    when: 'Wielki Post (luty – kwiecień, w kalendarzu prawosławnym do maja) oraz koniec października i listopad',
+    where: 'kościół, cerkiew, sala kameralna',
+    short: 'Jeden program na dwie pory roku: Wielki Post i czas zaduszny.',
+    text: [
+      'Psalmy, pieśni zaduszne i cerkiewne najlepiej brzmią we wnętrzu kościoła. Kilka naszych najlepszych koncertów zagraliśmy właśnie w kościołach.',
+    ],
+    songs: [],
+    video: '',
+  },
+  {
+    slug: 'wiosna',
+    name: 'Wiosna',
+    when: 'kwiecień – maj',
+    where: 'sala, plener',
+    short: 'Wiesnianki, którymi witano wiosnę, przeplatane pieśniami lirycznymi.',
+    text: ['Wiesnianki to pieśni obrzędowe, którymi na wsi witano wiosnę. Przeplatamy je pieśniami lirycznymi.'],
+    songs: [],
+    video: '',
+  },
+  {
+    slug: 'kupala',
+    name: 'Kupała',
+    when: '20 czerwca – 7 lipca',
+    where: 'plener, sala',
+    short: 'Pieśni kupalne na najkrótszą noc roku, przeplatane lirycznymi.',
+    text: [
+      'Noc Kupały przypada z 23 na 24 czerwca, a w kalendarzu juliańskim z 6 na 7 lipca. Pieśni kupalne przeplatamy pieśniami lirycznymi.',
+    ],
+    songs: [],
+    video: '',
+  },
+  {
+    slug: 'zniwa',
+    name: 'Żniwa',
+    when: 'koniec lipca – wrzesień',
+    where: 'sala, kościół',
+    short: 'Pieśni żniwne i liryczne: koncert do słuchania, nie występ na scenie dożynkowej.',
+    text: [
+      'Pieśni żniwne śpiewano przy pracy w polu i na zakończenie żniw. Przeplatamy je pieśniami lirycznymi.',
+      'To koncert do słuchania w sali albo w kościele. Na scenie dożynkowej śpiew wielogłosowy bez instrumentów ginie, dlatego tam nie występujemy.',
+    ],
+    songs: [],
+    video: '',
+  },
+  {
+    slug: 'przeglad',
+    name: 'Przegląd: pieśni Ukrainy i Białorusi',
+    when: 'cały rok',
+    where: 'sala, kościół, festiwal',
+    short: 'Wielogłosowe pieśni z różnych regionów Ukrainy i Białorusi, w wyborze zespołu. Na festiwal i na każdy termin.',
+    text: ['Koncert bez okazji: przegląd pieśni wielogłosowych z różnych regionów Ukrainy i Białorusi, które sami wybraliśmy.'],
+    songs: [],
+    video: '',
+  },
+];
+
+export const programUi = {
+  sectionTitle: 'Programy koncertowe',
+  sectionLead: 'Pięć programów na okazje z kalendarza i przegląd na każdy termin.',
+  more: 'Szczegóły programu',
+  when: 'Kiedy',
+  where: 'Gdzie',
+  length: 'Czas',
+  lengthValue: '45 albo 60 minut',
+  booking: 'Rezerwacja',
+  bookingValue: 'najpóźniej 2 miesiące przed koncertem',
+  fee: 'Honorarium',
+  feeValue: 'podajemy w odpowiedzi na zapytanie, jedną kwotą razem z dojazdem',
+  repertoire: 'Repertuar',
+  video: 'Z koncertu',
+  missingSongs: 'DO UZUPEŁNIENIA: 3–5 pieśni ze streszczeniem po polsku',
+  missingVideo: 'DO UZUPEŁNIENIA: fragment wideo z koncertu (30–60 s)',
+  pack: 'Zdjęcia, logo i biogram do zapowiedzi',
+  back: 'Wszystkie programy',
+  form: {
+    title: 'Zapytaj o termin',
+    institution: 'Instytucja',
+    name: 'Imię i nazwisko',
+    email: 'E-mail',
+    phone: 'Telefon (opcjonalnie)',
+    program: 'Program',
+    date: 'Proponowana data',
+    datePlaceholder: 'np. 10 stycznia 2027',
+    town: 'Miejscowość (do wyceny dojazdu)',
+    venue: 'Miejsce',
+    venues: ['sala', 'kościół lub cerkiew', 'plener', 'inne'],
+    message: 'Wiadomość (opcjonalnie)',
+    send: 'Wyślij zapytanie',
+    note: 'Dane z formularza wykorzystamy tylko po to, żeby odpowiedzieć i ustalić warunki koncertu.',
+    direct: 'Adres bezpośredni',
+  },
+};

@@ -6,14 +6,15 @@ import { t, routes, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
-  page: keyof typeof routes | 'notFound';
+  page: keyof typeof routes | 'notFound' | 'program';
 }
 
 const { lang, page } = Astro.props;
 const c = t[lang];
 const home = routes.home[lang];
 const other: Lang = lang === 'pl' ? 'en' : 'pl';
-const switchHref = page === 'notFound' ? routes.home[other] : routes[page][other];
+// Programme pages are PL only; their EN counterpart is the promoters page.
+const switchHref = page === 'notFound' ? routes.home[other] : page === 'program' ? routes.press[other] : routes[page][other];
 const onHome = page === 'home';
 const anchor = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
 ---
@@ -29,7 +30,7 @@ const anchor = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
       <li class="nav__wide"><a href={anchor('zespol')}>{c.nav.ensemble}</a></li>
       <li class="nav__wide"><a href={anchor('muzyka')}>{c.nav.music}</a></li>
       <li class="nav__wide"><a href={anchor('na-zywo')}>{c.nav.live}</a></li>
-      <li><a href={routes.press[lang]} aria-current={page === 'press' ? 'page' : undefined}>{c.nav.press}</a></li>
+      <li><a href={routes.press[lang]} aria-current={page === 'press' ? 'page' : page === 'program' ? 'true' : undefined}>{c.nav.press}</a></li>
       <li class="nav__wide"><a href={anchor('kontakt')}>{c.nav.contact}</a></li>
       <li>
         <a href={switchHref} hreflang={other} lang={other} aria-label={c.langSwitch.label} class="nav__lang">

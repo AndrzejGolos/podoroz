@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+import InquiryForm from '../../components/press/InquiryForm.astro';
+import { programs, programUi as u, routes, type Program } from '../../i18n';
+
+export function getStaticPaths() {
+  return programs.map((p) => ({ params: { program: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props as { p: Program };
+const facts: [string, string][] = [
+  [u.when, p.when],
+  [u.where, p.where],
+  [u.length, u.lengthValue],
+  [u.booking, u.bookingValue],
+  [u.fee, u.feeValue],
+];
+---
+
+<Base lang="pl" page="program" theme="paper" title={p.name} description={p.short}>
+  <article class="program">
+    <header class="program__head">
+      <a class="link-quiet program__back" href={`${routes.press.pl}#programy`}>← {u.back}</a>
+      <h1 class="program__title">{p.name}</h1>
+      <p class="program__lead">{p.short}</p>
+      <dl class="facts">
+        {
+          facts.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p><a class="button" href="#zapytanie">{u.form.title}</a></p>
+    </header>
+
+    <section class="block prose program__text">
+      {p.text.map((para) => <p>{para}</p>)}
+    </section>
+
+    <section class="block" aria-labelledby="songs-title">
+      <h2 id="songs-title" class="label">{u.repertoire}</h2>
+      {
+        p.songs.length > 0 ? (
+          <ol class="songs">
+            {p.songs.map((s) => (
+              <li>
+                <span class="songs__title">{s.title}</span>
+                <span class="songs__note">{s.note}</span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p class="missing">{u.missingSongs}</p>
+        )
+      }
+    </section>
+
+    <section class="block" aria-labelledby="video-title">
+      <h2 id="video-title" class="label">{u.video}</h2>
+      {p.video ? <video src={p.video} controls preload="none" playsinline /> : <p class="missing">{u.missingVideo}</p>}
+    </section>
+
+    <section class="block" id="zapytanie" aria-labelledby="form-title">
+      <h2 id="form-title" class="label">{u.form.title}</h2>
+      <InquiryForm selected={p.slug} />
+      <p><a class="link-quiet" href={routes.press.pl}>{u.pack} →</a></p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .program {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 4rem var(--gutter) 6rem;
+  }
+  .program__head {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding: 1rem 0 3.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .program__back {
+    font-size: var(--step--1);
+  }
+  .program__title {
+    font-size: var(--step-3);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .program__lead {
+    max-width: 48ch;
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+  .facts {
+    display: grid;
+    width: 100%;
+    max-width: 44rem;
+    margin: 0;
+  }
+  .facts div {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts dt {
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .facts dd {
+    margin: 0;
+  }
+  .block {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  /* Clear the sticky nav when jumped to by anchor */
+  .block[id] {
+    scroll-margin-top: 4rem;
+  }
+  .block:last-child {
+    border-bottom: 0;
+  }
+  .program__text {
+    display: block;
+    max-width: 65ch;
+  }
+  .songs {
+    display: grid;
+    width: 100%;
+    max-width: 44rem;
+  }
+  .songs li {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .songs__note {
+    color: var(--fg-dim);
+  }
+  .block video {
+    width: 100%;
+    max-width: 44rem;
+  }
+  .missing {
+    padding: 0.6rem 0.9rem;
+    background: var(--paper-shade);
+    outline: 1px dashed var(--fg-dim);
+    font-size: var(--step--1);
+  }
+  @media (min-width: 40rem) {
+    .facts div {
+      grid-template-columns: 9rem 1fr;
+    }
+  }
+</style>

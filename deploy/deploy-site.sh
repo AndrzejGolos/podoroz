@@ -5,9 +5,10 @@ cd "$(dirname "$0")/.."
 HOST=deploy@178.105.217.3
 
 (cd site && PUBLIC_FORM_ENDPOINT=/api/contact npm run build)
-# The privacy policy must name the data controller (legal.owner in site/src/i18n.ts).
-if grep -rlq -e 'DO UZUPEŁNIENIA' -e 'TO BE COMPLETED' site/dist; then
-  echo "Privacy policy has gaps: fill legal.owner in site/src/i18n.ts" >&2
+# No gaps go live: the privacy policy's controller (legal.owner) and the programme pages'
+# songs and video (programs in site/src/i18n.ts) must be filled in.
+if grep -rl -e 'DO UZUPEŁNIENIA' -e 'TO BE COMPLETED' site/dist; then
+  echo "Pages above still show DO UZUPEŁNIENIA: fill them in site/src/i18n.ts" >&2
   exit 1
 fi
 # _headers is Netlify-only (preview noindex); nginx sets the production headers.

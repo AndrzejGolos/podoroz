@@ -6,16 +6,17 @@ import { t, routes, members, contact, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
-  page: keyof typeof routes | 'notFound';
+  page: keyof typeof routes | 'notFound' | 'program';
   theme?: 'film' | 'paper';
   title?: string;
+  description?: string;
 }
 
-const { lang, page, theme = 'film', title } = Astro.props;
+const { lang, page, theme = 'film', title, description = t[lang].description } = Astro.props;
 const c = t[lang];
 const site = Astro.site!;
 const pageTitle = title ? `${title} | Podoroж` : c.title;
-const alternates = page === 'notFound' ? null : routes[page];
+const alternates = page === 'notFound' || page === 'program' ? null : routes[page];
 const canonical = new URL(alternates ? alternates[lang] : Astro.url.pathname, site);
 const ogImage = new URL('/og.jpg', site);
 
@@ -39,7 +40,7 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={c.description} />
+    <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {
       alternates && (
@@ -55,7 +56,7 @@ const jsonLd = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={c.description} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content={lang === 'pl' ? 'pl_PL' : 'en_GB'} />
