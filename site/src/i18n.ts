@@ -460,7 +460,7 @@ export const programUi = {
     booking: 'Kiedy rezerwować?',
     repertoire: 'Czy repertuar jest stały?',
     language: 'Czy publiczność zrozumie pieśni?',
-    languageAnswer: 'DO UZUPEŁNIENIA: czy zapowiadamy albo tłumaczymy pieśni po polsku',
+    languageAnswer: 'Każdą pieśń zapowiadamy po polsku, w sposób, który angażuje słuchaczy.',
     materials: 'Gdzie znajdę zdjęcia, logo i biogram?',
     materialsAnswer: 'Niżej, w materiałach dla organizatora ↓',
   },

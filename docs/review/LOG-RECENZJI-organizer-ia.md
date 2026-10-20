@@ -86,3 +86,12 @@ Version reviewed: commit d717841. Same session. Verdict: APPROVED, no findings; 
 
 1. Critical and important claims of rounds 6–8: all repaired. Pending human decisions carried over: R1-3 (how songs are explained to a Polish audience; production stays blocked until answered, check 12) and R3-2 ("scena główna" at Mikołajki Folkowe).
 2. Rounds 7 and 8: no new critical or important findings.
+
+## Human decisions
+
+| # | Decision | Who, when |
+|---|---|---|
+| R1-3 / R2-3 | rozstrzygnięte: every song is introduced in Polish in a way that engages the audience; the answer is on the page | Andrzej Gołoś, 2026-10-20 |
+| R3-2 | rozstrzygnięte: "scena główna" is true; the festival moved the concert to the main stage on the day, after its description was published | Andrzej Gołoś, 2026-10-20 |
+
+All claims are now closed; the stop condition is met.

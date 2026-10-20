@@ -147,7 +147,7 @@ const faq: [string, string, [string, string]?][] = [
                 <div>
                   <dt>{q}</dt>
                   <dd>
-                    {answer.startsWith('DO UZUPEŁNIENIA') ? <span class="missing">{answer}</span> : answer}
+                    {answer}
                     {link && (
                       <>
                         {' '}
@@ -509,11 +509,6 @@ const faq: [string, string, [string, string]?][] = [
   }
   .faq dd a {
     color: var(--fg);
-  }
-  .missing {
-    padding: 0.1rem 0.4rem;
-    background: var(--paper-shade);
-    outline: 1px dashed var(--fg-dim);
   }
   .listen {
     display: grid;
