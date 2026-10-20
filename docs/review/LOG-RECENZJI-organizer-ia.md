@@ -47,3 +47,14 @@ Version reviewed: commit 608a9ac. Same session. Verdict: APPROVED, 1 finding (mi
 | # | Weight | Claim | Bucket | Resolution |
 |---|---|---|---|---|
 | R4-1 | minor | Plan relies on confirmation e-mails carrying the page B link; no template exists and no manual step says so | repaired | Manual step 3 added: put the page B link in the confirmation e-mail. |
+
+## Round 5
+
+Version reviewed: commit a4e12af. Same session. Verdict: APPROVED, no findings; R4-1 accepted as repaired.
+
+## Stop condition
+
+1. Critical and important claims: all repaired or rejected with proof, except two decisions pending with Andrzej (R1-3/R2-3: how songs are explained to a Polish audience; R3-2: "scena główna" at Mikołajki Folkowe).
+2. Rounds 4 and 5: no new critical or important findings.
+
+Part 2 is met; part 1 closes when Andrzej decides R1-3 and R3-2.
