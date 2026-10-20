@@ -346,7 +346,11 @@ export const programs: Program[] = [
       'Szczedriwki to pieśni noworoczne, śpiewane w szczodry wieczór, który w kalendarzu juliańskim przypada 13 stycznia. Boże Narodzenie według tego kalendarza wypada 7 stycznia.',
       'Dlatego ten koncert dobrze zaplanować na styczeń, kiedy w kalendarzu imprez robi się pusto.',
     ],
-    videos: [],
+    videos: [
+      { src: '/video/programy/koledy-1.mp4', poster: '/posters/programy/koledy-1.webp', title: 'Kolęda „Oj, czy ne ma hospodar doma”' },
+      { src: '/video/programy/koledy-2.mp4', poster: '/posters/programy/koledy-2.webp', title: 'Kolęda „Oj po hory, hory”, głosy męskie' },
+    ],
+    videoCaption: 'Mikołajki Folkowe w Lublinie, scena główna, 2024.',
   },
   {
     slug: 'psalmy',
