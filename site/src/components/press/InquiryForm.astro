@@ -144,7 +144,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
     padding: 0.8rem 0.9rem;
     border: 1px solid var(--line);
     border-radius: 0;
-    background: color-mix(in oklch, var(--fg) 4%, transparent);
+    background: var(--field-bg, color-mix(in oklch, var(--fg) 4%, transparent));
     color: var(--fg);
     font: inherit;
     font-size: var(--step-0);

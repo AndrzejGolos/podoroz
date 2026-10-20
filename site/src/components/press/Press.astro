@@ -167,8 +167,10 @@ const faq: [string, string, [string, string]?][] = [
                 <li>{x}</li>
               ))}
             </ol>
-            <p class="press__note">{u.formLead}</p>
-            <InquiryForm selected="" />
+            <div class="panel">
+              <p class="press__note">{u.formLead}</p>
+              <InquiryForm selected="" />
+            </div>
           </section>
 
           <section class="block block--materials" id="materialy" aria-labelledby="materials-title">
@@ -471,21 +473,43 @@ const faq: [string, string, [string, string]?][] = [
     padding: 0.7rem 0;
     border-bottom: 1px solid var(--line);
   }
+  /* Booking steps read as a process, not as part of the form below. */
   .steps {
     display: grid;
-    gap: 0.5rem;
-    max-width: 44rem;
-    margin-top: 0.5rem;
+    gap: 1.25rem;
+    width: 100%;
     counter-reset: step;
   }
   .steps li {
     display: grid;
-    grid-template-columns: 2rem 1fr;
+    gap: 0.4rem;
+    align-content: start;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--fg);
     counter-increment: step;
   }
   .steps li::before {
-    content: counter(step) '.';
-    color: var(--fg-dim);
+    content: counter(step);
+    font-size: var(--step-2);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .panel {
+    display: grid;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 48rem;
+    margin-top: 1rem;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    background: var(--paper-shade);
+    /* Fields stay lighter than the panel so they read as inputs. */
+    --field-bg: var(--paper);
+  }
+  @media (min-width: 48rem) {
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
   }
   .faq {
     display: grid;
