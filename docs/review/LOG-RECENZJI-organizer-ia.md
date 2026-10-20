@@ -58,3 +58,14 @@ Version reviewed: commit a4e12af. Same session. Verdict: APPROVED, no findings; 
 2. Rounds 4 and 5: no new critical or important findings.
 
 Part 2 is met; part 1 closes when Andrzej decides R1-3 and R3-2.
+
+## Round 6 (revision 2: one page)
+
+Version reviewed: commit e65fc14. Same session. Verdict: REVISE, 4 findings (3 important, 1 minor).
+
+| # | Weight | Claim | Bucket | Resolution |
+|---|---|---|---|---|
+| R6-1 | important | Keeping `hreflang` between PL (sales + materials) and EN (press kit only) presents non-equivalent pages as translations; R1-1 returns | repaired | No `hreflang` on `/dla-organizatorow/` and `/en/promoters/`; switch stays a plain link. Check 7 rewritten. |
+| R6-2 | important | Nav and the home link land at the top of a long page; journalists and booked organizers must scroll past the selling part; the confirmation-mail step was weakened to optional | repaired | Quiet header link "Masz już termin? Materiały…" to `#materialy`; home gets a separate "Materiały prasowe" link to `#materialy`; mail step is a manual step again. Checks 2 and 3. |
+| R6-3 | important | The jump from the questions to the full technical requirements leaves the organizer past the form with no way back | repaired | After the requirements: "Nie masz jeszcze terminu? Zapytaj o termin ↑" to `#zapytanie`; rule 3 allows contextual jumps. Check 5. |
+| R6-4 | minor | "Ordering fixes all four problems" is wrong: the missing sample needs new content | repaired | Decision text now says ordering fixes problems 1–3; problem 4 needs the "Posłuchaj" section either way. |
