@@ -35,7 +35,7 @@ const transport = nodemailer.createTransport({
   }),
 });
 
-const LIMITS = { name: 200, email: 254, message: 5000 };
+const LIMITS = { name: 200, email: 254, message: 5000, extras: 400 };
 const EXTRAS = [
   ['program', 'Program'],
   ['institution', 'Instytucja'],
@@ -100,12 +100,13 @@ const server = http.createServer((req, res) => {
     const email = (data.get('email') || '').trim();
     const message = (data.get('message') || '').trim();
     // Programme inquiry form (/dla-organizatorow/<programme>/): one-line extras, message optional.
-    const extras = EXTRAS.map(([key, label]) => [label, (data.get(key) || '').trim()]);
+    // Several programmes can be ticked; they arrive as repeated keys.
+    const extras = EXTRAS.map(([key, label]) => [label, data.getAll(key).map((v) => v.trim()).filter(Boolean).join(', ')]);
     const program = extras[0][1];
     const valid =
       name && (message || program) && EMAIL_RE.test(email) && !/[\r\n]/.test(name) &&
       name.length <= LIMITS.name && email.length <= LIMITS.email && message.length <= LIMITS.message &&
-      extras.every(([, v]) => v.length <= LIMITS.name && !/[\r\n]/.test(v));
+      extras.every(([, v]) => v.length <= LIMITS.extras && !/[\r\n]/.test(v));
     if (!valid) return reply(req, res, 400, lang);
     const details = extras.filter(([, v]) => v).map(([label, v]) => `${label}: ${v}`).join('\n');
 

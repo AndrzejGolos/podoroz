@@ -12,18 +12,23 @@ const base = t.pl.form;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
 ---
 
-<form class="inquiry" name="zapytanie" method="POST" action={endpoint} data-netlify="true" netlify-honeypot="bot-field" data-inquiry>
+<form class="inquiry" name="zapytanie" method="POST" action={endpoint} data-netlify="true" netlify-honeypot="bot-field" data-inquiry data-pick-one={f.pickOne}>
   <input type="hidden" name="form-name" value="zapytanie" />
   <input type="hidden" name="lang" value="pl" />
   <p class="visually-hidden">
     <label>Bot <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
   </p>
-  <label class="inquiry__field">
-    <span>{f.program}</span>
-    <select name="program" required>
-      {programs.map((p) => <option value={p.name} selected={p.slug === selected}>{p.name}</option>)}
-    </select>
-  </label>
+  <fieldset class="inquiry__field inquiry__choices">
+    <legend>{f.program}</legend>
+    {
+      programs.map((p) => (
+        <label class="inquiry__choice">
+          <input type="checkbox" name="program" value={p.name} checked={p.slug === selected} />
+          <span>{p.name}</span>
+        </label>
+      ))
+    }
+  </fieldset>
   <label class="inquiry__field">
     <span>{f.institution}</span>
     <input name="institution" type="text" autocomplete="organization" required />
@@ -52,13 +57,17 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
       <input name="town" type="text" autocomplete="address-level2" />
     </label>
   </div>
-  <label class="inquiry__field">
-    <span>{f.venue}</span>
-    <select name="venue">
-      <option value="">–</option>
-      {f.venues.map((v) => <option>{v}</option>)}
-    </select>
-  </label>
+  <fieldset class="inquiry__field inquiry__choices">
+    <legend>{f.venue}</legend>
+    {
+      f.venues.map((v) => (
+        <label class="inquiry__choice">
+          <input type="radio" name="venue" value={v} />
+          <span>{v}</span>
+        </label>
+      ))
+    }
+  </fieldset>
   <label class="inquiry__field">
     <span>{f.message}</span>
     <textarea name="message" rows="4"></textarea>
@@ -77,8 +86,16 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
   document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
     const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
     const status = form.querySelector<HTMLElement>('.inquiry__status')!;
+    const picks = [...form.querySelectorAll<HTMLInputElement>('input[name=program]')];
+    picks.forEach((p) => p.addEventListener('change', () => picks[0].setCustomValidity('')));
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      // At least one programme: checkboxes have no native "one of" rule.
+      if (!picks.some((p) => p.checked)) {
+        picks[0].setCustomValidity(form.dataset.pickOne!);
+        picks[0].reportValidity();
+        return;
+      }
       btn.disabled = true;
       btn.textContent = btn.dataset.sending!;
       status.textContent = '';
@@ -90,9 +107,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
           body,
         });
         if (!res.ok) throw new Error(String(res.status));
-        const program = form.querySelector<HTMLSelectElement>('select[name=program]')!.value;
+        // reset() restores this page's programme, which is checked in the markup.
         form.reset();
-        form.querySelector<HTMLSelectElement>('select[name=program]')!.value = program;
         status.textContent = status.dataset.ok!;
       } catch {
         status.textContent = status.dataset.error!;
@@ -122,8 +138,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
     letter-spacing: 0.08em;
     color: var(--fg-dim);
   }
-  .inquiry input,
-  .inquiry select,
+  .inquiry input:not([type='checkbox'], [type='radio']),
   .inquiry textarea {
     width: 100%;
     padding: 0.8rem 0.9rem;
@@ -135,14 +150,40 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
     font-size: var(--step-0);
     letter-spacing: normal;
   }
-  .inquiry input:focus,
-  .inquiry select:focus,
+  .inquiry input:not([type='checkbox'], [type='radio']):focus,
   .inquiry textarea:focus {
     border-color: var(--fg);
     outline: none;
   }
   .inquiry textarea {
     resize: vertical;
+  }
+  .inquiry__choices {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .inquiry__choices legend {
+    padding: 0;
+    margin-bottom: 0.4rem;
+  }
+  .inquiry__choice {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    color: var(--fg);
+    font-size: var(--step-0);
+    letter-spacing: normal;
+    cursor: pointer;
+  }
+  .inquiry__choice input {
+    flex: none;
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0;
+    accent-color: var(--fg);
+    transform: translateY(0.15rem);
   }
   .inquiry__foot {
     display: flex;
