@@ -48,7 +48,30 @@ export const streaming: { label: string; href: string }[] = [
 ];
 // Where to buy the CD. folk.pl has no per-album pages, so this is the band's page there.
 export const shop = 'https://folk.pl/folk/Zespoly/Zespol.php?Podoroz';
-export const concerts: { date: string; place: { pl: string; en: string }; href?: string }[] = [];
+// Where the band has sung, newest first; `date` is a year.
+export const concerts: { date: string; place: { pl: string; en: string }; href?: string }[] = [
+  { date: '2026', place: { pl: 'Perepelica w Toporkach', en: 'Perepelica festival, Toporki' } },
+  { date: '2026', place: { pl: 'Dni Kleszczel', en: 'Kleszczele Days' } },
+  { date: '2026', place: { pl: 'Impreza lokalna w Repczycach', en: 'Local festivity, Repczyce' } },
+  { date: '2026', place: { pl: 'Kolędowanie w Dobrowodzie', en: 'Carol singing in Dobrowoda' } },
+  { date: '2025', place: { pl: 'Koncert w domu kultury w Knyszynie', en: 'Concert at the cultural centre in Knyszyn' } },
+  { date: '2025', place: { pl: 'Scena Letnia Chaty Numinosum', en: 'Chata Numinosum Summer Stage' } },
+  { date: '2024', place: { pl: 'Mikołajki Folkowe, Lublin', en: 'Mikołajki Folkowe festival, Lublin' } },
+  {
+    date: '2024',
+    place: {
+      pl: 'Noc Kupały w Konstancinie-Jeziornie (Dom Kultury Hugonówka)',
+      en: 'Kupala Night in Konstancin-Jeziorna (Hugonówka Cultural Centre)',
+    },
+  },
+  {
+    date: '2023',
+    place: {
+      pl: 'Psalmy i pieśni cerkiewne, Sanktuarium św. Faustyny w Warszawie',
+      en: 'Psalms and Orthodox church songs, St Faustina Sanctuary, Warsaw',
+    },
+  },
+];
 
 // Studio film embed in the Music section. Shown for the band review; it is not the
 // band's official clip, so the band decides whether it stays (false hides it).
@@ -107,7 +130,7 @@ export const t = {
     liveText: [
       'Gramy koncerty kameralne i plenerowe. Nasz repertuar sprawdza się wszędzie tam, gdzie jest przestrzeń na uważne słuchanie: od kameralnych scen i sal koncertowych, przez kościoły i galerie, po festiwale muzyki tradycyjnej.',
     ],
-    concertsTitle: 'Koncerty',
+    concertsTitle: 'Gdzie graliśmy',
     photoAlts: {
       outdoor: 'Zespół śpiewa boso na drewnianym pomoście nad jeziorem, o zachodzie słońca',
       stage: 'Zespół śpiewa na scenie przy mikrofonach, z nutami w dłoniach',
@@ -146,7 +169,8 @@ export const t = {
       videoTitle: 'Wideo i muzyka',
       formatsTitle: 'Formaty koncertu',
       riderTitle: 'Rider techniczny',
-      concertsTitle: 'Dotychczasowe koncerty',
+      concertsTitle: 'Gdzie graliśmy',
+      concertsNote: 'Śpiewaliśmy też kameralnie, między stolikami restauracji.',
       contactTitle: 'Kontakt',
       contactText: 'Napisz do nas w sprawie terminu, honorarium i warunków technicznych.',
       back: 'Strona główna',
@@ -200,7 +224,7 @@ export const t = {
     liveText: [
       'We perform intimate and outdoor concerts. Our repertoire works best where there is space for attentive listening: from small stages and concert halls, through churches and galleries, to traditional music festivals.',
     ],
-    concertsTitle: 'Concerts',
+    concertsTitle: 'Where we have played',
     photoAlts: {
       outdoor: 'The ensemble singing barefoot on a wooden pier by a lake at sunset',
       stage: 'The ensemble singing on stage at the microphones, holding their scores',
@@ -239,7 +263,8 @@ export const t = {
       videoTitle: 'Video and music',
       formatsTitle: 'Concert formats',
       riderTitle: 'Technical rider',
-      concertsTitle: 'Past concerts',
+      concertsTitle: 'Where we have played',
+      concertsNote: 'We have also sung intimately, among restaurant tables.',
       contactTitle: 'Contact',
       contactText: 'Write to us about dates, fee and technical requirements.',
       back: 'Home',
@@ -380,9 +405,25 @@ export const programs: Program[] = [
 export const programUi = {
   sectionTitle: 'Programy koncertowe',
   sectionLead: 'Pięć programów na pory roku i przegląd na każdy termin. Znajdź miesiąc koncertu i sprawdź, co do niego pasuje.',
-  bookingNote: 'Rezerwacja najpóźniej 2 miesiące przed koncertem.',
+  steps: [
+    'Wyślij zapytanie: program, proponowana data i miejscowość.',
+    'W ciągu 3 dni odpowiadamy jedną kwotą, razem z dojazdem.',
+    'Termin rezerwujemy najpóźniej 2 miesiące przed koncertem.',
+  ],
+  onSiteTitle: 'Na miejscu',
+  onSite: [
+    [
+      'Nagłośnienie',
+      'W salach do 100 m² i we wnętrzach o dobrej akustyce, np. w kościołach, zwykle śpiewamy bez nagłośnienia. W dużych salach koncertowych i w plenerze zwykle go potrzebujemy.',
+    ],
+    ['Miejsce dla zespołu', '8–10 m²'],
+    ['Garderoba', 'przyda się garderoba albo miejsce na zmianę stroju'],
+    ['Przygotowanie', '1 godzina przed koncertem, jeśli jest nagłośnienie'],
+  ] as [string, string][],
+  // Polish plural of "recording": 1 nagranie, 2–4 nagrania, 5+ nagrań.
+  clips: (n: number) =>
+    `${n} ${n === 1 ? 'nagranie' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'nagrania' : 'nagrań'} z koncertu`,
   months: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'],
-  now: 'teraz',
   when: 'Kiedy',
   where: 'Gdzie',
   length: 'Czas',
@@ -390,10 +431,11 @@ export const programUi = {
   booking: 'Rezerwacja',
   bookingValue: 'najpóźniej 2 miesiące przed koncertem',
   fee: 'Honorarium',
-  feeValue: 'podajemy w odpowiedzi na zapytanie, jedną kwotą razem z dojazdem',
+  feeValue: 'podajemy w ciągu 3 dni od zapytania, jedną kwotą razem z dojazdem',
   repertoire: 'Repertuar',
   repertoireValue: 'zmieniamy go z koncertu na koncert, w ramach tematu programu',
   video: 'Z koncertu',
+  formLead: 'Nie wiesz jeszcze, który program? Zaznacz kilka albo opisz okazję w wiadomości.',
   pack: 'Zdjęcia, logo i biogram do zapowiedzi',
   back: 'Wszystkie programy',
   form: {

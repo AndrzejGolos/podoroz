@@ -1,0 +1,44 @@
+---
+import { programUi as u } from '../../i18n';
+---
+
+<dl class="onsite">
+  {
+    u.onSite.map(([k, v]) => (
+      <div>
+        <dt>{k}</dt>
+        <dd>{v}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .onsite {
+    display: grid;
+    width: 100%;
+    max-width: 44rem;
+    margin: 0;
+  }
+  .onsite div {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .onsite dt {
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .onsite dd {
+    margin: 0;
+    max-width: 60ch;
+  }
+  @media (min-width: 40rem) {
+    .onsite div {
+      grid-template-columns: 12rem 1fr;
+    }
+  }
+</style>

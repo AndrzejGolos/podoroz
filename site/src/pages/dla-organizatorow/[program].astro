@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import InquiryForm from '../../components/press/InquiryForm.astro';
+import OnSite from '../../components/press/OnSite.astro';
 import { programs, programUi as u, routes, type Program } from '../../i18n';
 
 export function getStaticPaths() {
@@ -39,6 +40,11 @@ const facts: [string, string][] = [
 
     <section class="block prose program__text">
       {p.text.map((para) => <p>{para}</p>)}
+    </section>
+
+    <section class="block" aria-labelledby="onsite-title">
+      <h2 id="onsite-title" class="label">{u.onSiteTitle}</h2>
+      <OnSite />
     </section>
 
     {

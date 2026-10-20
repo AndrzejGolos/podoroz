@@ -3,6 +3,8 @@ import { readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import Base from '../../layouts/Base.astro';
 import ProgramCalendar from './ProgramCalendar.astro';
+import OnSite from './OnSite.astro';
+import InquiryForm from './InquiryForm.astro';
 import { t, bios, contact, concerts, pressExtras, programUi, type Lang } from '../../i18n';
 
 interface Props {
@@ -41,6 +43,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
       <p class="press__zip">
         <a class="button" href="/podoroz-press-kit.zip" download>{p.zip}</a>
         <span class="press__meta">ZIP, ~{mb(zipBytes)}</span>
+        {lang === 'pl' && <a class="button button--ghost" href="#zapytanie">{programUi.form.title}</a>}
       </p>
     </header>
 
@@ -50,6 +53,47 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
           <h2 id="programs-title" class="label">{programUi.sectionTitle}</h2>
           <p class="press__lead">{programUi.sectionLead}</p>
           <ProgramCalendar />
+          <ol class="steps">
+            {programUi.steps.map((s) => (
+              <li>{s}</li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+
+    {
+      lang === 'pl' && (
+        <section class="block" aria-labelledby="onsite-title">
+          <h2 id="onsite-title" class="label">{programUi.onSiteTitle}</h2>
+          <OnSite />
+        </section>
+      )
+    }
+
+    {
+      concerts.length > 0 && (
+        <section class="block" aria-labelledby="concerts-title">
+          <h2 id="concerts-title" class="label">{p.concertsTitle}</h2>
+          <ul class="files">
+            {concerts.map((k) => (
+              <li class="played">
+                <time datetime={k.date}>{k.date}</time>
+                <span>{k.place[lang]}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="press__note">{p.concertsNote}</p>
+        </section>
+      )
+    }
+
+    {
+      lang === 'pl' && (
+        <section class="block" id="zapytanie" aria-labelledby="inquiry-title">
+          <h2 id="inquiry-title" class="label">{programUi.form.title}</h2>
+          <p class="press__note">{programUi.formLead}</p>
+          <InquiryForm selected="" />
         </section>
       )
     }
@@ -171,21 +215,6 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
                 </a>
               </li>
             )}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      concerts.length > 0 && (
-        <section class="block" aria-labelledby="concerts-title">
-          <h2 id="concerts-title" class="label">{p.concertsTitle}</h2>
-          <ul class="files">
-            {concerts.map((k) => (
-              <li>
-                <time datetime={k.date}>{k.date}</time> {k.place[lang]}
-              </li>
-            ))}
           </ul>
         </section>
       )
@@ -344,6 +373,31 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     gap: 0.25rem 1.5rem;
     padding: 0.7rem 0;
     border-bottom: 1px solid var(--line);
+  }
+  .steps {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 44rem;
+    margin-top: 0.5rem;
+    counter-reset: step;
+  }
+  .steps li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    counter-increment: step;
+  }
+  .steps li::before {
+    content: counter(step) '.';
+    color: var(--fg-dim);
+  }
+  .files .played {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    justify-content: start;
+    gap: 1rem;
+  }
+  .played time {
+    color: var(--fg-dim);
   }
   .press__contact {
     display: flex;

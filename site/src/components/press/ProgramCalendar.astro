@@ -35,6 +35,7 @@ const bar = ([from, to]: [string, string]) => {
               {p.name} <span aria-hidden="true">→</span>
             </a>
             <span class="cal__where">{p.where}</span>
+            {p.videos.length > 0 && <span class="cal__clips">{u.clips(p.videos.length)}</span>}
           </div>
           <div class="cal__lane">
             <div class="cal__track" aria-hidden="true">
@@ -48,7 +49,6 @@ const bar = ([from, to]: [string, string]) => {
       ))
     }
   </ol>
-  <p class="cal__note">{u.bookingNote}</p>
 </div>
 
 <script>
@@ -126,8 +126,7 @@ const bar = ([from, to]: [string, string]) => {
     text-decoration: underline;
   }
   .cal__where,
-  .cal__when,
-  .cal__note {
+  .cal__when {
     font-size: var(--step--1);
     color: var(--fg-dim);
   }
@@ -163,8 +162,12 @@ const bar = ([from, to]: [string, string]) => {
     outline: 1px solid var(--fg);
     outline-offset: -1px;
   }
-  .cal__note {
-    margin-top: 0.5rem;
+  .cal__clips {
+    justify-self: start;
+    margin-top: 0.3rem;
+    padding: 0.05rem 0.5rem;
+    border: 1px solid var(--line);
+    font-size: var(--step--1);
   }
   @media (min-width: 40rem) {
     .cal__m-long {
