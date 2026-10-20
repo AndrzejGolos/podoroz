@@ -351,11 +351,8 @@ export const programs: Program[] = [
     name: 'Żniwa',
     when: 'koniec lipca – wrzesień',
     where: 'sala, kościół',
-    short: 'Pieśni żniwne i liryczne: koncert do słuchania, nie występ na scenie dożynkowej.',
-    text: [
-      'Pieśni żniwne śpiewano przy pracy w polu i na zakończenie żniw. Przeplatamy je pieśniami lirycznymi.',
-      'To koncert do słuchania w sali albo w kościele. Na scenie dożynkowej śpiew wielogłosowy bez instrumentów ginie, dlatego tam nie występujemy.',
-    ],
+    short: 'Pieśni żniwne przeplatane pieśniami lirycznymi.',
+    text: ['Pieśni żniwne śpiewano przy pracy w polu i na zakończenie żniw. Przeplatamy je pieśniami lirycznymi.'],
     videos: [],
   },
   {
