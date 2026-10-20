@@ -291,7 +291,9 @@ export type Program = {
   short: string;
   text: string[];
   songs: { title: string; note: string }[];
-  video: string;
+  // Concert clips in public/video/programy, posters in public/posters/programy.
+  videos: { src: string; poster: string; title: string }[];
+  videoCaption?: string;
 };
 
 export const programs: Program[] = [
@@ -306,7 +308,7 @@ export const programs: Program[] = [
       'Dlatego ten koncert dobrze zaplanować na styczeń, kiedy w kalendarzu imprez robi się pusto.',
     ],
     songs: [],
-    video: '',
+    videos: [],
   },
   {
     slug: 'psalmy',
@@ -318,7 +320,14 @@ export const programs: Program[] = [
       'Psalmy, pieśni zaduszne i cerkiewne najlepiej brzmią we wnętrzu kościoła. Kilka naszych najlepszych koncertów zagraliśmy właśnie w kościołach.',
     ],
     songs: [],
-    video: '',
+    videos: [
+      { src: '/video/programy/psalmy-1.mp4', poster: '/posters/programy/psalmy-1.webp', title: 'Psalm' },
+      { src: '/video/programy/psalmy-2.mp4', poster: '/posters/programy/psalmy-2.webp', title: 'Psalm „Oj u nedileńku”' },
+      { src: '/video/programy/psalmy-3.mp4', poster: '/posters/programy/psalmy-3.webp', title: 'Psalm białoruski, głosy męskie' },
+      { src: '/video/programy/psalmy-4.mp4', poster: '/posters/programy/psalmy-4.webp', title: 'Psalm' },
+      { src: '/video/programy/psalmy-5.mp4', poster: '/posters/programy/psalmy-5.webp', title: 'Pieśń cerkiewna' },
+    ],
+    videoCaption: 'Koncert w Sanktuarium św. Faustyny w Warszawie, 5 listopada 2023.',
   },
   {
     slug: 'wiosna',
@@ -328,7 +337,7 @@ export const programs: Program[] = [
     short: 'Wiesnianki, którymi witano wiosnę, przeplatane pieśniami lirycznymi.',
     text: ['Wiesnianki to pieśni obrzędowe, którymi na wsi witano wiosnę. Przeplatamy je pieśniami lirycznymi.'],
     songs: [],
-    video: '',
+    videos: [],
   },
   {
     slug: 'kupala',
@@ -340,7 +349,7 @@ export const programs: Program[] = [
       'Noc Kupały przypada z 23 na 24 czerwca, a w kalendarzu juliańskim z 6 na 7 lipca. Pieśni kupalne przeplatamy pieśniami lirycznymi.',
     ],
     songs: [],
-    video: '',
+    videos: [],
   },
   {
     slug: 'zniwa',
@@ -353,7 +362,7 @@ export const programs: Program[] = [
       'To koncert do słuchania w sali albo w kościele. Na scenie dożynkowej śpiew wielogłosowy bez instrumentów ginie, dlatego tam nie występujemy.',
     ],
     songs: [],
-    video: '',
+    videos: [],
   },
   {
     slug: 'przeglad',
@@ -363,7 +372,7 @@ export const programs: Program[] = [
     short: 'Wielogłosowe pieśni z różnych regionów Ukrainy i Białorusi, w wyborze zespołu. Na festiwal i na każdy termin.',
     text: ['Koncert bez okazji: przegląd pieśni wielogłosowych z różnych regionów Ukrainy i Białorusi, które sami wybraliśmy.'],
     songs: [],
-    video: '',
+    videos: [],
   },
 ];
 
@@ -382,7 +391,7 @@ export const programUi = {
   repertoire: 'Repertuar',
   video: 'Z koncertu',
   missingSongs: 'DO UZUPEŁNIENIA: 3–5 pieśni ze streszczeniem po polsku',
-  missingVideo: 'DO UZUPEŁNIENIA: fragment wideo z koncertu (30–60 s)',
+  missingVideo: 'DO UZUPEŁNIENIA: nagranie z koncertu',
   pack: 'Zdjęcia, logo i biogram do zapowiedzi',
   back: 'Wszystkie programy',
   form: {

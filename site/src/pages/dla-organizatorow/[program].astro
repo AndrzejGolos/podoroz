@@ -60,7 +60,25 @@ const facts: [string, string][] = [
 
     <section class="block" aria-labelledby="video-title">
       <h2 id="video-title" class="label">{u.video}</h2>
-      {p.video ? <video src={p.video} controls preload="none" playsinline /> : <p class="missing">{u.missingVideo}</p>}
+      {
+        p.videos.length > 0 ? (
+          <>
+            <ul class="clips">
+              {p.videos.map((v) => (
+                <li>
+                  <figure>
+                    <video src={v.src} poster={v.poster} controls preload="none" playsinline width="1280" height="720" />
+                    <figcaption>{v.title}</figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+            {p.videoCaption && <p class="clips__note">{p.videoCaption}</p>}
+          </>
+        ) : (
+          <p class="missing">{u.missingVideo}</p>
+        )
+      }
     </section>
 
     <section class="block" id="zapytanie" aria-labelledby="form-title">
@@ -152,9 +170,25 @@ const facts: [string, string][] = [
   .songs__note {
     color: var(--fg-dim);
   }
-  .block video {
+  .clips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: 2rem 1.25rem;
     width: 100%;
-    max-width: 44rem;
+  }
+  .clips figure {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .clips video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--paper-shade);
+  }
+  .clips__note {
+    font-size: var(--step--1);
+    color: var(--fg-dim);
   }
   .missing {
     padding: 0.6rem 0.9rem;
