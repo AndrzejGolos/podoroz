@@ -69,3 +69,11 @@ Version reviewed: commit e65fc14. Same session. Verdict: REVISE, 4 findings (3 i
 | R6-2 | important | Nav and the home link land at the top of a long page; journalists and booked organizers must scroll past the selling part; the confirmation-mail step was weakened to optional | repaired | Quiet header link "Masz już termin? Materiały…" to `#materialy`; home gets a separate "Materiały prasowe" link to `#materialy`; mail step is a manual step again. Checks 2 and 3. |
 | R6-3 | important | The jump from the questions to the full technical requirements leaves the organizer past the form with no way back | repaired | After the requirements: "Nie masz jeszcze terminu? Zapytaj o termin ↑" to `#zapytanie`; rule 3 allows contextual jumps. Check 5. |
 | R6-4 | minor | "Ordering fixes all four problems" is wrong: the missing sample needs new content | repaired | Decision text now says ordering fixes problems 1–3; problem 4 needs the "Posłuchaj" section either way. |
+
+## Round 7
+
+Version reviewed: commit 26bf626. Same session. Verdict: APPROVED, 1 finding (minor). First clean round for revision 2.
+
+| # | Weight | Claim | Bucket | Resolution |
+|---|---|---|---|---|
+| R7-1 | minor | The PL switch on the EN press kit lands at the top of the PL sales page, though the visitor is organizing | repaired | PL switch on `/en/promoters/` → `/dla-organizatorow/#materialy`; check 7 updated. |

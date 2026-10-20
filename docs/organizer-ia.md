@@ -1,6 +1,6 @@
 # Organizer page: information architecture
 
-Status: revision 2 (one page instead of two), revised after Codex round 6, 2026-10-20. Revision 1 (two pages) was reviewed by Codex in five rounds; log: `docs/review/LOG-RECENZJI-organizer-ia.md`. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
+Status: revision 2 (one page instead of two), revised after Codex rounds 6–7, 2026-10-20. Revision 1 (two pages) was reviewed by Codex in five rounds; log: `docs/review/LOG-RECENZJI-organizer-ia.md`. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
 
 ## Objective
 
@@ -59,7 +59,7 @@ Revision 1 split the content into a choosing page and a separate materials page.
 
 ### `/en/promoters/` (EN press kit)
 
-Same route as today. The two pages are not translations of each other (PL sells and then holds the materials; EN is a press kit only), so neither carries `hreflang` alternates; the language switch stays as a plain link between them, as on programme pages. Header: H1, lead, ZIP button (the EN page has no inquiry form, so the ZIP is its one action). Then: Where we have played · Biography · Photos · Logo and signet · Video and music · Technical requirements (`#warunki`) · Contact with "Looking for a date? Write to kontakt@podoroz.art with the date and place; we reply within 3 days." Technical texts become `onSite: { pl, en }` in `i18n.ts`; `OnSite.astro` takes `lang`. I write the EN version; the band checks it.
+Same route as today. The two pages are not translations of each other (PL sells and then holds the materials; EN is a press kit only), so neither carries `hreflang` alternates; the language switch stays as a plain link between them, as on programme pages. The PL switch on `/en/promoters/` leads to `/dla-organizatorow/#materialy` (the EN visitor is in the organizing moment); the EN switch on `/dla-organizatorow/` leads to `/en/promoters/`. Header: H1, lead, ZIP button (the EN page has no inquiry form, so the ZIP is its one action). Then: Where we have played · Biography · Photos · Logo and signet · Video and music · Technical requirements (`#warunki`) · Contact with "Looking for a date? Write to kontakt@podoroz.art with the date and place; we reply within 3 days." Technical texts become `onSite: { pl, en }` in `i18n.ts`; `OnSite.astro` takes `lang`. I write the EN version; the band checks it.
 
 ### Programme pages — `/dla-organizatorow/<slug>/`
 
@@ -94,7 +94,7 @@ Each is a pass/fail observation, not a reading of the code. **L** local build an
 | 4 | Booked organizer | Question "Gdzie znajdę zdjęcia…" lands on `#materialy`; its ZIP button downloads a ZIP whose `unzip -l` lists `biogram-pl.txt`, `biogram-en.txt` and every file under `public/press/photos` and `public/press/logo` | L |
 | 5 | Technical doubt | "Pełne warunki techniczne →" lands on `#warunki`; the link after the requirements lands back on `#zapytanie` | L, P |
 | 6 | EN visitor | `/en/promoters/` shows the EN technical texts and no Polish ones; header has one button (ZIP) | L, P |
-| 7 | `hreflang` / canonical | No `hreflang` on `/dla-organizatorow/`, `/en/promoters/` or programme pages; each canonical is the page's own URL; the language switch on `/dla-organizatorow/` opens `/en/promoters/` and back | L |
+| 7 | `hreflang` / canonical | No `hreflang` on `/dla-organizatorow/`, `/en/promoters/` or programme pages; each canonical is the page's own URL; the language switch on `/dla-organizatorow/` opens `/en/promoters/`, and the one on `/en/promoters/` lands on `/dla-organizatorow/#materialy` | L |
 | 8 | Headings | Every block has a visible heading; materials sub-blocks are H3 under the H2 on PL | L |
 | 9 | Forms | One `form-name` `zapytanie` per inquiry form, `contact` on home; the relay, run locally against a throwaway SMTP sink, accepts two ticked programmes and sends one mail listing both | L |
 | 10 | Build | `npm run build` passes; `grep -rlq -e 'DO UZUPEŁNIENIA' -e 'TO BE COMPLETED' site/dist` finds nothing; Netlify draft serves `/dla-organizatorow/`, `/en/promoters/` and the six programme pages with 200 | L, P |
