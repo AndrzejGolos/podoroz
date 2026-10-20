@@ -1,6 +1,6 @@
 # Organizer pages: information architecture
 
-Status: draft for review, revised after Codex rounds 1–3 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
+Status: draft for review, revised after Codex rounds 1–4 (log: `docs/review/LOG-RECENZJI-organizer-ia.md`), 2026-10-20. Branch `programy`, preview https://programy--podoroz.netlify.app/dla-organizatorow/
 
 ## Objective
 
@@ -85,6 +85,7 @@ Stay in the choosing family. Keep: facts table, text, on-site needs, clips, inqu
 
 1. Answer the open questions below.
 2. Have the band check the English on-site texts I write (PA, space, changing room, set-up time); the EN page with them is published only after that check.
+3. When a concert is confirmed, put the page B link (`podoroz.art/dla-organizatorow/materialy/`) in the confirmation e-mail. There is no template in the repo; this is the band's habit to adopt.
 
 Nothing else; the band does not need to supply new material for this change.
 

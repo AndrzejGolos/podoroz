@@ -39,3 +39,11 @@ Version reviewed: commit 009e271. Same session. Verdict: REVISE, 3 findings (2 i
 | R3-1 | important | B7 on the EN page would send foreign organizers to the Polish page A without warning | repaired | B7 split by language: PL links to page A; EN asks for date and place by e-mail with the 3-day reply, no link to page A. |
 | R3-2 | important | "Keep" is not a valid option for "scena główna" while the festival's own description says "Mała Sala Widowiskowa"; "program główny" is not supported either | decision: oczekuje | Options narrowed to: confirm with ACKiM, or neutral "Mikołajki Folkowe w Lublinie" until confirmed; highlight kept. Who decides: Andrzej. |
 | R3-3 | minor | Band check of the EN on-site texts is a manual step missing from the list | repaired | Added to "Manual steps for Andrzej"; EN page with those texts publishes only after the check. |
+
+## Round 4
+
+Version reviewed: commit 608a9ac. Same session. Verdict: APPROVED, 1 finding (minor). First round with no new critical or important findings.
+
+| # | Weight | Claim | Bucket | Resolution |
+|---|---|---|---|---|
+| R4-1 | minor | Plan relies on confirmation e-mails carrying the page B link; no template exists and no manual step says so | repaired | Manual step 3 added: put the page B link in the confirmation e-mail. |
