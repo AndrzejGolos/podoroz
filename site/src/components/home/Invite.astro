@@ -34,6 +34,15 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '/';
       <p>
         <a class="button button--ghost" href={routes.press[lang]}>{c.invitePress}</a>
       </p>
+      {
+        c.invitePressKit && (
+          <p>
+            <a class="link-quiet" href={`${routes.press[lang]}#materialy`}>
+              {c.invitePressKit} →
+            </a>
+          </p>
+        )
+      }
     </div>
 
     <form class="form" data-view="rise" name="contact" method="POST" action={endpoint} data-netlify="true" netlify-honeypot="bot-field" data-form>

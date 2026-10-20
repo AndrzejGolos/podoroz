@@ -16,7 +16,9 @@ const { lang, page, theme = 'film', title, description = t[lang].description } =
 const c = t[lang];
 const site = Astro.site!;
 const pageTitle = title ? `${title} | Podoroж` : c.title;
-const alternates = page === 'notFound' || page === 'program' ? null : routes[page];
+// The organizer pages are not translations of each other (PL sells and holds the
+// materials, EN is a press kit), so they carry no hreflang, like programme pages.
+const alternates = page === 'notFound' || page === 'program' || page === 'press' ? null : routes[page];
 const canonical = new URL(alternates ? alternates[lang] : Astro.url.pathname, site);
 const ogImage = new URL('/og.jpg', site);
 

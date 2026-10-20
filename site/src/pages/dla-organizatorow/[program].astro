@@ -43,8 +43,8 @@ const facts: [string, string][] = [
     </section>
 
     <section class="block" aria-labelledby="onsite-title">
-      <h2 id="onsite-title" class="label">{u.onSiteTitle}</h2>
-      <OnSite />
+      <h2 id="onsite-title" class="label">{u.onSiteTitle.pl}</h2>
+      <OnSite lang="pl" />
     </section>
 
     {
@@ -69,7 +69,7 @@ const facts: [string, string][] = [
     <section class="block" id="zapytanie" aria-labelledby="form-title">
       <h2 id="form-title" class="label">{u.form.title}</h2>
       <InquiryForm selected={p.slug} />
-      <p><a class="link-quiet" href={routes.press.pl}>{u.pack} →</a></p>
+      <p><a class="link-quiet" href={`${routes.press.pl}#materialy`}>{u.pack} →</a></p>
     </section>
   </article>
 </Base>

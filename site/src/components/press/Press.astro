@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import ProgramCalendar from './ProgramCalendar.astro';
 import OnSite from './OnSite.astro';
 import InquiryForm from './InquiryForm.astro';
-import { t, bios, contact, concerts, pressExtras, programUi, type Lang } from '../../i18n';
+import { t, bios, contact, concerts, pressExtras, programs, programUi as u, routes, type Lang } from '../../i18n';
 
 interface Props {
   lang: Lang;
@@ -33,6 +33,28 @@ const bio = bios[lang];
 const bioTabs = (['short', 'medium', 'full'] as const).filter((k) => bio[k]);
 const formats = pressExtras.formats[lang];
 const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
+
+// PL: the materials blocks sit under the "Materiały dla organizatora" H2, so they are H3.
+// EN is a press kit only, so the same blocks are top-level H2.
+const H = lang === 'pl' ? 'h3' : 'h2';
+
+// "Posłuchaj": one clip from a programme, at the point of choice.
+const listenProgram = programs.find((x) => x.slug === u.listen.program);
+const clip = listenProgram?.videos.find((v) => v.src === u.listen.clip);
+
+// Organizer questions; technical answers come from the same data as the full list.
+const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
+const [pa, space, room] = u.onSite.pl;
+const faq: [string, string, [string, string]?][] = [
+  [u.faq.cost, `Honorarium ${u.feeValue}.`],
+  [u.faq.pa, pa[1]],
+  [u.faq.space, `${space[1]} dla zespołu; ${room[1]}.`, ['#warunki', u.fullTech]],
+  [u.faq.length, `${cap(u.lengthValue)}.`],
+  [u.faq.booking, `${cap(u.bookingValue)}.`],
+  [u.faq.repertoire, `Nie: ${u.repertoireValue}.`],
+  [u.faq.language, u.faq.languageAnswer],
+  [u.faq.materials, '', ['#materialy', u.faq.materialsAnswer]],
+];
 ---
 
 <Base lang={lang} page="press" theme="paper" title={p.title}>
@@ -40,34 +62,61 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     <header class="press__head">
       <h1 class="press__title">{p.title}</h1>
       <p class="press__lead">{p.lead}</p>
-      <p class="press__zip">
-        <a class="button" href="/podoroz-press-kit.zip" download>{p.zip}</a>
-        <span class="press__meta">ZIP, ~{mb(zipBytes)}</span>
-        {lang === 'pl' && <a class="button button--ghost" href="#zapytanie">{programUi.form.title}</a>}
-      </p>
+      {
+        lang === 'pl' ? (
+          <>
+            <p>
+              <a class="button" href="#zapytanie">
+                {u.form.title}
+              </a>
+            </p>
+            <p>
+              <a class="link-quiet" href="#materialy">
+                {p.materialsJump}
+              </a>
+            </p>
+          </>
+        ) : (
+          <p class="press__zip">
+            <a class="button" href="/podoroz-press-kit.zip" download>
+              {p.zip}
+            </a>
+            <span class="press__meta">ZIP, ~{mb(zipBytes)}</span>
+          </p>
+        )
+      }
     </header>
 
     {
       lang === 'pl' && (
-        <section class="block" id="programy" aria-labelledby="programs-title">
-          <h2 id="programs-title" class="label">{programUi.sectionTitle}</h2>
-          <p class="press__lead">{programUi.sectionLead}</p>
-          <ProgramCalendar />
-          <ol class="steps">
-            {programUi.steps.map((s) => (
-              <li>{s}</li>
-            ))}
-          </ol>
-        </section>
-      )
-    }
+        <>
+          <section class="block" id="programy" aria-labelledby="programs-title">
+            <h2 id="programs-title" class="label">{u.sectionTitle}</h2>
+            <p class="press__lead">{u.sectionLead}</p>
+            <ProgramCalendar />
+          </section>
 
-    {
-      lang === 'pl' && (
-        <section class="block" aria-labelledby="onsite-title">
-          <h2 id="onsite-title" class="label">{programUi.onSiteTitle}</h2>
-          <OnSite />
-        </section>
+          {clip && (
+            <section class="block" aria-labelledby="listen-title">
+              <h2 id="listen-title" class="label">{u.listen.title}</h2>
+              <figure class="listen">
+                <video src={clip.src} poster={clip.poster} controls preload="none" playsinline width="1280" height="720" />
+                <figcaption>
+                  {clip.title}
+                  {listenProgram?.videoCaption && <span class="press__meta"> · {listenProgram.videoCaption}</span>}
+                </figcaption>
+              </figure>
+              <ul class="files">
+                <li>
+                  <a href={contact.spotify}>{u.listen.album}</a>
+                </li>
+                <li>
+                  <a href={`${routes.press.pl}${u.listen.program}/`}>{u.listen.more}</a>
+                </li>
+              </ul>
+            </section>
+          )}
+        </>
       )
     }
 
@@ -75,6 +124,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
       concerts.length > 0 && (
         <section class="block" aria-labelledby="concerts-title">
           <h2 id="concerts-title" class="label">{p.concertsTitle}</h2>
+          {lang === 'pl' && <p class="press__lead">{u.playedLead}</p>}
           <ul class="files">
             {concerts.map((k) => (
               <li class:list={['played', { 'played--top': k.highlight }]}>
@@ -89,16 +139,54 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
 
     {
       lang === 'pl' && (
-        <section class="block" id="zapytanie" aria-labelledby="inquiry-title">
-          <h2 id="inquiry-title" class="label">{programUi.form.title}</h2>
-          <p class="press__note">{programUi.formLead}</p>
-          <InquiryForm selected="" />
-        </section>
+        <>
+          <section class="block" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="label">{u.faq.title}</h2>
+            <dl class="faq">
+              {faq.map(([q, answer, link]) => (
+                <div>
+                  <dt>{q}</dt>
+                  <dd>
+                    {answer.startsWith('DO UZUPEŁNIENIA') ? <span class="missing">{answer}</span> : answer}
+                    {link && (
+                      <>
+                        {' '}
+                        <a href={link[0]}>{link[1]}</a>
+                      </>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section class="block" id="zapytanie" aria-labelledby="inquiry-title">
+            <h2 id="inquiry-title" class="label">{u.form.title}</h2>
+            <ol class="steps">
+              {u.steps.map((x) => (
+                <li>{x}</li>
+              ))}
+            </ol>
+            <p class="press__note">{u.formLead}</p>
+            <InquiryForm selected="" />
+          </section>
+
+          <section class="block block--materials" id="materialy" aria-labelledby="materials-title">
+            <h2 id="materials-title" class="label">{p.materialsTitle}</h2>
+            <p class="press__lead">{p.materialsLead}</p>
+            <p class="press__zip">
+              <a class="button" href="/podoroz-press-kit.zip" download>
+                {p.zip}
+              </a>
+              <span class="press__meta">ZIP, ~{mb(zipBytes)}</span>
+            </p>
+          </section>
+        </>
       )
     }
 
     <section class="block" aria-labelledby="bio-title">
-      <h2 id="bio-title" class="label">{p.bioTitle}</h2>
+      <H id="bio-title" class="label">{p.bioTitle}</H>
       <div class="bio" data-bio>
         {
           bioTabs.length > 1 && (
@@ -133,7 +221,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     </section>
 
     <section class="block" aria-labelledby="photos-title">
-      <h2 id="photos-title" class="label">{p.photosTitle}</h2>
+      <H id="photos-title" class="label">{p.photosTitle}</H>
       <p class="press__note">{p.photosNote}</p>
       <ul class="photos">
         {
@@ -155,7 +243,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     </section>
 
     <section class="block" aria-labelledby="logo-title">
-      <h2 id="logo-title" class="label">{p.logoTitle}</h2>
+      <H id="logo-title" class="label">{p.logoTitle}</H>
       <ul class="files">
         {
           logos.map((f) => (
@@ -171,7 +259,7 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     </section>
 
     <section class="block" aria-labelledby="video-title">
-      <h2 id="video-title" class="label">{p.videoTitle}</h2>
+      <H id="video-title" class="label">{p.videoTitle}</H>
       <ul class="files">
         <li>
           <a href={contact.youtube}>YouTube: @zespol_podoroz</a>
@@ -182,23 +270,11 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
       </ul>
     </section>
 
-    {
-      formats.length > 0 && (
-        <section class="block" aria-labelledby="formats-title">
-          <h2 id="formats-title" class="label">{p.formatsTitle}</h2>
-          <ul class="files">
-            {formats.map((x) => (
-              <li>{x}</li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      hasRider && (
-        <section class="block" aria-labelledby="rider-title">
-          <h2 id="rider-title" class="label">{p.riderTitle}</h2>
+    <section class="block" id="warunki" aria-labelledby="tech-title">
+      <H id="tech-title" class="label">{u.onSiteTitle[lang]}</H>
+      <OnSite lang={lang} />
+      {
+        hasRider && (
           <ul class="files">
             {pressExtras.riderPdf && (
               <li>
@@ -215,12 +291,34 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
               </li>
             )}
           </ul>
+        )
+      }
+      {
+        lang === 'pl' && (
+          <p>
+            <a class="link-quiet" href="#zapytanie">
+              {u.backToForm}
+            </a>
+          </p>
+        )
+      }
+    </section>
+
+    {
+      formats.length > 0 && (
+        <section class="block" aria-labelledby="formats-title">
+          <H id="formats-title" class="label">{p.formatsTitle}</H>
+          <ul class="files">
+            {formats.map((x) => (
+              <li>{x}</li>
+            ))}
+          </ul>
         </section>
       )
     }
 
     <section class="block" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="label">{p.contactTitle}</h2>
+      <H id="contact-title" class="label">{p.contactTitle}</H>
       <p class="press__lead">{p.contactText}</p>
       <p class="press__contact">
         <a href={`mailto:${contact.email}`}>{contact.email}</a>
@@ -389,6 +487,54 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
     content: counter(step) '.';
     color: var(--fg-dim);
   }
+  .faq {
+    display: grid;
+    width: 100%;
+    max-width: 48rem;
+    margin: 0;
+  }
+  .faq div {
+    display: grid;
+    gap: 0.25rem 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .faq dt {
+    font-weight: 400;
+  }
+  .faq dd {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--fg-dim);
+  }
+  .faq dd a {
+    color: var(--fg);
+  }
+  .missing {
+    padding: 0.1rem 0.4rem;
+    background: var(--paper-shade);
+    outline: 1px dashed var(--fg-dim);
+  }
+  .listen {
+    display: grid;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 44rem;
+  }
+  .listen video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--paper-shade);
+  }
+  /* The materials part of the page starts here: a heavier rule marks the switch. */
+  #zapytanie {
+    border-bottom: 0;
+  }
+  .block--materials {
+    margin-top: 3rem;
+    border-top: 2px solid var(--fg);
+  }
   .files .played {
     display: grid;
     grid-template-columns: 4rem 1fr;
@@ -400,6 +546,11 @@ const hasRider = Boolean(pressExtras.riderPdf || pressExtras.stagePlotPdf);
   }
   .played--top {
     font-weight: 500;
+  }
+  @media (min-width: 48rem) {
+    .faq div {
+      grid-template-columns: 18rem 1fr;
+    }
   }
   .press__contact {
     display: flex;

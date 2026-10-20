@@ -14,7 +14,15 @@ const c = t[lang];
 const home = routes.home[lang];
 const other: Lang = lang === 'pl' ? 'en' : 'pl';
 // Programme pages are PL only; their EN counterpart is the promoters page.
-const switchHref = page === 'notFound' ? routes.home[other] : page === 'program' ? routes.press[other] : routes[page][other];
+// From the EN press kit the PL switch lands on the PL materials section.
+const switchHref =
+  page === 'notFound'
+    ? routes.home[other]
+    : page === 'program'
+      ? routes.press[other]
+      : page === 'press' && lang === 'en'
+        ? `${routes.press.pl}#materialy`
+        : routes[page][other];
 const onHome = page === 'home';
 const anchor = (id: string) => (onHome ? `#${id}` : `${home}#${id}`);
 ---

@@ -141,7 +141,8 @@ export const t = {
     },
     inviteTitle: 'Zaproś nas',
     inviteText: 'Szukasz zespołu na koncert, festiwal lub inne wydarzenie? Napisz do nas, odpowiemy.',
-    invitePress: 'Zdjęcia, logo i biogram dla organizatorów',
+    invitePress: 'Programy koncertowe dla organizatorów',
+    invitePressKit: 'Materiały prasowe: zdjęcia, logo, biogram',
     form: {
       name: 'Imię',
       email: 'Email',
@@ -160,7 +161,10 @@ export const t = {
     legalPages: { privacy: 'Polityka prywatności', effective: 'Obowiązuje od', missing: 'DO UZUPEŁNIENIA' },
     press: {
       title: 'Dla organizatorów',
-      lead: 'Wszystko, czego potrzeba, żeby zaprosić Podoroж i zapowiedzieć koncert.',
+      lead: 'Wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia, śpiewane bez instrumentów. Sześć programów: pięć na pory roku i przegląd na każdy termin.',
+      materialsJump: 'Masz już termin? Materiały dla organizatora ↓',
+      materialsTitle: 'Materiały dla organizatora',
+      materialsLead: 'Dla organizatorów, którzy mają już termin, i dla mediów.',
       zip: 'Pobierz cały pakiet',
       bioTitle: 'Biogram',
       bioLengths: { short: 'Krótki', medium: 'Średni', full: 'Pełny' },
@@ -235,6 +239,7 @@ export const t = {
     inviteTitle: 'Invite us',
     inviteText: 'Looking for an ensemble for a concert, festival or other event? Write to us and we will reply.',
     invitePress: 'Photos, logo and bio for promoters',
+    invitePressKit: '',
     form: {
       name: 'Name',
       email: 'Email',
@@ -254,6 +259,9 @@ export const t = {
     press: {
       title: 'For promoters',
       lead: 'Everything you need to book Podoroж and announce the concert.',
+      materialsJump: '',
+      materialsTitle: '',
+      materialsLead: '',
       zip: 'Download the full pack',
       bioTitle: 'Bio',
       bioLengths: { short: 'Short', medium: 'Medium', full: 'Full' },
@@ -268,7 +276,7 @@ export const t = {
       riderTitle: 'Technical rider',
       concertsTitle: 'Where we have played',
       contactTitle: 'Contact',
-      contactText: 'Write to us about dates, fee and technical requirements.',
+      contactText: 'Looking for a date? Write to kontakt@podoroz.art with the date and place; we reply within 3 days.',
       back: 'Home',
     },
     logos: {
@@ -405,23 +413,57 @@ export const programs: Program[] = [
 ];
 
 export const programUi = {
-  sectionTitle: 'Programy koncertowe',
-  sectionLead: 'Pięć programów na pory roku i przegląd na każdy termin. Znajdź miesiąc koncertu i sprawdź, co do niego pasuje.',
+  sectionTitle: 'Programy na cały rok',
+  sectionLead: 'Znajdź miesiąc koncertu i sprawdź, który program do niego pasuje.',
   steps: [
     'Wyślij zapytanie: program, proponowana data i miejscowość.',
     'W ciągu 3 dni odpowiadamy jedną kwotą, razem z dojazdem.',
     'Termin rezerwujemy najpóźniej 2 miesiące przed koncertem.',
   ],
-  onSiteTitle: 'Na miejscu',
-  onSite: [
-    [
-      'Nagłośnienie',
-      'W salach do 100 m² i we wnętrzach o dobrej akustyce, np. w kościołach, zwykle śpiewamy bez nagłośnienia. W dużych salach koncertowych i w plenerze zwykle go potrzebujemy.',
+  onSiteTitle: { pl: 'Warunki techniczne', en: 'Technical requirements' },
+  onSite: {
+    pl: [
+      [
+        'Nagłośnienie',
+        'W salach do 100 m² i we wnętrzach o dobrej akustyce, np. w kościołach, zwykle śpiewamy bez nagłośnienia. W dużych salach koncertowych i w plenerze zwykle go potrzebujemy.',
+      ],
+      ['Miejsce dla zespołu', '8–10 m²'],
+      ['Garderoba', 'przyda się garderoba albo miejsce na zmianę stroju'],
+      ['Przygotowanie', '1 godzina przed koncertem, jeśli jest nagłośnienie'],
     ],
-    ['Miejsce dla zespołu', '8–10 m²'],
-    ['Garderoba', 'przyda się garderoba albo miejsce na zmianę stroju'],
-    ['Przygotowanie', '1 godzina przed koncertem, jeśli jest nagłośnienie'],
-  ] as [string, string][],
+    en: [
+      [
+        'PA system',
+        'In rooms up to 100 m² and in spaces with good acoustics, such as churches, we usually sing unamplified. Large concert halls and outdoor stages usually need a PA.',
+      ],
+      ['Space for the ensemble', '8–10 m²'],
+      ['Dressing room', 'a dressing room or a place to change is helpful'],
+      ['Set-up', '1 hour before the concert if there is a PA'],
+    ],
+  } as Record<'pl' | 'en', [string, string][]>,
+  fullTech: 'Pełne warunki techniczne →',
+  backToForm: 'Nie masz jeszcze terminu? Zapytaj o termin ↑',
+  listen: {
+    title: 'Posłuchaj',
+    program: 'psalmy',
+    clip: '/video/programy/psalmy-2.mp4',
+    album: 'Debiutancki album na Spotify →',
+    more: 'Więcej nagrań: Psalmy, pieśni zaduszne i cerkiewne →',
+  },
+  playedLead: 'W obecnym składzie śpiewamy od 2023 roku. Wcześniej każde z nas szło tym szlakiem przez kilka, kilkanaście albo kilkadziesiąt lat.',
+  faq: {
+    title: 'Pytania organizatorów',
+    cost: 'Ile kosztuje koncert?',
+    pa: 'Czy potrzebne jest nagłośnienie?',
+    space: 'Ile miejsca potrzebujecie?',
+    length: 'Jak długo trwa koncert?',
+    booking: 'Kiedy rezerwować?',
+    repertoire: 'Czy repertuar jest stały?',
+    language: 'Czy publiczność zrozumie pieśni?',
+    languageAnswer: 'DO UZUPEŁNIENIA: czy zapowiadamy albo tłumaczymy pieśni po polsku',
+    materials: 'Gdzie znajdę zdjęcia, logo i biogram?',
+    materialsAnswer: 'Niżej, w materiałach dla organizatora ↓',
+  },
   // Polish plural of "recording": 1 nagranie, 2–4 nagrania, 5+ nagrań.
   clips: (n: number) =>
     `${n} ${n === 1 ? 'nagranie' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'nagrania' : 'nagrań'} z koncertu`,

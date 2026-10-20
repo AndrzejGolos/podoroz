@@ -1,10 +1,16 @@
 ---
-import { programUi as u } from '../../i18n';
+import { programUi as u, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 ---
 
 <dl class="onsite">
   {
-    u.onSite.map(([k, v]) => (
+    u.onSite[lang].map(([k, v]) => (
       <div>
         <dt>{k}</dt>
         <dd>{v}</dd>
