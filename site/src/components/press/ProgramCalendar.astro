@@ -10,6 +10,8 @@ const bar = ([from, to]: [string, string]) => {
   const start = day(from);
   return `--from:${((start / 365) * 100).toFixed(2)}%;--len:${(((day(to) + 1 - start) / 365) * 100).toFixed(2)}%`;
 };
+// The year-round programme leads; the seasonal ones follow in calendar order.
+const rows = [...programs].sort((a, b) => Number(!!b.anytime) - Number(!!a.anytime));
 ---
 
 <div class="cal" data-cal>
@@ -28,7 +30,7 @@ const bar = ([from, to]: [string, string]) => {
   </div>
   <ol class="cal__rows">
     {
-      programs.map((p) => (
+      rows.map((p) => (
         <li class="cal__row">
           <div class="cal__label">
             <a class="cal__name" href={`${routes.press.pl}${p.slug}/`}>
