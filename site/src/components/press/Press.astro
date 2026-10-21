@@ -362,13 +362,22 @@ const faq: [string, string, [string, string]?][] = [
   .press {
     max-width: 68rem;
     margin: 0 auto;
-    padding: 4rem var(--gutter) 6rem;
+    padding: 1.5rem var(--gutter) 6rem;
   }
   .press__head {
     display: grid;
     gap: 1.25rem;
-    padding: 2rem 0 4rem;
+    padding: 0.5rem 0 4rem;
     border-bottom: 1px solid var(--line);
+  }
+  /* Phones get less air above the title so the inquiry button fits the first screen. */
+  @media (min-width: 48rem) {
+    .press {
+      padding-top: 4rem;
+    }
+    .press__head {
+      padding-top: 2rem;
+    }
   }
   .press__title {
     font-size: var(--step-3);

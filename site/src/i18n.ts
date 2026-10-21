@@ -160,7 +160,7 @@ export const t = {
     legalPages: { privacy: 'Polityka prywatności', effective: 'Obowiązuje od', missing: 'DO UZUPEŁNIENIA' },
     press: {
       title: 'Dla organizatorów',
-      lead: 'Śpiewamy wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia. Mamy dla Was sześć różnych programów koncertowych. Pięć pasuje do konkretnych pór roku lub wydarzeń w kalendarzu obrzędowym. Szósty to przegląd najpiękniejszych pieśni o różnej tematyce.',
+      lead: 'Jesteśmy polskim zespołem śpiewającym wielogłosowe pieśni z Ukrainy, Białorusi i Podlasia. Mamy dla Was sześć różnych programów koncertowych. Pięć pasuje do konkretnych pór roku lub wydarzeń w kalendarzu obrzędowym. Szósty to przegląd najpiękniejszych pieśni o różnej tematyce.',
       materialsJump: 'Masz już termin? Materiały dla organizatora ↓',
       materialsTitle: 'Materiały dla organizatora',
       materialsLead: 'Dla organizatorów, którzy mają już termin, i dla mediów.',
